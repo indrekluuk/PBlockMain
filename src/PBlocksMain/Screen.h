@@ -19,6 +19,7 @@
 #define MAGENTA 0xF81F
 #define YELLOW  0xFFE0
 #define WHITE   0xFFFF
+#define GRAY   0x8888
 
 
 
@@ -32,6 +33,9 @@ public:
 
 
 private:
+
+    void nupp(int x , int y, bool tyhi);
+
     MCUFRIEND_kbv tft;
 
 };
