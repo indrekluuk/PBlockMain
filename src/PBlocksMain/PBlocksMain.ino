@@ -1,9 +1,15 @@
-void setup() {
-  // put your setup code here, to run once:
 
+
+#include "Screen.h"
+
+
+Screen screen;
+
+void setup(void) {
+  Serial.begin(9600);
+  screen.init();
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-
+void loop(void) {
+  screen.draw();
 }
