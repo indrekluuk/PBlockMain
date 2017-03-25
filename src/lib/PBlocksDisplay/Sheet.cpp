@@ -44,7 +44,7 @@ void Sheet::drawTab(bool redrawAll) {
 
 
 void Sheet::drawSheet(bool redrawAll) {
-  if (selected) {
+  if (selected && (redrawAll || isDrawnAsSelected != selected)) {
     if (redrawAll) {
       tft.fillRect(0, TAB_HEIGHT + 1, tft.width(), SHEET_HEIGHT, SHEET_BACKGROUND);
     }
