@@ -7,8 +7,9 @@
 #include "Colors.h"
 
 
-MCUFRIEND_kbv PBlocksDisplay::tft;
-TouchHandler PBlocksDisplay::touchHandler;
+
+PBlocksDisplay * Display;
+
 
 
 
@@ -18,9 +19,11 @@ void PBlocksDisplay::init() {
   tft.fillScreen(BLACK);
 
   for (uint8_t i=0; i<SHEET_COUNT; i++) {
-    sheets[i].init(this, i, TAB_WIDTH*i, TAB_WIDTH);
+    sheets[i].init(i);
   }
   sheets[0].setSelected(true);
+
+  Display = this;
 }
 
 

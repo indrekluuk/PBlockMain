@@ -8,26 +8,22 @@
 
 
 
-
-Sheet::Sheet() : tft(PBlocksDisplay::tft) {
+Sheet::Sheet() :
+    tabIndex(0xF),
+    selected(false),
+    isDrawnAsSelected(false)
+{
 }
 
 
-
-void Sheet::init(PBlocksDisplay * display, int8_t tabIndex, int16_t tabX, int16_t tabW) {
-  this->display = display;
-  this->tabIndex = tabIndex;
-  this->tabX = tabX;
-  this->tabW = tabW;
+void Sheet::init(uint8_t index) {
+  tabIndex = index;
 }
 
 void Sheet::tap(uint16_t x, uint16_t y) {
-  Serial.print(x);
-  Serial.print(" ");
-  Serial.print(y);
-  Serial.println("");
-  if (isTapIn(x, tabX, tabW) && isTapIn(y, 0, TAB_HEIGHT)) {
-    display->setActiveTab(tabIndex);
+  uint16_t tabX = getTabX();
+  if (isTapIn(x, tabX, TAB_WIDTH) && isTapIn(y, 0, TAB_HEIGHT)) {
+    Display->setActiveTab(tabIndex);
   }
 }
 
@@ -51,14 +47,18 @@ void Sheet::draw(bool redrawAll) {
 
 void Sheet::drawTab(bool redrawAll) {
   if (redrawAll || isDrawnAsSelected != selected) {
-    tft.fillRect(tabX + 1, 0, tabW - 2, TAB_HEIGHT, selected ? SHEET_BACKGROUND : SHEET_INACTIVE);
-    tft.drawFastHLine(tabX + 1 , TAB_HEIGHT , tabW - 2, selected ? SHEET_BACKGROUND : BLACK);
+    MCUFRIEND_kbv & tft = Display->tft;
+    uint16_t tabX = getTabX();
+    tft.fillRect(tabX + 1, 0, TAB_WIDTH - 2, TAB_HEIGHT, selected ? SHEET_BACKGROUND : SHEET_INACTIVE);
+    tft.drawFastHLine(tabX + 1 , TAB_HEIGHT , TAB_WIDTH - 2, selected ? SHEET_BACKGROUND : BLACK);
   }
 }
 
 
 void Sheet::drawSheet(bool redrawAll) {
   if (selected && (redrawAll || isDrawnAsSelected != selected)) {
+    MCUFRIEND_kbv & tft = Display->tft;
+    uint16_t tabX = getTabX();
     if (redrawAll) {
       tft.fillRect(0, TAB_HEIGHT + 1, tft.width(), SHEET_HEIGHT, SHEET_BACKGROUND);
     }
@@ -68,5 +68,9 @@ void Sheet::drawSheet(bool redrawAll) {
   }
 }
 
+
+uint16_t Sheet::getTabX() {
+  return tabIndex*TAB_WIDTH;
+}
 
 

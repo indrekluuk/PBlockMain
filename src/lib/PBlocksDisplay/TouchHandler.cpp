@@ -2,9 +2,9 @@
 // Created by indrek on 25.03.2017.
 //
 
-#include <Arduino.h>
 #include "TouchHandler.h"
-#include "PBlocksDisplay.h"
+#include <PBlocksDisplay.h>
+
 
 Touchable * firstTouchable = nullptr;
 
@@ -71,12 +71,12 @@ uint8_t TouchHandler::getRegionCount() {
 
 
 void TouchHandler::check() {
-  MCUFRIEND_kbv & tft = PBlocksDisplay::tft;
-
   readResistiveTouch();
   if (tp.z > 100) {
-    uint16_t x = map(tp.y, TOUCH_LEFT, TOUCH_RIGHT, 0, tft.width());
-    uint16_t y = map(tp.x, TOUCH_TOP, TOUCH_BOTTOM, 0, tft.height());
+    MCUFRIEND_kbv & tft = Display->tft;
+
+    uint16_t x = (uint16_t)map(tp.y, TOUCH_LEFT, TOUCH_RIGHT, 0, tft.width());
+    uint16_t y = (uint16_t)map(tp.x, TOUCH_TOP, TOUCH_BOTTOM, 0, tft.height());
 
     Touchable * touchable = firstTouchable;
     while(touchable != nullptr) {
