@@ -5,8 +5,10 @@
 
 #include "PBlocksDisplay.h"
 #include "Colors.h"
-#include <MCUFRIEND_kbv.h>
-MCUFRIEND_kbv tft;
+
+
+MCUFRIEND_kbv PBlocksDisplay::tft;
+TouchHandler PBlocksDisplay::touchHandler;
 
 
 
@@ -16,11 +18,9 @@ void PBlocksDisplay::init() {
   tft.fillScreen(BLACK);
 
   for (uint8_t i=0; i<SHEET_COUNT; i++) {
-    sheets[i].init(TAB_WIDTH*i, TAB_WIDTH);
+    sheets[i].init(this, i, TAB_WIDTH*i, TAB_WIDTH);
   }
-  A1;
-  sheets[2].setSelected(true);
-
+  sheets[0].setSelected(true);
 }
 
 
@@ -28,6 +28,7 @@ void PBlocksDisplay::setActiveTab(uint16_t tabIndex) {
   for (uint8_t i=0; i<SHEET_COUNT; i++) {
     sheets[i].setSelected(tabIndex == i);
   }
+  draw(false);
 }
 
 

@@ -7,6 +7,8 @@
 
 
 #include "Sheet.h"
+#include <TouchHandler.h>
+#include <MCUFRIEND_kbv.h>
 
 
 class PBlocksDisplay {
@@ -18,11 +20,13 @@ class PBlocksDisplay {
 
     Sheet sheets[SHEET_COUNT];
 
+
 public:
 
+    static MCUFRIEND_kbv tft;
+    static TouchHandler touchHandler;
 
     void init();
-
     void setActiveTab(uint16_t tabIndex);
 
     void draw(bool redrawAll);

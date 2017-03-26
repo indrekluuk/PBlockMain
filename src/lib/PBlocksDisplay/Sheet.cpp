@@ -4,17 +4,27 @@
 
 #include "Sheet.h"
 #include "Colors.h"
-#include <MCUFRIEND_kbv.h>
+#include "PBlocksDisplay.h"
 
 
 
-extern MCUFRIEND_kbv tft;
+
+Sheet::Sheet() : tft(PBlocksDisplay::tft) {
+}
 
 
 
-void Sheet::init(int16_t tabX, int16_t tabW) {
+void Sheet::init(PBlocksDisplay * display, int8_t tabIndex, int16_t tabX, int16_t tabW) {
+  this->display = display;
+  this->tabIndex = tabIndex;
   this->tabX = tabX;
   this->tabW = tabW;
+  tabTouchRegion.init(tabX, 0, tabW, TAB_HEIGHT, this, &Sheet::tabClicked);
+}
+
+
+void Sheet::tabClicked() {
+  display->setActiveTab(tabIndex);
 }
 
 
