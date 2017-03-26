@@ -5,7 +5,8 @@
 #include "PBlocksDisplay.h"
 
 
-class obj {
+class TouchableItem : public Touchable {
+  void tap(uint16_t x, uint16_t y) {};
 };
 
 
@@ -14,11 +15,11 @@ TEST(TestTouchRegion, constructDeconstructRegions) {
 
   EXPECT_EQ(0, touchHandler.getRegionCount());
   {
-    TouchRegion<obj> r1;
+    TouchableItem t1;
     EXPECT_EQ(1, touchHandler.getRegionCount());
 
     {
-      TouchRegion<obj> r2;
+      TouchableItem t2;
       EXPECT_EQ(2, touchHandler.getRegionCount());
     }
 
@@ -34,28 +35,28 @@ TEST(TestTouchRegion, constructDeconstructRegions) {
 TEST(TestTouchRegion, constructDeconstructDynamicallyOutOfOrder) {
   TouchHandler touchHandler;
 
-  TouchRegion<obj> * r1 = nullptr;
-  TouchRegion<obj> * r2 = nullptr;
-  TouchRegion<obj> * r3 = nullptr;
+  TouchableItem * t1 = nullptr;
+  TouchableItem * t2 = nullptr;
+  TouchableItem * t3 = nullptr;
 
   EXPECT_EQ(0, touchHandler.getRegionCount());
 
-  r1 = new TouchRegion<obj>();
+  t1 = new TouchableItem();
   EXPECT_EQ(1, touchHandler.getRegionCount());
-  r2 = new TouchRegion<obj>();
+  t2 = new TouchableItem();
   EXPECT_EQ(2, touchHandler.getRegionCount());
-  r3 = new TouchRegion<obj>();
+  t3 = new TouchableItem();
   EXPECT_EQ(3, touchHandler.getRegionCount());
 
-  delete r2;
+  delete t2;
   EXPECT_EQ(2, touchHandler.getRegionCount());
-  delete r1;
+  delete t1;
   EXPECT_EQ(1, touchHandler.getRegionCount());
-  r2 = new TouchRegion<obj>();
+  t2 = new TouchableItem();
   EXPECT_EQ(2, touchHandler.getRegionCount());
-  delete r3;
+  delete t3;
   EXPECT_EQ(1, touchHandler.getRegionCount());
-  delete r2;
+  delete t2;
   EXPECT_EQ(0, touchHandler.getRegionCount());
 }
 

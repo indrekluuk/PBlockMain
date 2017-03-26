@@ -19,12 +19,16 @@ void Sheet::init(PBlocksDisplay * display, int8_t tabIndex, int16_t tabX, int16_
   this->tabIndex = tabIndex;
   this->tabX = tabX;
   this->tabW = tabW;
-  tabTouchRegion.init(tabX, 0, tabW, TAB_HEIGHT, this, &Sheet::tabClicked);
 }
 
-
-void Sheet::tabClicked() {
-  display->setActiveTab(tabIndex);
+void Sheet::tap(uint16_t x, uint16_t y) {
+  Serial.print(x);
+  Serial.print(" ");
+  Serial.print(y);
+  Serial.println("");
+  if (isTapIn(x, tabX, tabW) && isTapIn(y, 0, TAB_HEIGHT)) {
+    display->setActiveTab(tabIndex);
+  }
 }
 
 

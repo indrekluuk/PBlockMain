@@ -63,6 +63,7 @@ public:
     void print(const char * c) {};
     void print(int) {};
     void println() {};
+    void println(const char * c) {};
 };
 
 

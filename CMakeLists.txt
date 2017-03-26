@@ -34,7 +34,6 @@ add_executable(runTests
         test/fake/Arduino.cpp
 
         src/lib/PBlocksDisplay/TouchHandler.cpp
-        src/lib/PBlocksDisplay/TouchRegion.cpp
         src/lib/PBlocksDisplay/PBlocksDisplay.cpp
         src/lib/PBlocksDisplay/Sheet.cpp
 

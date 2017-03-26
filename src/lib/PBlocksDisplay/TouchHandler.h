@@ -9,7 +9,6 @@
 
 #include <Arduino.h>
 #include <TouchScreen.h>
-#include "TouchRegion.h"
 
 
 
@@ -18,6 +17,19 @@
 #define XM A2   //[A2], A2 for ILI9320, A1 for ST7789V
 #define XP 6    //[ 6], 8             , 6
 
+
+
+
+class Touchable {
+public:
+    Touchable();
+    ~Touchable();
+    virtual void tap(uint16_t x, uint16_t y) = 0;
+    Touchable * nextRegion = nullptr;
+protected:
+    bool isTapIn(int16_t v, int16_t start, int16_t length);
+    bool isTapBetween(int16_t v, int16_t begin, int16_t end);
+};
 
 
 

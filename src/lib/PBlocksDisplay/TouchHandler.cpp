@@ -6,17 +6,58 @@
 #include "TouchHandler.h"
 #include "PBlocksDisplay.h"
 
+Touchable * firstTouchable = nullptr;
 
-extern TouchCallback * firstTouchCallback;
+
+
+
+Touchable::Touchable() {
+  if (firstTouchable == nullptr) {
+    firstTouchable = this;
+  } else {
+    Touchable * touchable = firstTouchable;
+    while (touchable->nextRegion != nullptr) {
+      touchable = touchable->nextRegion;
+    }
+    touchable->nextRegion = this;
+  }
+};
+
+
+Touchable::~Touchable() {
+  if (firstTouchable == this) {
+    firstTouchable = this->nextRegion;
+  } else if (firstTouchable != nullptr) {
+    Touchable * touchable = firstTouchable;
+    while (touchable->nextRegion != nullptr) {
+      if (touchable->nextRegion == this) {
+        touchable->nextRegion = this->nextRegion;
+        return;
+      }
+      touchable = touchable->nextRegion;
+    }
+  }
+}
+
+
+
+bool Touchable::isTapIn(int16_t v, int16_t start, int16_t length) {
+  return isTapBetween(v, start, start+length);
+}
+
+bool Touchable::isTapBetween(int16_t v, int16_t begin, int16_t end) {
+  return (v > begin) && (v < end);
+}
+
 
 
 
 uint8_t TouchHandler::getRegionCount() {
   uint8_t count = 0;
-  TouchCallback * r = firstTouchCallback;
-  while(r != nullptr) {
+  Touchable * touchable = firstTouchable;
+  while(touchable != nullptr) {
     count++;
-    r = r->nextRegion;
+    touchable = touchable->nextRegion;
   }
   return count;
 }
@@ -37,20 +78,11 @@ void TouchHandler::check() {
     uint16_t x = map(tp.y, TOUCH_LEFT, TOUCH_RIGHT, 0, tft.width());
     uint16_t y = map(tp.x, TOUCH_TOP, TOUCH_BOTTOM, 0, tft.height());
 
-    TouchCallback * r = firstTouchCallback;
-    while(r != nullptr) {
-      r->tap(x, y);
-      r = r->nextRegion;
+    Touchable * touchable = firstTouchable;
+    while(touchable != nullptr) {
+      touchable->tap(x, y);
+      touchable = touchable->nextRegion;
     }
-    /*
-    if (isPos(tp.y, 880)) display.setActiveTab(0);
-    if (isPos(tp.y, 740)) display.setActiveTab(1);
-    if (isPos(tp.y, 600)) display.setActiveTab(2);
-    if (isPos(tp.y, 460)) display.setActiveTab(3);
-    if (isPos(tp.y, 320)) display.setActiveTab(4);
-    if (isPos(tp.y, 170)) display.setActiveTab(5);
-    display.draw(false);
-     */
   }
 }
 
