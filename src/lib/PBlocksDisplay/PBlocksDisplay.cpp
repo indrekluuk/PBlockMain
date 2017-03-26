@@ -37,6 +37,10 @@ void PBlocksDisplay::init() {
   playIcon.setBitmap(i++, 0b1111000000000000);
   playIcon.setBitmap(i++, 0b1100000000000000);
   playIcon.color = COLOR_PLAY_BUTTON;
+  playIcon.hasBorder = true;
+
+  playIcon2 = playIcon;
+  playIcon2.hasBorder = false;
 
   i=0;
   modulesIcon.setBitmap(i++, 0b0000001111000000);
@@ -59,7 +63,7 @@ void PBlocksDisplay::init() {
 
 
   sheets[0].init(0, &playIcon, nullptr);
-  sheets[1].init(1, nullptr, "f1");
+  sheets[1].init(1, &playIcon2, "f1");
   sheets[2].init(2, nullptr, "f2");
   sheets[3].init(3, nullptr, "f3");
   sheets[4].init(4, nullptr, "f4");

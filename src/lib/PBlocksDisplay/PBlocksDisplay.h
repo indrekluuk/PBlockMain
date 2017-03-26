@@ -16,6 +16,7 @@ class PBlocksDisplay {
     static const uint16_t SHEET_COUNT = 6;
 
     IconBuffer playIcon;
+    IconBuffer playIcon2;
     IconBuffer modulesIcon;
     Sheet sheets[SHEET_COUNT];
 

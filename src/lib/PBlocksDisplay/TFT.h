@@ -31,6 +31,17 @@ private:
         uint16_t bitmap,
         uint8_t scale) __attribute__((always_inline));
 
+
+    inline void write8bitmapWithBorder(
+        uint8_t colorH,
+        uint8_t colorL,
+        uint8_t bgColorH,
+        uint8_t bgColorL,
+        uint16_t prvBitmap,
+        uint16_t curBitmap,
+        uint16_t nxtBitmap,
+        uint8_t scale) __attribute__((always_inline));
+
 };
 
 
@@ -62,6 +73,46 @@ void TFT::write8bitmap(
       write8n(bgColorH, bgColorL, scale);
     }
     mask >>= 1;
+  }
+}
+
+
+
+
+
+void TFT::write8bitmapWithBorder(
+    uint8_t colorH,
+    uint8_t colorL,
+    uint8_t bgColorH,
+    uint8_t bgColorL,
+    uint16_t prvBitmap,
+    uint16_t curBitmap,
+    uint16_t nxtBitmap,
+    uint8_t scale
+) {
+  uint16_t borderMask = 0xC000;
+  uint16_t mask = 0x8000;
+  while (mask) {
+    if (curBitmap & mask) {
+
+      if (mask & 0x7FFE
+          && ((prvBitmap & borderMask) == borderMask)
+          && ((curBitmap & borderMask) == borderMask)
+          && ((nxtBitmap & borderMask) == borderMask)) {
+        write8n(colorH, colorL, scale);
+      } else {
+        write8n(0x00, 0x00, scale);
+      }
+
+    } else {
+      write8n(bgColorH, bgColorL, scale);
+    }
+    mask >>= 1;
+    if (borderMask == 0xC000) {
+      borderMask = 0xE000;
+    } else {
+      borderMask >>= 1;
+    }
   }
 }
 

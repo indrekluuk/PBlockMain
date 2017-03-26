@@ -27,18 +27,34 @@ void TFT::drawIcon(uint16_t x, uint16_t y, IconBuffer &iconBuffer, uint16_t colo
   }
 
   for (uint16_t bRow = 0; bRow < iconBuffer.BITMAP_HEIGHT; bRow++) {
-    for (uint16_t s = 0; s<iconBuffer.scale; s++) {
+    for (int16_t s = 0; s<iconBuffer.scale; s++) {
       if (iconBuffer.bitmapX > 0) {
         write8n(bgColorH, bgColorL, iconBuffer.bitmapX);
       }
 
-      write8bitmap(
-          colorH,
-          colorL,
-          bgColorH,
-          bgColorL,
-          iconBuffer.bitmap[bRow],
-          iconBuffer.scale);
+      if (iconBuffer.hasBorder) {
+        uint16_t prvRow = bRow == 0 ? 0 : iconBuffer.bitmap[s==0?bRow-1:bRow];
+        uint16_t curRow = iconBuffer.bitmap[bRow];
+        uint16_t nxtRow = bRow == iconBuffer.BITMAP_HEIGHT - 1 ? 0 : iconBuffer.bitmap[s==iconBuffer.scale-1 ? bRow+1 : bRow];
+
+        write8bitmapWithBorder(
+            colorH,
+            colorL,
+            bgColorH,
+            bgColorL,
+            prvRow,
+            curRow,
+            nxtRow,
+            iconBuffer.scale);
+      } else {
+        write8bitmap(
+            colorH,
+            colorL,
+            bgColorH,
+            bgColorL,
+            iconBuffer.bitmap[bRow],
+            iconBuffer.scale);
+      }
 
       if (iconBuffer.getBitmapX2() < iconBuffer.width) {
         write8n(bgColorH, bgColorL, iconBuffer.width - iconBuffer.getBitmapX2());

@@ -23,6 +23,7 @@ public:
     uint8_t bitmapY = 0;
     uint16_t bitmap[BITMAP_HEIGHT];
     uint8_t scale = 2;
+    bool hasBorder = false;
 
     IconBuffer() {}
 
