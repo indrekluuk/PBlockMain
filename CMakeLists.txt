@@ -7,6 +7,7 @@ include_directories(src/lib/PBlocksDisplay)
 
 # For CLion to properly recognize library source files
 aux_source_directory(src/lib/PBlocksDisplay SRC_LIST)
+list(APPEND SRC_LIST src/PBlocksMain/PBlocksMain.ino)
 # remove "src/" prefix from file names
 string(REGEX REPLACE "src[\\/\\\\]" "" SRC_LIST "${SRC_LIST}")
 

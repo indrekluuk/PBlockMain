@@ -8,7 +8,7 @@
 
 #include "Sheet.h"
 #include <TouchHandler.h>
-#include <MCUFRIEND_kbv.h>
+#include <TFT.h>
 
 
 class PBlocksDisplay {
@@ -23,7 +23,7 @@ public:
     void draw(bool redrawAll);
     void updateSheets(bool redrawAll);
 
-    MCUFRIEND_kbv tft;
+    TFT tft;
     TouchHandler touchHandler;
 };
 

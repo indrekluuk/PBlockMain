@@ -73,7 +73,7 @@ uint8_t TouchHandler::getRegionCount() {
 void TouchHandler::check() {
   readResistiveTouch();
   if (tp.z > 100) {
-    MCUFRIEND_kbv & tft = Display->tft;
+    TFT & tft = Display->tft;
 
     uint16_t x = (uint16_t)map(tp.y, TOUCH_LEFT, TOUCH_RIGHT, 0, tft.width());
     uint16_t y = (uint16_t)map(tp.x, TOUCH_TOP, TOUCH_BOTTOM, 0, tft.height());

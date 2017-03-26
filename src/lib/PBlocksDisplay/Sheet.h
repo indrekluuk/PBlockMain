@@ -7,7 +7,6 @@
 
 
 #include <stdint.h>
-#include "MCUFRIEND_kbv.h"
 #include "TouchHandler.h"
 
 
