@@ -18,7 +18,7 @@ private:
     uint16_t _MW = 0x2C;
 
 public:
-    void drawIcon(uint16_t x, uint16_t y, IconBuffer & iconBuffer);
+    void drawIcon(uint16_t x, uint16_t y, IconBuffer & iconBuffer, uint16_t color, uint16_t bgColor);
 
 
 private:

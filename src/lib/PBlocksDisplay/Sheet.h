@@ -7,6 +7,7 @@
 
 
 #include <stdint.h>
+#include "IconBuffer.h"
 #include "TouchHandler.h"
 
 
@@ -23,10 +24,13 @@ class Sheet : public Touchable {
     bool selected : 1;
     bool isDrawnAsSelected : 3;
 
+    IconBuffer * tabIcon = nullptr;
+    const char * tabLabel;
+
 public:
     Sheet();
 
-    void init(uint8_t index);
+    void init(uint8_t index, IconBuffer *icon, const char * label);
     void tap(uint16_t x, uint16_t y) override ;
 
     void setSelected(bool isSelected);

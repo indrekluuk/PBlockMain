@@ -7,19 +7,21 @@
 
 
 
-#define BLACK   0x0000
-#define BLUE    0x001F
-#define RED     0xF800
-#define GREEN   0x07E0
-#define CYAN    0x07FF
-#define MAGENTA 0xF81F
-#define YELLOW  0xFFE0
-#define WHITE   0xFFFF
+#define COLOR_BLACK   0x0000
+#define COLOR_BLUE    0x001F
+#define COLOR_RED     0xF800
+#define COLOR_GREEN   0x07E0
+#define COLOR_CYAN    0x07FF
+#define COLOR_MAGENTA 0xF81F
+#define COLOR_YELLOW  0xFFE0
+#define COLOR_WHITE   0xFFFF
 
 
-#define SHEET_INACTIVE    0x52AA
-#define SHEET_BACKGROUND  0x7BEF
-#define SHEET_BORDER      WHITE
+#define COLOR_SHEET_INACTIVE    0x52AA
+#define COLOR_SHEET_BACKGROUND  0x7BEF
+#define COLOR_SHEET_BORDER      WHITE
+
+#define COLOR_PLAY_BUTTON       0X0600
 
 
 #endif //PBLOCKMAIN_COLORS_H_H

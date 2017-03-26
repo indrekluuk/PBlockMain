@@ -16,8 +16,16 @@ Sheet::Sheet() :
 }
 
 
-void Sheet::init(uint8_t index) {
+void Sheet::init(uint8_t index, IconBuffer * icon, const char * label) {
   tabIndex = index;
+  tabIcon = icon;
+  tabLabel = label;
+  if (tabIcon != nullptr) {
+    tabIcon->width = TAB_WIDTH - 2;
+    tabIcon->height = TAB_HEIGHT;
+    tabIcon->bitmapCenterX();
+    tabIcon->bitmapCenterY();
+  }
 }
 
 void Sheet::tap(uint16_t x, uint16_t y) {
@@ -49,8 +57,21 @@ void Sheet::drawTab(bool redrawAll) {
   if (redrawAll || isDrawnAsSelected != selected) {
     TFT & tft = Display->tft;
     uint16_t tabX = getTabX();
-    tft.fillRect(tabX + 1, 0, TAB_WIDTH - 2, TAB_HEIGHT, selected ? SHEET_BACKGROUND : SHEET_INACTIVE);
-    tft.drawFastHLine(tabX + 1 , TAB_HEIGHT , TAB_WIDTH - 2, selected ? SHEET_BACKGROUND : BLACK);
+
+    if (tabIcon != nullptr) {
+      tft.drawIcon(tabX + 1, 0, *tabIcon, selected ? tabIcon->color : COLOR_BLACK, selected ? COLOR_SHEET_BACKGROUND : COLOR_SHEET_INACTIVE);
+      tft.drawFastHLine(tabX + 1 , TAB_HEIGHT , TAB_WIDTH - 2, selected ? COLOR_SHEET_BACKGROUND : COLOR_BLACK);
+    } else {
+      tft.fillRect(tabX + 1, 0, TAB_WIDTH - 2, TAB_HEIGHT, selected ? COLOR_SHEET_BACKGROUND : COLOR_SHEET_INACTIVE);
+      tft.drawFastHLine(tabX + 1 , TAB_HEIGHT , TAB_WIDTH - 2, selected ? COLOR_SHEET_BACKGROUND : COLOR_BLACK);
+
+      if (tabLabel != nullptr) {
+        tft.setCursor(tabX + 10, TAB_HEIGHT / 2 - 7);
+        tft.setTextColor(selected ? COLOR_WHITE : COLOR_BLACK);
+        tft.setTextSize(2);
+        tft.print(tabLabel);
+      }
+    }
   }
 }
 
@@ -60,10 +81,13 @@ void Sheet::drawSheet(bool redrawAll) {
     TFT & tft = Display->tft;
     uint16_t tabX = getTabX();
     if (redrawAll) {
-      tft.fillRect(0, TAB_HEIGHT + 1, tft.width(), SHEET_HEIGHT, SHEET_BACKGROUND);
+      tft.fillRect(0, TAB_HEIGHT + 1, tft.width(), SHEET_HEIGHT, COLOR_SHEET_BACKGROUND);
     }
-    tft.fillRect(10, TAB_HEIGHT + 10, 50, 7, SHEET_BACKGROUND);
+    tft.fillRect(10, TAB_HEIGHT + 10, 50, 7, COLOR_SHEET_BACKGROUND);
+
     tft.setCursor(10, TAB_HEIGHT + 10);
+    tft.setTextColor(COLOR_WHITE);
+    tft.setTextSize(1);
     tft.print(tabX);
   }
 }

@@ -7,16 +7,16 @@
 
 
 
-void TFT::drawIcon(uint16_t x, uint16_t y, IconBuffer &iconBuffer) {
+void TFT::drawIcon(uint16_t x, uint16_t y, IconBuffer &iconBuffer, uint16_t color, uint16_t bgColor) {
   Serial.println(_MW);
   setAddrWindow(x, y, x + iconBuffer.width - 1, y + iconBuffer.height - 1);
   CS_ACTIVE;
   WriteCmd(_MW);
 
-  uint8_t colorH = iconBuffer.color >> 8;
-  uint8_t colorL = iconBuffer.color & 0xFF;
-  uint8_t bgColorH = iconBuffer.bgColor >> 8;
-  uint8_t bgColorL = iconBuffer.bgColor & 0xFF;
+  uint8_t colorH = color >> 8;
+  uint8_t colorL = color & 0xFF;
+  uint8_t bgColorH = bgColor >> 8;
+  uint8_t bgColorL = bgColor & 0xFF;
 
 
   CD_DATA;
