@@ -24,4 +24,56 @@
 #define COLOR_PLAY_BUTTON       0X0300
 
 
+
+
+enum Palette
+{
+    BLACK = 0,
+    WHITE = 1,
+    BLUE = 2,
+    PLAY_BUTTON = 3,
+    SHEET_BACKGROUND = 4,
+    SHEET_INACTIVE = 5,
+};
+
+
+
+struct RgbColor {
+
+    RgbColor(Palette p) {
+      switch (p) {
+        default:
+        case Palette::BLACK:
+          colorCode = COLOR_BLACK;
+          break;
+        case Palette::WHITE:
+          colorCode = COLOR_WHITE;
+          break;
+        case Palette::BLUE:
+          colorCode = COLOR_BLUE;
+          break;
+        case Palette::PLAY_BUTTON:
+          colorCode = COLOR_PLAY_BUTTON;
+          break;
+        case Palette::SHEET_BACKGROUND:
+          colorCode = COLOR_SHEET_BACKGROUND;
+          break;
+        case Palette::SHEET_INACTIVE:
+          colorCode = COLOR_SHEET_INACTIVE;
+          break;
+      }
+    }
+
+    union {
+        uint16_t colorCode;
+        struct {
+            uint8_t colorL;
+            uint8_t colorH;
+        };
+    };
+};
+
+
+
+
 #endif //PBLOCKMAIN_COLORS_H_H

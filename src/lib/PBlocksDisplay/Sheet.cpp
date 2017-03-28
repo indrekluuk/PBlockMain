@@ -20,12 +20,6 @@ void Sheet::init(uint8_t index, IconBuffer * icon, const char * label) {
   tabIndex = index;
   tabIcon = icon;
   tabLabel = label;
-  if (tabIcon != nullptr) {
-    tabIcon->width = TAB_WIDTH - 2;
-    tabIcon->height = TAB_HEIGHT;
-    tabIcon->bitmapCenterX();
-    tabIcon->bitmapCenterY();
-  }
 }
 
 void Sheet::tap(uint16_t x, uint16_t y) {
@@ -59,7 +53,16 @@ void Sheet::drawTab(bool redrawAll) {
     uint16_t tabX = getTabX();
 
     if (tabIcon != nullptr) {
-      tft.drawIcon(tabX + 1, 0, *tabIcon, selected ? tabIcon->color : COLOR_BLACK, selected ? COLOR_SHEET_BACKGROUND : COLOR_SHEET_INACTIVE);
+      if (selected) {
+        tft.drawIcon(tabX + 1, 0, *tabIcon, TAB_WIDTH - 2, TAB_HEIGHT, 2);
+      } else {
+        IconColor tmp = tabIcon->color;
+        tabIcon->color.setDrawColor(Palette::BLACK);
+        tabIcon->color.setBackgroundColor(Palette::SHEET_INACTIVE);
+        tft.drawIcon(tabX + 1, 0, *tabIcon, TAB_WIDTH - 2, TAB_HEIGHT, 2);
+        tabIcon->color = tmp;
+      }
+
       tft.drawFastHLine(tabX + 1 , TAB_HEIGHT , TAB_WIDTH - 2, selected ? COLOR_SHEET_BACKGROUND : COLOR_BLACK);
     } else {
       tft.fillRect(tabX + 1, 0, TAB_WIDTH - 2, TAB_HEIGHT, selected ? COLOR_SHEET_BACKGROUND : COLOR_SHEET_INACTIVE);

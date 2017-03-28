@@ -18,25 +18,22 @@ private:
     uint16_t _MW = 0x2C;
 
 public:
-    void drawIcon(uint16_t x, uint16_t y, IconBuffer & iconBuffer, uint16_t color, uint16_t bgColor);
+    void drawIcon(uint16_t x, uint16_t y, IconBuffer & icon, uint8_t w, uint8_t h, uint8_t scale);
 
 
 private:
-    inline void write8n(uint8_t h, uint8_t l, uint16_t n) __attribute__((always_inline));
+    inline void writeColorN(RgbColor color, uint16_t n) __attribute__((always_inline));
     inline void write8bitmap(
-        uint8_t colorH,
-        uint8_t colorL,
-        uint8_t bgColorH,
-        uint8_t bgColorL,
+        RgbColor color,
+        RgbColor bgColor,
         uint16_t bitmap,
         uint8_t scale) __attribute__((always_inline));
 
 
     inline void write8bitmapWithBorder(
-        uint8_t colorH,
-        uint8_t colorL,
-        uint8_t bgColorH,
-        uint8_t bgColorL,
+        RgbColor color,
+        RgbColor bgColor,
+        RgbColor bColor,
         uint16_t prvBitmap,
         uint16_t curBitmap,
         uint16_t nxtBitmap,
@@ -46,10 +43,10 @@ private:
 
 
 
-void TFT::write8n(uint8_t h, uint8_t l, uint16_t n) {
+void TFT::writeColorN(RgbColor color, uint16_t n) {
   while (n) {
-    write8(h);
-    write8(l);
+    write8(color.colorH);
+    write8(color.colorL);
     n--;
   }
 }
@@ -58,19 +55,17 @@ void TFT::write8n(uint8_t h, uint8_t l, uint16_t n) {
 
 
 void TFT::write8bitmap(
-    uint8_t colorH,
-    uint8_t colorL,
-    uint8_t bgColorH,
-    uint8_t bgColorL,
+    RgbColor color,
+    RgbColor bgColor,
     uint16_t bitmap,
     uint8_t scale
 ) {
   uint16_t mask = 0x8000;
   while (mask) {
     if (bitmap & mask) {
-      write8n(colorH, colorL, scale);
+      writeColorN(color, scale);
     } else {
-      write8n(bgColorH, bgColorL, scale);
+      writeColorN(bgColor, scale);
     }
     mask >>= 1;
   }
@@ -81,10 +76,9 @@ void TFT::write8bitmap(
 
 
 void TFT::write8bitmapWithBorder(
-    uint8_t colorH,
-    uint8_t colorL,
-    uint8_t bgColorH,
-    uint8_t bgColorL,
+    RgbColor color,
+    RgbColor bgColor,
+    RgbColor bColor,
     uint16_t prvBitmap,
     uint16_t curBitmap,
     uint16_t nxtBitmap,
@@ -99,13 +93,13 @@ void TFT::write8bitmapWithBorder(
           && ((prvBitmap & borderMask) == borderMask)
           && ((curBitmap & borderMask) == borderMask)
           && ((nxtBitmap & borderMask) == borderMask)) {
-        write8n(colorH, colorL, scale);
+        writeColorN(color, scale);
       } else {
-        write8n(0x00, 0x00, scale);
+        writeColorN(bColor, scale);
       }
 
     } else {
-      write8n(bgColorH, bgColorL, scale);
+      writeColorN(bgColor, scale);
     }
     mask >>= 1;
     if (borderMask == 0xC000) {
