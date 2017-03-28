@@ -7,7 +7,7 @@
 
 
 #include <MCUFRIEND_kbv.h>
-#include "utility/mcufriend_shield.h"
+#include <utility/mcufriend_shield.h>
 #include "IconBuffer.h"
 
 

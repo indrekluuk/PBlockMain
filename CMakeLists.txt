@@ -37,6 +37,7 @@ add_executable(runTests
         src/lib/PBlocksDisplay/TouchHandler.cpp
         src/lib/PBlocksDisplay/PBlocksDisplay.cpp
         src/lib/PBlocksDisplay/Sheet.cpp
+        src/lib/PBlocksDisplay/TFT.cpp
 
         test/src/PBlocksDisplay/TestTouchRegion.cpp
         )
