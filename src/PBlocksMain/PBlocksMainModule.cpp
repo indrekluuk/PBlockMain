@@ -44,7 +44,7 @@ void PBlocksMainModule::init() {
   display.tft.drawIcon(250, 160, iconBuffer, 60, 60, 3);
 
   iconBuffer.color.setBorderColor(Palette::WHITE);
-  iconBuffer.color.setDrawColor(Palette::PLAY_BUTTON);
+  iconBuffer.color.setDrawColor(Palette::GREEN);
   display.tft.drawIcon(350, 80, iconBuffer, 120, 120, 6);
 
 

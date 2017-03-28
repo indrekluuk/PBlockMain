@@ -20,111 +20,26 @@ private:
 public:
     void drawIcon(uint16_t x, uint16_t y, IconBuffer & icon, uint8_t w, uint8_t h, uint8_t scale);
 
-
 private:
-    inline void writeColorN(RgbColor color, uint16_t n) __attribute__((always_inline));
-    inline void write8bitmap(
+    void write8bitmap(
         RgbColor color,
         RgbColor bgColor,
         uint16_t bitmap,
-        uint8_t scale) __attribute__((always_inline));
+        uint8_t scale);
 
-
-    inline void write8bitmapWithBorder(
+    void write8bitmapWithBorder(
         RgbColor color,
         RgbColor bgColor,
         RgbColor bColor,
         uint16_t prvBitmap,
         uint16_t curBitmap,
         uint16_t nxtBitmap,
-        uint8_t scale) __attribute__((always_inline));
+        uint8_t scale);
+
+    void writeColorN(RgbColor color, uint16_t n);
+
 
 };
-
-
-
-void TFT::writeColorN(RgbColor color, uint16_t n) {
-  while (n) {
-    write8(color.colorH);
-    write8(color.colorL);
-    n--;
-  }
-}
-
-
-
-
-void TFT::write8bitmap(
-    RgbColor color,
-    RgbColor bgColor,
-    uint16_t bitmap,
-    uint8_t scale
-) {
-  uint16_t mask = 0x8000;
-  while (mask) {
-    if (bitmap & mask) {
-      writeColorN(color, scale);
-    } else {
-      writeColorN(bgColor, scale);
-    }
-    mask >>= 1;
-  }
-}
-
-
-
-
-
-void TFT::write8bitmapWithBorder(
-    RgbColor color,
-    RgbColor bgColor,
-    RgbColor bColor,
-    uint16_t prvBitmap,
-    uint16_t curBitmap,
-    uint16_t nxtBitmap,
-    uint8_t scale
-) {
-  uint16_t mask = 0x8000;
-  uint16_t borderMask = 0xC000;
-
-  while (mask) {
-    if (curBitmap & mask) {
-      if ((prvBitmap & mask) != mask || (nxtBitmap & mask) != mask) {
-        writeColorN(bColor, scale);
-      } else {
-        uint16_t borderCheck = curBitmap & borderMask;
-        if (borderCheck == borderMask && (mask & 0x7FFE)) {
-          writeColorN(color, scale);
-        } else {
-          if ((borderCheck & ~mask) > mask) {
-            writeColorN(color, scale - (uint16_t)1);
-            writeColorN(bColor, 1);
-          } else if (borderCheck > mask) {
-            writeColorN(bColor, 1);
-            writeColorN(color, scale - (uint16_t)1);
-          } else {
-            writeColorN(bColor, 1);
-            if (scale > 1) {
-              writeColorN(color, scale - (uint16_t)2);
-              writeColorN(bColor, 1);
-            }
-          }
-        }
-      }
-    } else {
-      writeColorN(bgColor, scale);
-    }
-
-    mask >>= 1;
-    if (borderMask == 0xC000) {
-      borderMask = 0xE000;
-    } else {
-      borderMask >>= 1;
-    }
-  }
-}
-
-
 
 
 

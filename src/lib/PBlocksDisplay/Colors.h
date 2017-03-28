@@ -10,7 +10,7 @@
 #define COLOR_BLACK   0x0000
 #define COLOR_BLUE    0x001F
 #define COLOR_RED     0xF800
-#define COLOR_GREEN   0x07E0
+#define COLOR_GREEN   0x0600
 #define COLOR_CYAN    0x07FF
 #define COLOR_MAGENTA 0xF81F
 #define COLOR_YELLOW  0xFFE0
@@ -31,14 +31,17 @@ enum Palette
     BLACK = 0,
     WHITE = 1,
     BLUE = 2,
-    PLAY_BUTTON = 3,
-    SHEET_BACKGROUND = 4,
-    SHEET_INACTIVE = 5,
+    GREEN = 3,
+    PLAY_BUTTON = 4,
+    SHEET_BACKGROUND = 5,
+    SHEET_INACTIVE = 6,
 };
 
 
 
 struct RgbColor {
+
+    RgbColor(uint16_t c) {colorCode = c;}
 
     RgbColor(Palette p) {
       switch (p) {
@@ -51,6 +54,9 @@ struct RgbColor {
           break;
         case Palette::BLUE:
           colorCode = COLOR_BLUE;
+          break;
+        case Palette::GREEN:
+          colorCode = COLOR_GREEN;
           break;
         case Palette::PLAY_BUTTON:
           colorCode = COLOR_PLAY_BUTTON;
