@@ -5,8 +5,6 @@
 #include "PBlocksMainModule.h"
 
 
-#include "Colors.h"
-
 
 void PBlocksMainModule::init() {
   display.init();
@@ -32,11 +30,12 @@ void PBlocksMainModule::init() {
   iconBuffer.setBitmap(i++, 0b0000011011000000);
   iconBuffer.setBitmap(i++, 0b0001100001100000);
   iconBuffer.setBitmap(i++, 0b0011000000110000);
-  iconBuffer.setBitmap(i  , 0b0110000000011000);
+  iconBuffer.setBitmap(i  , 0b0111000000111000);
 
   iconBuffer.color.setDrawColor(Palette::BLUE);
   iconBuffer.color.setBackgroundColor(Palette::SHEET_BACKGROUND);
 
+  iconBuffer.color.setBorderColor(Palette::WHITE);
   display.tft.drawIcon(50, 80, iconBuffer, 60, 60, 1);
   display.tft.drawIcon(150, 80, iconBuffer, 60, 60, 2);
   display.tft.drawIcon(250, 80, iconBuffer, 60, 60, 3);

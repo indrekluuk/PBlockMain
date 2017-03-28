@@ -43,8 +43,8 @@ struct IconColor {
 class IconBuffer {
 
 public:
-    static const uint16_t BITMAP_WIDTH = 16;
-    static const uint16_t BITMAP_HEIGHT = 16;
+    static const uint8_t BITMAP_WIDTH = 16;
+    static const uint8_t BITMAP_HEIGHT = 16;
 
     IconColor color;
     uint16_t bitmap[BITMAP_HEIGHT];

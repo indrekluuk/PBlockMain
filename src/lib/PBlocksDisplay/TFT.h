@@ -84,23 +84,37 @@ void TFT::write8bitmapWithBorder(
     uint16_t nxtBitmap,
     uint8_t scale
 ) {
-  uint16_t borderMask = 0xC000;
   uint16_t mask = 0x8000;
+  uint16_t borderMask = 0xC000;
+
   while (mask) {
     if (curBitmap & mask) {
-
-      if (mask & 0x7FFE
-          && ((prvBitmap & borderMask) == borderMask)
-          && ((curBitmap & borderMask) == borderMask)
-          && ((nxtBitmap & borderMask) == borderMask)) {
-        writeColorN(color, scale);
-      } else {
+      if ((prvBitmap & mask) != mask || (nxtBitmap & mask) != mask) {
         writeColorN(bColor, scale);
+      } else {
+        uint16_t borderCheck = curBitmap & borderMask;
+        if (borderCheck == borderMask && (mask & 0x7FFE)) {
+          writeColorN(color, scale);
+        } else {
+          if ((borderCheck & ~mask) > mask) {
+            writeColorN(color, scale - (uint16_t)1);
+            writeColorN(bColor, 1);
+          } else if (borderCheck > mask) {
+            writeColorN(bColor, 1);
+            writeColorN(color, scale - (uint16_t)1);
+          } else {
+            writeColorN(bColor, 1);
+            if (scale > 1) {
+              writeColorN(color, scale - (uint16_t)2);
+              writeColorN(bColor, 1);
+            }
+          }
+        }
       }
-
     } else {
       writeColorN(bgColor, scale);
     }
+
     mask >>= 1;
     if (borderMask == 0xC000) {
       borderMask = 0xE000;
