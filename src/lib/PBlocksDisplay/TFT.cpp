@@ -137,46 +137,44 @@ void TFT::write8bitmapWithBorder(
     uint8_t scale
 ) {
   uint16_t mask = 0x8000;
-  uint16_t borderMask = 0xC000;
+  uint16_t nextMask;
 
+  uint16_t isPrevious = 0;
   while (mask) {
-    if (curBitmap & mask) {
-      if ((prvBitmap & mask) != mask || (nxtBitmap & mask) != mask) {
-        if ((prvBitmap & mask) != mask ) {
-          writeColorN(RgbColor(COLOR_WHITE), scale); // todo use border color
-        } else {
-          writeColorN(RgbColor(COLOR_BLACK), scale); // todo use border color
-        }
+    nextMask = mask >> 1;
+    uint16_t isCurrent = curBitmap & mask;
+
+    if (isCurrent) {
+      if ((prvBitmap & mask) != mask) {
+        writeColorN(RgbColor(COLOR_WHITE), scale); // todo use border color
+      } else if ((nxtBitmap & mask) != mask) {
+        writeColorN(RgbColor(COLOR_BLACK), scale); // todo use border color
       } else {
-        uint16_t borderCheck = curBitmap & borderMask;
-        if (borderCheck == borderMask && (mask & 0x7FFE)) {
+
+        uint16_t isNext = curBitmap & nextMask;
+        if (isPrevious && isNext) {
           writeColorN(color, scale);
+        } else if (isPrevious) {
+          writeColorN(color, scale - (uint16_t)1);
+          writeColorN(RgbColor(COLOR_BLACK), 1); // todo use border color
+        } else if (isNext) {
+          writeColorN(RgbColor(COLOR_WHITE), 1); // todo use border color
+          writeColorN(color, scale - (uint16_t)1);
         } else {
-          if ((borderCheck & ~mask) > mask) {
-            writeColorN(color, scale - (uint16_t)1);
+          writeColorN(RgbColor(COLOR_WHITE), 1); // todo use border color
+          if (scale > 1) {
+            writeColorN(color, scale - (uint16_t)2);
             writeColorN(RgbColor(COLOR_BLACK), 1); // todo use border color
-          } else if (borderCheck > mask) {
-            writeColorN(RgbColor(COLOR_WHITE), 1); // todo use border color
-            writeColorN(color, scale - (uint16_t)1);
-          } else {
-            writeColorN(RgbColor(COLOR_WHITE), 1); // todo use border color
-            if (scale > 1) {
-              writeColorN(color, scale - (uint16_t)2);
-              writeColorN(RgbColor(COLOR_BLACK), 1); // todo use border color
-            }
           }
         }
+
       }
     } else {
       writeColorN(bgColor, scale);
     }
 
-    mask >>= 1;
-    if (borderMask == 0xC000) {
-      borderMask = 0xE000;
-    } else {
-      borderMask >>= 1;
-    }
+    isPrevious = isCurrent;
+    mask = nextMask;
   }
 }
 
