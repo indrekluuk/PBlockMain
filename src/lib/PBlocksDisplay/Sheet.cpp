@@ -15,10 +15,8 @@ Sheet::Sheet() :
 }
 
 
-void Sheet::init(uint8_t index, IconBuffer * icon, const char * label) {
+void Sheet::init(uint8_t index) {
   tabIndex = index;
-  tabIcon = icon;
-  tabLabel = label;
 }
 
 void Sheet::tap(uint16_t x, uint16_t y) {
@@ -48,33 +46,7 @@ void Sheet::draw(bool redrawAll) {
 
 void Sheet::drawTab(bool redrawAll) {
   if (redrawAll || isDrawnAsSelected != selected) {
-    TFT & tft = Display->tft;
-    uint16_t tabX = getTabX();
-
-    if (tabIcon != nullptr) {
-      if (selected) {
-        tft.drawIcon(tabX + (uint16_t)1, 0, *tabIcon, TAB_WIDTH - 2, TAB_HEIGHT, 2);
-      } else {
-        IconColor tmp = tabIcon->color;
-        tabIcon->color.setDrawColor(Palette::BLACK);
-        tabIcon->color.setBackgroundColor(Palette::SHEET_INACTIVE);
-        tabIcon->color.setNoBorder();
-        tft.drawIcon(tabX + (uint16_t)1, 0, *tabIcon, TAB_WIDTH - 2, TAB_HEIGHT, 2);
-        tabIcon->color = tmp;
-      }
-
-      tft.drawFastHLine(tabX + 1 , TAB_HEIGHT , TAB_WIDTH - 2, selected ? COLOR_SHEET_BACKGROUND : COLOR_BLACK);
-    } else {
-      tft.fillRect(tabX + 1, 0, TAB_WIDTH - 2, TAB_HEIGHT, selected ? COLOR_SHEET_BACKGROUND : COLOR_SHEET_INACTIVE);
-      tft.drawFastHLine(tabX + 1 , TAB_HEIGHT , TAB_WIDTH - 2, selected ? COLOR_SHEET_BACKGROUND : COLOR_BLACK);
-
-      if (tabLabel != nullptr) {
-        tft.setCursor(tabX + 10, TAB_HEIGHT / 2 - 7);
-        tft.setTextColor(selected ? COLOR_WHITE : COLOR_BLACK);
-        tft.setTextSize(2);
-        tft.print(tabLabel);
-      }
-    }
+    tab.draw(getTabX(), TAB_WIDTH, TAB_HEIGHT, selected);
   }
 }
 

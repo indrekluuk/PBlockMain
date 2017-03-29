@@ -4,7 +4,6 @@
 
 
 #include "PBlocksDisplay.h"
-#include "Colors.h"
 
 
 
@@ -64,12 +63,19 @@ void PBlocksDisplay::init() {
   modulesIcon.color.setDrawColor(Palette::WHITE);
 
 
-  sheets[0].init(0, &playIcon, nullptr);
-  sheets[1].init(1, &playIcon2, "f1");
-  sheets[2].init(2, nullptr, "f2");
-  sheets[3].init(3, nullptr, "f3");
-  sheets[4].init(4, nullptr, "f4");
-  sheets[5].init(5, &modulesIcon, nullptr);
+  sheets[0].init(0);
+  sheets[0].tab.tabIcon = &playIcon;
+  sheets[1].init(1);
+  sheets[1].tab.tabIcon = &playIcon2;
+  sheets[1].tab.tabLabel = "f1";
+  sheets[2].init(2);
+  sheets[2].tab.tabLabel = "f2";
+  sheets[3].init(3);
+  sheets[3].tab.tabLabel = "f3";
+  sheets[4].init(4);
+  sheets[4].tab.tabLabel = "f4";
+  sheets[5].init(5);
+  sheets[5].tab.tabIcon = &modulesIcon;
 
   sheets[0].setSelected(true);
 
