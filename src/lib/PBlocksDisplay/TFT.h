@@ -30,7 +30,8 @@ private:
     void write8bitmapWithBorder(
         RgbColor color,
         RgbColor bgColor,
-        RgbColor bColor,
+        RgbColor bTopColor,
+        RgbColor bBottomColor,
         uint16_t prvBitmap,
         uint16_t curBitmap,
         uint16_t nxtBitmap,

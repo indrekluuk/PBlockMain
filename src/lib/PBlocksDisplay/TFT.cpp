@@ -14,7 +14,6 @@ void TFT::drawIcon(uint16_t x, uint16_t y, IconBuffer & icon, uint8_t w, uint8_t
 
   RgbColor color = icon.color.getDrawColor();
   RgbColor bgColor = icon.color.getBackgroundColor();
-  RgbColor bColor = icon.color.getBorderColor();
 
   CD_DATA;
 
@@ -32,6 +31,8 @@ void TFT::drawIcon(uint16_t x, uint16_t y, IconBuffer & icon, uint8_t w, uint8_t
   }
 
   if (icon.color.hasBorder) {
+    RgbColor bTopColor = icon.color.hasBorder3d ? RgbColor(COLOR_WHITE) : icon.color.getBorderColor();
+    RgbColor bBottomColor = icon.color.hasBorder3d ? RgbColor(COLOR_BLACK) : icon.color.getBorderColor();
     // draw icon with border
     uint16_t prvRow = 0;
     uint16_t curRow = 0;
@@ -51,7 +52,8 @@ void TFT::drawIcon(uint16_t x, uint16_t y, IconBuffer & icon, uint8_t w, uint8_t
           write8bitmapWithBorder(
               color,
               bgColor,
-              bColor,
+              bTopColor,
+              bBottomColor,
               prvRow,
               curRow,
               nxtRow,
@@ -130,7 +132,8 @@ void TFT::write8bitmap(
 void TFT::write8bitmapWithBorder(
     RgbColor color,
     RgbColor bgColor,
-    RgbColor bColor,
+    RgbColor bTopColor,
+    RgbColor bBottomColor,
     uint16_t prvBitmap,
     uint16_t curBitmap,
     uint16_t nxtBitmap,
@@ -146,9 +149,9 @@ void TFT::write8bitmapWithBorder(
 
     if (isCurrent) {
       if ((prvBitmap & mask) != mask) {
-        writeColorN(RgbColor(COLOR_WHITE), scale); // todo use border color
+        writeColorN(bTopColor, scale);
       } else if ((nxtBitmap & mask) != mask) {
-        writeColorN(RgbColor(COLOR_BLACK), scale); // todo use border color
+        writeColorN(bBottomColor, scale);
       } else {
 
         uint16_t isNext = curBitmap & nextMask;
@@ -156,15 +159,15 @@ void TFT::write8bitmapWithBorder(
           writeColorN(color, scale);
         } else if (isPrevious) {
           writeColorN(color, scale - (uint16_t)1);
-          writeColorN(RgbColor(COLOR_BLACK), 1); // todo use border color
+          writeColorN(bBottomColor, 1);
         } else if (isNext) {
-          writeColorN(RgbColor(COLOR_WHITE), 1); // todo use border color
+          writeColorN(bTopColor, 1);
           writeColorN(color, scale - (uint16_t)1);
         } else {
-          writeColorN(RgbColor(COLOR_WHITE), 1); // todo use border color
+          writeColorN(bTopColor, 1);
           if (scale > 1) {
             writeColorN(color, scale - (uint16_t)2);
-            writeColorN(RgbColor(COLOR_BLACK), 1); // todo use border color
+            writeColorN(bBottomColor, 1);
           }
         }
 

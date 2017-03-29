@@ -35,7 +35,6 @@ void PBlocksMainModule::init() {
   iconBuffer.color.setDrawColor(Palette::BLUE);
   iconBuffer.color.setBackgroundColor(Palette::SHEET_BACKGROUND);
 
-  iconBuffer.color.setBorderColor(Palette::WHITE);
   display.tft.drawIcon(50, 80, iconBuffer, 60, 60, 1);
   display.tft.drawIcon(150, 80, iconBuffer, 60, 60, 2);
   display.tft.drawIcon(250, 80, iconBuffer, 60, 60, 3);
@@ -45,6 +44,7 @@ void PBlocksMainModule::init() {
 
   iconBuffer.color.setBorderColor(Palette::WHITE);
   iconBuffer.color.setDrawColor(Palette::GREEN);
+  iconBuffer.color.setBorder3d();
   display.tft.drawIcon(350, 80, iconBuffer, 120, 120, 6);
 
 
