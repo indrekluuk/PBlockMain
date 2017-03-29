@@ -3,7 +3,6 @@
 //
 
 #include "Sheet.h"
-#include "Colors.h"
 #include "PBlocksDisplay.h"
 
 
@@ -54,12 +53,13 @@ void Sheet::drawTab(bool redrawAll) {
 
     if (tabIcon != nullptr) {
       if (selected) {
-        tft.drawIcon(tabX + 1, 0, *tabIcon, TAB_WIDTH - 2, TAB_HEIGHT, 2);
+        tft.drawIcon(tabX + (uint16_t)1, 0, *tabIcon, TAB_WIDTH - 2, TAB_HEIGHT, 2);
       } else {
         IconColor tmp = tabIcon->color;
         tabIcon->color.setDrawColor(Palette::BLACK);
         tabIcon->color.setBackgroundColor(Palette::SHEET_INACTIVE);
-        tft.drawIcon(tabX + 1, 0, *tabIcon, TAB_WIDTH - 2, TAB_HEIGHT, 2);
+        tabIcon->color.setNoBorder();
+        tft.drawIcon(tabX + (uint16_t)1, 0, *tabIcon, TAB_WIDTH - 2, TAB_HEIGHT, 2);
         tabIcon->color = tmp;
       }
 
