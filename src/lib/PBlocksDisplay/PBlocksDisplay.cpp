@@ -64,18 +64,18 @@ void PBlocksDisplay::init() {
 
 
   sheets[0].init(0);
-  sheets[0].tab.tabIcon = &playIcon;
+  sheets[0].tabIcon = &playIcon;
   sheets[1].init(1);
-  sheets[1].tab.tabIcon = &playIcon2;
-  sheets[1].tab.tabLabel = "f1";
+  sheets[1].tabIcon = &playIcon2;
+  sheets[1].tabLabel = "f1";
   sheets[2].init(2);
-  sheets[2].tab.tabLabel = "f2";
+  sheets[2].tabLabel = "f2";
   sheets[3].init(3);
-  sheets[3].tab.tabLabel = "f3";
+  sheets[3].tabLabel = "f3";
   sheets[4].init(4);
-  sheets[4].tab.tabLabel = "f4";
+  sheets[4].tabLabel = "f4";
   sheets[5].init(5);
-  sheets[5].tab.tabIcon = &modulesIcon;
+  sheets[5].tabIcon = &modulesIcon;
 
   sheets[0].setSelected(true);
 

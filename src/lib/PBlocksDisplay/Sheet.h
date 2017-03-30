@@ -7,7 +7,7 @@
 
 
 #include <stdint.h>
-#include "SheetTab.h"
+#include "IconBuffer.h"
 #include "TouchHandler.h"
 
 
@@ -25,7 +25,8 @@ class Sheet : public Touchable {
     bool isDrawnAsSelected : 3;
 
 public:
-    SheetTab tab;
+    const char * tabLabel = nullptr;
+    IconBuffer * tabIcon = nullptr;
 
     Sheet();
 
@@ -36,10 +37,14 @@ public:
     bool isSelected();
 
     void draw(bool redrawAll);
+private:
+
     void drawTab(bool redrawAll);
+    void drawTabIcon(uint16_t x, uint8_t w, uint8_t h);
+    void drawTabLabel(uint16_t x, uint8_t w, uint8_t h);
+
     void drawSheet(bool redrawAll);
 
-private:
     uint16_t getTabX();
 
 };
