@@ -9,7 +9,7 @@
 void PBlocksMainModule::init() {
   display.init();
   display.draw(true);
-
+/*
   display.tft.drawRect(49, 79, 62, 62, COLOR_YELLOW);
 
 
@@ -46,7 +46,7 @@ void PBlocksMainModule::init() {
   iconBuffer.color.setDrawColor(Palette::GREEN);
   iconBuffer.color.setBorder3d();
   display.tft.drawIcon(350, 80, iconBuffer, 120, 120, 6);
-
+*/
 
 }
 

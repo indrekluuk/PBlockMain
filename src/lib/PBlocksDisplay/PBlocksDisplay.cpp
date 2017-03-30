@@ -11,12 +11,15 @@ PBlocksDisplay * Display;
 
 
 
+PBlocksDisplay::PBlocksDisplay() {
+  Display = this;
+}
+
 
 void PBlocksDisplay::init() {
   tft.begin(0x9488);
   tft.setRotation(1);
   tft.fillScreen(COLOR_BLACK);
-
 
   uint8_t i=0;
   playIcon.setBitmap(i++, 0b1100000000000000);
@@ -78,8 +81,6 @@ void PBlocksDisplay::init() {
   sheets[5].tabIcon = &modulesIcon;
 
   sheets[0].setSelected(true);
-
-  Display = this;
 }
 
 

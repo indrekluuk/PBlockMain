@@ -9,6 +9,7 @@
 #include <stdint.h>
 #include "IconBuffer.h"
 #include "TouchHandler.h"
+#include "ProgramSlot.h"
 
 
 class PBlocksDisplay;
@@ -16,13 +17,23 @@ class PBlocksDisplay;
 
 class Sheet : public Touchable {
 
-    static const uint16_t TAB_HEIGHT = 60;
+    static const uint16_t TAB_HEIGHT = 50;
     static const uint16_t TAB_WIDTH = 80;
-    static const uint16_t SHEET_HEIGHT = 200;
+
+    static const uint8_t SLOT_COL_COUNT = 6;
+    static const uint8_t SLOT_ROW_COUNT = 3;
+    static const uint8_t SLOT_COUNT = SLOT_COL_COUNT * SLOT_ROW_COUNT;
+
+    static const uint16_t SLOT_SPACING_V = 6;
+    static const uint16_t SLOT_SPACING_H = 16;
+    static const uint16_t SHEET_HEIGHT = SLOT_ROW_COUNT * (ProgramSlot::HEIGHT + SLOT_SPACING_V) + SLOT_SPACING_V + 6;
+
 
     uint8_t tabIndex : 4;
     bool selected : 1;
     bool isDrawnAsSelected : 3;
+
+    ProgramSlot programSlots[SLOT_COUNT];
 
 public:
     const char * tabLabel = nullptr;

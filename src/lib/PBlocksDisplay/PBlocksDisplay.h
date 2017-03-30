@@ -22,6 +22,8 @@ class PBlocksDisplay {
 
 
 public:
+    PBlocksDisplay();
+
     void init();
     void setActiveTab(uint16_t tabIndex);
 
