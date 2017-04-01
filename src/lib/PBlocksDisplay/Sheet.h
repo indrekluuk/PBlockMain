@@ -21,11 +21,10 @@ class Sheet : public Touchable {
 
     static const uint8_t SLOT_COL_COUNT = 6;
     static const uint8_t SLOT_ROW_COUNT = 3;
-    static const uint8_t SLOT_COUNT = SLOT_COL_COUNT * SLOT_ROW_COUNT;
 
     static const uint16_t SLOT_SPACING_V = 6;
-    static const uint16_t SLOT_SPACING_H = 16;
-    static const uint8_t SLOT_WIDTH = 60;
+    static const uint16_t SLOT_SPACING_H = 12;
+    static const uint8_t SLOT_WIDTH = 68;
     static const uint8_t SLOT_HEIGHT = 60;
     static const uint16_t SHEET_HEIGHT = SLOT_ROW_COUNT * (SLOT_HEIGHT + SLOT_SPACING_V) + SLOT_SPACING_V + 6;
 

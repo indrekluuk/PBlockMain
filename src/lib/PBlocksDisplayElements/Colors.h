@@ -16,6 +16,9 @@
 #define COLOR_YELLOW  0xFFE0
 #define COLOR_WHITE   0xFFFF
 
+#define COLOR_GRAY    0x94B2
+
+
 
 #define COLOR_SHEET_INACTIVE    0x52AA
 #define COLOR_SHEET_BACKGROUND  0x7BEF
@@ -36,6 +39,9 @@ enum Palette {
     PLAY_BUTTON = 4,
     SHEET_BACKGROUND = 5,
     SHEET_INACTIVE = 6,
+    YELLOW = 7,
+
+    TEST = 10,
 };
 
 
@@ -61,6 +67,9 @@ struct RgbColor {
         case Palette::GREEN:
           colorCode = COLOR_GREEN;
           break;
+        case Palette::YELLOW:
+          colorCode = COLOR_YELLOW;
+          break;
         case Palette::PLAY_BUTTON:
           colorCode = COLOR_PLAY_BUTTON;
           break;
@@ -69,6 +78,9 @@ struct RgbColor {
           break;
         case Palette::SHEET_INACTIVE:
           colorCode = COLOR_SHEET_INACTIVE;
+          break;
+        case Palette::TEST:
+          colorCode = COLOR_GRAY;
           break;
       }
     }

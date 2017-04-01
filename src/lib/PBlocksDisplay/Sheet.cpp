@@ -4,6 +4,7 @@
 
 #include "Sheet.h"
 #include "PBlocksDisplay.h"
+#include <PBlocksProgram.h>
 
 
 
@@ -102,8 +103,6 @@ void Sheet::drawSheet(bool redrawAll) {
     }
 
     if (redrawAll || isDrawnAsSelected != selected) {
-
-
       uint8_t i = 0;
       uint16_t w = (uint16_t)(Display->tft.width()-12) / SLOT_COL_COUNT;
       for (uint16_t y=0; y<SLOT_ROW_COUNT; y++) {
@@ -122,17 +121,35 @@ void Sheet::drawSheet(bool redrawAll) {
 
 
 void Sheet::drawProgramSlot(uint8_t index, uint16_t x, uint16_t y) {
-  bool empty = true;
   TFT & tft = Display->tft;
 
-  if (empty) {
+  ProgramNode * node = nullptr;
+
+  if (tabIndex < Program->FUNCTION_COUNT) {
+    ProgramFunction & function = Program->functions[tabIndex];
+    if (index < function.NODE_COUNT) {
+      node = &function.nodes[index];
+    }
+  }
+
+  if (node == nullptr || node->isEmpty()) {
     tft.drawRect(x, y, SLOT_WIDTH, SLOT_HEIGHT, COLOR_BLACK);
+    tft.fillRect(x + 1, y + 1, SLOT_WIDTH - 2, SLOT_HEIGHT - 2, COLOR_SHEET_BACKGROUND);
   } else {
+    IconBuffer & icon = node->getModule()->icon;
+
+    tft.fillRect(x + 1, y + 1, SLOT_WIDTH - 2, SLOT_HEIGHT - 2, COLOR_GRAY);
+
     tft.setTextSize(1);
-    tft.setTextColor(COLOR_WHITE);
-    tft.drawRect(x, y, SLOT_WIDTH, SLOT_HEIGHT, COLOR_YELLOW);
-    tft.drawRect(x + 6, y + 4, 32, 32, COLOR_YELLOW);
-    tft.setCursor(x + 42, y + 18);
+    tft.setTextColor(COLOR_BLACK);
+    tft.drawRect(x, y, SLOT_WIDTH, SLOT_HEIGHT, COLOR_WHITE);
+
+    IconColor color = icon.getColor();
+    color.setBackgroundColor(Palette::TEST);
+    color.setNoBorder();
+    tft.drawIcon(x + 6, y + 4, icon, color, 32, 32, 2);
+
+    tft.setCursor(x + 44, y + 18);
     tft.print("M01");
     tft.setCursor(x + 6, y + 46);
     tft.print("1 sek");

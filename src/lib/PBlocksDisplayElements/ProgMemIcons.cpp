@@ -9,7 +9,7 @@
 
 
 const PROGMEM IconBufferProgMem::Icon ICON_PERSON = {
-    IconColor(Palette::GREEN, Palette::SHEET_BACKGROUND, Palette::BLACK, true, true),
+    IconColor(Palette::PLAY_BUTTON, Palette::TEST, Palette::BLACK, false, false),
     {
         (uint16_t) 0b0000111110000000,
         (uint16_t) 0b0001100001100000,

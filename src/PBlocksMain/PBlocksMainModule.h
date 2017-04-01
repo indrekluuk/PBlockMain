@@ -6,6 +6,7 @@
 #define PBLOCKMAIN_PBLOCKSMAINMODULE_H
 
 
+#include <PBlocksProgram.h>
 #include <PBlocksDisplay.h>
 
 
@@ -13,6 +14,7 @@
 class PBlocksMainModule {
 
 
+    PBlocksProgram program;
     PBlocksDisplay display;
 
 public:
