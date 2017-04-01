@@ -26,6 +26,7 @@ public:
 
     void fillScreen(int) {}
     void fillRect(int, int, int, int, int) {};
+    void drawRect(int, int, int, int, int) {};
     void drawFastHLine(int, int, int, int) {};
     void setCursor(int, int) {};
     void setTextColor(int) {};

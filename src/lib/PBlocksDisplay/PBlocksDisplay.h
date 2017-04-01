@@ -7,7 +7,7 @@
 
 
 #include "Sheet.h"
-#include "IconBuffer.h"
+#include <IconBuffer.h>
 #include <TouchHandler.h>
 #include <TFT.h>
 
@@ -15,9 +15,9 @@
 class PBlocksDisplay {
     static const uint16_t SHEET_COUNT = 6;
 
-    IconBuffer playIcon;
-    IconBuffer playIcon2;
-    IconBuffer modulesIcon;
+    IconBufferMem playIcon;
+    IconBufferMem playIcon2;
+    IconBufferMem modulesIcon;
     Sheet sheets[SHEET_COUNT];
 
 

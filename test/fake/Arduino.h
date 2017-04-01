@@ -60,6 +60,7 @@ int map(int, int, int, int, int);
 class FakeSerial {
 
 public:
+    void begin(int) {};
     void print(const char * c) {};
     void print(int) {};
     void println() {};

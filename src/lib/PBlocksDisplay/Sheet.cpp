@@ -24,7 +24,7 @@ void Sheet::init(uint8_t index) {
     for (uint16_t x=0; x<SLOT_COL_COUNT; x++) {
       programSlots[i++].init(
           w * x + SLOT_SPACING_H,
-          6+TAB_HEIGHT + SLOT_SPACING_V + y * (ProgramSlot::HEIGHT + SLOT_SPACING_V));
+          (uint16_t)6 + TAB_HEIGHT + SLOT_SPACING_V + y * (ProgramSlot::HEIGHT + SLOT_SPACING_V));
     }
   }
 }
@@ -74,14 +74,13 @@ void Sheet::drawTab(bool redrawAll) {
 
 void Sheet::drawTabIcon(uint16_t x, uint8_t w, uint8_t h) {
   if (selected) {
-    Display->tft.drawIcon(x, 0, *tabIcon, w, h, 2);
+    Display->tft.drawIcon(x, 0, *tabIcon, tabIcon->getColor(), w, h, 2);
   } else {
-    IconColor tmp = tabIcon->color;
-    tabIcon->color.setDrawColor(Palette::BLACK);
-    tabIcon->color.setBackgroundColor(Palette::SHEET_INACTIVE);
-    tabIcon->color.setNoBorder();
-    Display->tft.drawIcon(x, 0, *tabIcon, w, h, 2);
-    tabIcon->color = tmp;
+    IconColor color = tabIcon->getColor();
+    color.setDrawColor(Palette::BLACK);
+    color.setBackgroundColor(Palette::SHEET_INACTIVE);
+    color.setNoBorder();
+    Display->tft.drawIcon(x, 0, *tabIcon, color, w, h, 2);
   }
 }
 

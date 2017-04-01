@@ -7,13 +7,13 @@
 
 
 
-void TFT::drawIcon(uint16_t x, uint16_t y, IconBuffer & icon, uint8_t w, uint8_t h, uint8_t scale) {
+void TFT::drawIcon(uint16_t x, uint16_t y, IconBuffer & icon, IconColor iconColor, uint8_t w, uint8_t h, uint8_t scale) {
   setAddrWindow(x, y, x + w - 1, y + h - 1);
   CS_ACTIVE;
   WriteCmd(_MW);
 
-  RgbColor color = icon.color.getDrawColor();
-  RgbColor bgColor = icon.color.getBackgroundColor();
+  RgbColor fgColor = iconColor.getDrawColor();
+  RgbColor bgColor = iconColor.getBackgroundColor();
 
   CD_DATA;
 
@@ -30,41 +30,32 @@ void TFT::drawIcon(uint16_t x, uint16_t y, IconBuffer & icon, uint8_t w, uint8_t
     writeColorN(bgColor, bitmapY * w);
   }
 
-  if (icon.color.hasBorder) {
-    RgbColor bTopColor = icon.color.hasBorder3d ? RgbColor(COLOR_WHITE) : icon.color.getBorderColor();
-    RgbColor bBottomColor = icon.color.hasBorder3d ? RgbColor(COLOR_BLACK) : icon.color.getBorderColor();
+  if (iconColor.hasBorder) {
+    RgbColor bTopColor = iconColor.hasBorder3d ? RgbColor(COLOR_WHITE) : iconColor.getBorderColor();
+    RgbColor bBottomColor = iconColor.hasBorder3d ? RgbColor(COLOR_BLACK) : iconColor.getBorderColor();
     // draw icon with border
     uint16_t prvRow = 0;
     uint16_t curRow = 0;
-    uint16_t nxtRow = 0;
+    uint16_t nxtRow = icon.getRow(0);
     for (uint8_t bRow = 0; bRow < icon.BITMAP_HEIGHT; bRow++) {
-      curRow = icon.bitmap[bRow];
-      nxtRow = curRow;
+      curRow = nxtRow;
       for (uint8_t s = 0; s<scale; s++) {
         if (s == scale-1) {
-          nxtRow = (bRow == icon.BITMAP_HEIGHT - 1) ? (uint16_t)0 : icon.bitmap[bRow + 1];
+          nxtRow = (bRow == icon.BITMAP_HEIGHT - 1) ? (uint16_t)0 : icon.getRow(bRow + (uint16_t)1);
         }
         if (bitmapX > 0) {
           writeColorN(bgColor, bitmapX);
         }
 
-        if (icon.color.hasBorder) {
-          write8bitmapWithBorder(
-              color,
-              bgColor,
-              bTopColor,
-              bBottomColor,
-              prvRow,
-              curRow,
-              nxtRow,
-              scale);
-        } else {
-          write8bitmap(
-              color,
-              bgColor,
-              icon.bitmap[bRow],
-              scale);
-        }
+        write8bitmapWithBorder(
+            fgColor,
+            bgColor,
+            bTopColor,
+            bBottomColor,
+            prvRow,
+            curRow,
+            nxtRow,
+            scale);
 
         if (bitmapX2 < w) {
           writeColorN(bgColor, w - bitmapX2);
@@ -77,14 +68,15 @@ void TFT::drawIcon(uint16_t x, uint16_t y, IconBuffer & icon, uint8_t w, uint8_t
   } else {
     // draw icon without border
     for (uint8_t bRow = 0; bRow < icon.BITMAP_HEIGHT; bRow++) {
+      uint16_t row = icon.getRow(bRow);
       for (uint8_t s = 0; s < scale; s++) {
         if (bitmapX > 0) {
           writeColorN(bgColor, bitmapX);
         }
         write8bitmap(
-            color,
+            fgColor,
             bgColor,
-            icon.bitmap[bRow],
+            row,
             scale);
         if (bitmapX2 < w) {
           writeColorN(bgColor, w - bitmapX2);
