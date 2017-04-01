@@ -77,7 +77,7 @@ void Sheet::drawTabIcon(uint16_t x, uint8_t w, uint8_t h) {
     Display->tft.drawIcon(x, 0, *tabIcon, tabIcon->getColor(), w, h, 2);
   } else {
     IconColor color = tabIcon->getColor();
-    color.setDrawColor(Palette::BLACK);
+    color.setForegroundColor(Palette::BLACK);
     color.setBackgroundColor(Palette::SHEET_INACTIVE);
     color.setNoBorder();
     Display->tft.drawIcon(x, 0, *tabIcon, color, w, h, 2);

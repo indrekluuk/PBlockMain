@@ -26,7 +26,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 # fake arduino headers
 include_directories(test/fake)
 # project headers
-include_directories(src/lib/PBlockDisplayElements)
+include_directories(src/lib/PBlocksDisplayElements)
 include_directories(src/PBlocksMain)
 # gtest headers
 include_directories(${gtest_SOURCE_DIR}/include)
@@ -34,12 +34,15 @@ include_directories(${gtest_SOURCE_DIR}/include)
 
 add_executable(runTests
         test/fake/Arduino.cpp
+        test/fake/avr/pgmspace.cpp
 
         src/lib/PBlocksDisplay/TouchHandler.cpp
         src/lib/PBlocksDisplay/PBlocksDisplay.cpp
         src/lib/PBlocksDisplay/Sheet.cpp
         src/lib/PBlocksDisplay/TFT.cpp
         src/lib/PBlocksDisplay/ProgramSlot.cpp
+        src/lib/PBlocksDisplayElements/ProgMemIcons.cpp
+
 
         test/src/PBlocksDisplay/TestTouchRegion.cpp
         )

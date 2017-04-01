@@ -12,7 +12,7 @@ void TFT::drawIcon(uint16_t x, uint16_t y, IconBuffer & icon, IconColor iconColo
   CS_ACTIVE;
   WriteCmd(_MW);
 
-  RgbColor fgColor = iconColor.getDrawColor();
+  RgbColor fgColor = iconColor.getForegroundColor();
   RgbColor bgColor = iconColor.getBackgroundColor();
 
   CD_DATA;
@@ -41,7 +41,7 @@ void TFT::drawIcon(uint16_t x, uint16_t y, IconBuffer & icon, IconColor iconColo
       curRow = nxtRow;
       for (uint8_t s = 0; s<scale; s++) {
         if (s == scale-1) {
-          nxtRow = (bRow == icon.BITMAP_HEIGHT - 1) ? (uint16_t)0 : icon.getRow(bRow + (uint16_t)1);
+          nxtRow = (bRow == icon.BITMAP_HEIGHT - 1) ? (uint16_t)0 : icon.getRow(bRow + (uint8_t)1);
         }
         if (bitmapX > 0) {
           writeColorN(bgColor, bitmapX);

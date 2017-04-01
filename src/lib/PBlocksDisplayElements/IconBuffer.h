@@ -6,6 +6,7 @@
 #define PBLOCKMAIN_ICONBUFFER_H
 
 
+#include <avr/pgmspace.h>
 #include <stdint.h>
 #include "Colors.h"
 
@@ -35,6 +36,28 @@ public:
 };
 
 
+
+class IconBufferProgMem : public IconBuffer {
+public:
+    struct Icon {
+        IconColor color;
+        uint16_t bitmap[BITMAP_HEIGHT];
+    };
+
+private:
+    const Icon * pData;
+
+public:
+
+    IconBufferProgMem(const Icon * pData) : pData(pData) {};
+
+    IconColor getColor() override {
+        return (IconColor)pgm_read_word_near(&(pData->color));
+    }
+    uint16_t getRow(uint8_t index) override {
+        return pgm_read_word_near(&(pData->bitmap[index]));
+    };
+};
 
 
 
