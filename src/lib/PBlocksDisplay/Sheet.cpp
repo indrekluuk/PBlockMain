@@ -17,16 +17,6 @@ Sheet::Sheet() :
 
 void Sheet::init(uint8_t index) {
   tabIndex = index;
-
-  uint8_t i = 0;
-  uint16_t w = (uint16_t)(Display->tft.width()-12) / SLOT_COL_COUNT;
-  for (uint16_t y=0; y<SLOT_ROW_COUNT; y++) {
-    for (uint16_t x=0; x<SLOT_COL_COUNT; x++) {
-      programSlots[i++].init(
-          w * x + SLOT_SPACING_H,
-          (uint16_t)6 + TAB_HEIGHT + SLOT_SPACING_V + y * (ProgramSlot::HEIGHT + SLOT_SPACING_V));
-    }
-  }
 }
 
 void Sheet::tap(uint16_t x, uint16_t y) {
@@ -112,11 +102,42 @@ void Sheet::drawSheet(bool redrawAll) {
     }
 
     if (redrawAll || isDrawnAsSelected != selected) {
-      for (ProgramSlot programSlot : programSlots) {
-        programSlot.draw();
+
+
+      uint8_t i = 0;
+      uint16_t w = (uint16_t)(Display->tft.width()-12) / SLOT_COL_COUNT;
+      for (uint16_t y=0; y<SLOT_ROW_COUNT; y++) {
+        for (uint16_t x=0; x<SLOT_COL_COUNT; x++) {
+          drawProgramSlot(
+              i++,
+              w * x + SLOT_SPACING_H,
+              (uint16_t)6 + TAB_HEIGHT + SLOT_SPACING_V + y * (SLOT_HEIGHT + SLOT_SPACING_V)
+          );
+        }
       }
     }
   }
 }
+
+
+
+void Sheet::drawProgramSlot(uint8_t index, uint16_t x, uint16_t y) {
+  bool empty = true;
+  TFT & tft = Display->tft;
+
+  if (empty) {
+    tft.drawRect(x, y, SLOT_WIDTH, SLOT_HEIGHT, COLOR_BLACK);
+  } else {
+    tft.setTextSize(1);
+    tft.setTextColor(COLOR_WHITE);
+    tft.drawRect(x, y, SLOT_WIDTH, SLOT_HEIGHT, COLOR_YELLOW);
+    tft.drawRect(x + 6, y + 4, 32, 32, COLOR_YELLOW);
+    tft.setCursor(x + 42, y + 18);
+    tft.print("M01");
+    tft.setCursor(x + 6, y + 46);
+    tft.print("1 sek");
+  }
+}
+
 
 
