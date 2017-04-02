@@ -12,6 +12,15 @@
 
 class MCUFRIEND_kbv {
 
+
+protected:
+    uint16_t
+        textcolor, textbgcolor;
+    uint8_t
+        textsize;
+    int16_t
+        cursor_x, cursor_y;
+
 public:
 
     void begin(int) {}
@@ -30,6 +39,7 @@ public:
     void drawFastHLine(int, int, int, int) {};
     void setCursor(int, int) {};
     void setTextColor(int) {};
+    void setTextColor(int, int) {};
     void setTextSize(int) {};
     void print(int) {};
     void print(const char *) {};

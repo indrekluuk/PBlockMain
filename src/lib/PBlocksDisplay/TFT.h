@@ -17,8 +17,15 @@ private:
     // _MW is private in MCUFRIEND_kbv.h
     uint16_t _MW = 0x2C;
 
+    int16_t textFillBoxX = 0;
+    int16_t textFillBoxY = 0;
+    uint8_t textFillBoxW = 0;
+    uint8_t textFillBoxH = 0;
+
 public:
     void drawIcon(uint16_t x, uint16_t y, IconBuffer & icon, IconColor iconColor, uint8_t w, uint8_t h, uint8_t scale);
+    void startTextFillBox(uint16_t x, uint16_t y, uint8_t w, uint8_t h, uint8_t cursorX, uint8_t cursorY);
+    void finishTextFillBox();
 
 private:
     void write8bitmap(

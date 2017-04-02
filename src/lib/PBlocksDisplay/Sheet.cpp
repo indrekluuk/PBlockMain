@@ -136,23 +136,25 @@ void Sheet::drawProgramSlot(uint8_t index, uint16_t x, uint16_t y) {
     tft.drawRect(x, y, SLOT_WIDTH, SLOT_HEIGHT, COLOR_BLACK);
     tft.fillRect(x + 1, y + 1, SLOT_WIDTH - 2, SLOT_HEIGHT - 2, COLOR_SHEET_BACKGROUND);
   } else {
-    IconBuffer & icon = node->getModule()->icon;
-
-    tft.fillRect(x + 1, y + 1, SLOT_WIDTH - 2, SLOT_HEIGHT - 2, COLOR_GRAY);
-
     tft.setTextSize(1);
-    tft.setTextColor(COLOR_BLACK);
+    tft.setTextColor(COLOR_BLACK, COLOR_GRAY);
     tft.drawRect(x, y, SLOT_WIDTH, SLOT_HEIGHT, COLOR_WHITE);
 
+    IconBuffer & icon = node->getModule()->icon;
     IconColor color = icon.getColor();
     color.setBackgroundColor(Palette::TEST);
+    //color.setBackgroundColor(Palette::WHITE);
     color.setNoBorder();
-    tft.drawIcon(x + 6, y + 4, icon, color, 32, 32, 2);
+    tft.drawIcon(x + 1, y + 1, icon, color, 38, 38, 2);
 
-    tft.setCursor(x + 44, y + 18);
+    tft.startTextFillBox(x + 39, y + 1, SLOT_WIDTH - 40, 38, 5, 15);
     tft.print("M01");
-    tft.setCursor(x + 6, y + 46);
+    tft.finishTextFillBox();
+
+    tft.startTextFillBox(x + 1, y + 39, SLOT_WIDTH - 2, SLOT_HEIGHT - 40, 5, 5);
     tft.print("1 sek");
+    tft.finishTextFillBox();
+
   }
 }
 

@@ -7,6 +7,45 @@
 
 
 
+
+
+void TFT::startTextFillBox(uint16_t x, uint16_t y, uint8_t w, uint8_t h, uint8_t cursorX, uint8_t cursorY) {
+  setCursor(x+cursorX, y+cursorY);
+
+  textFillBoxX = x;
+  textFillBoxY = y;
+  textFillBoxW = w;
+  textFillBoxH = h;
+
+  if (cursorY > 0) {
+    fillRect(x, y, w, cursorY, textbgcolor);
+  }
+  if (cursorX > 0) {
+    fillRect(x, cursor_y, cursorX, textsize * 8, textbgcolor);
+  }
+}
+
+
+void TFT::finishTextFillBox() {
+  int16_t boxX2 = textFillBoxX + textFillBoxW;
+  int16_t boxY2 = textFillBoxY + textFillBoxH;
+  uint8_t textHeight = textsize * (uint8_t)8;
+
+  if (cursor_x < boxX2) {
+    fillRect(cursor_x, cursor_y, boxX2 - cursor_x, textHeight, textbgcolor);
+  }
+  if (cursor_y < boxY2) {
+    int16_t y = cursor_y + textHeight;
+    fillRect(textFillBoxX, y, textFillBoxW, boxY2 - y, textbgcolor);
+  }
+}
+
+
+
+
+
+
+
 void TFT::drawIcon(uint16_t x, uint16_t y, IconBuffer & icon, IconColor iconColor, uint8_t w, uint8_t h, uint8_t scale) {
   setAddrWindow(x, y, x + w - 1, y + h - 1);
   CS_ACTIVE;
@@ -182,6 +221,13 @@ void TFT::writeColorN(RgbColor color, uint16_t n) {
     n--;
   }
 }
+
+
+
+
+
+
+
 
 
 
