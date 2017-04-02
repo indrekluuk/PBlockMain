@@ -5,7 +5,6 @@
 #include "Sheet.h"
 #include "PBlocksDisplay.h"
 #include <PBlocksProgram.h>
-#include "Arduino.h"
 
 
 
@@ -99,7 +98,7 @@ void Sheet::draw(bool redrawAll) {
     Display->tft.setTextSize(1);
     Display->tft.setTextColor(COLOR_WHITE, COLOR_BLACK);
     Display->tft.setCursor(10, 310);
-    Display->tft.print(millis()-m);
+    Display->tft.print((int32_t)(millis() - m));
     Display->tft.print("  ");
   }
 
@@ -110,12 +109,12 @@ void Sheet::draw(bool redrawAll) {
 void Sheet::updateCursor() {
   ProgramFunction * function = Program->getFunction(tabIndex);
   if (function) {
-    ProgramNode * node = function->getActiveNode();
-    if (node) {
+    if (function->getActiveNode()) {
+      uint8_t index = function->getActiveNodeIndex();
       drawCursor(
-          getSlotXByIndex(function->getActiveNodeIndex()),
-          getSlotYByIndex(function->getActiveNodeIndex()),
-          function->getActiveNodeIndex());
+          getSlotXByIndex(index),
+          getSlotYByIndex(index),
+          index);
     }
   }
 }
@@ -180,8 +179,9 @@ void Sheet::drawSheet(bool redrawAll) {
         for (uint8_t col=0; col<SLOT_COL_COUNT; col++) {
           uint16_t slotX = getSlotX(col);
           uint16_t slotY = getSlotY(row);
-          drawCursor(slotX, slotY, getSlotIndex(row, col));
-          drawProgramSlot(slotX, slotY, i++);
+          drawCursor(slotX, slotY, i);
+          drawProgramSlot(slotX, slotY, i);
+          i++;
         }
       }
     }
@@ -195,7 +195,7 @@ void Sheet::drawCursor(uint16_t slotX, uint16_t slotY, uint8_t index) {
 
   uint16_t color;
   if (function) {
-    color = index == function->getActiveNodeIndex() && (millis() & 0x200 ? true: false) ? COLOR_WHITE : COLOR_GRAY33;
+    color = (uint16_t)(index == function->getActiveNodeIndex() && ((millis() & 0x200) != 0) ? COLOR_WHITE : COLOR_GRAY33);
   } else {
     color = COLOR_GRAY50;
   }
@@ -257,13 +257,13 @@ void Sheet::drawProgramSlot(uint16_t x, uint16_t y, uint8_t index) {
     tft.drawFastHLine(x, y + SLOT_HEIGHT - 1, SLOT_WIDTH, bBottomColor);
     tft.drawFastVLine(x + SLOT_WIDTH - 1, y, SLOT_HEIGHT, bBottomColor);
 
-    tft.drawIcon(x + 1, y + 1, icon, color, 38, 38, 2);
+    tft.drawIcon(x + (uint16_t)1, y + (uint16_t)1, icon, color, 38, 38, 2);
 
-    tft.startTextFillBox(x + 39, y + 1, SLOT_WIDTH - 40, 38, 5, 15);
+    tft.startTextFillBox(x + (uint16_t)39, y + (uint16_t)1, SLOT_WIDTH - 40, 38, 5, 15);
     tft.print("M01");
     tft.finishTextFillBox();
 
-    tft.startTextFillBox(x + 1, y + 39, SLOT_WIDTH - 2, SLOT_HEIGHT - 40, 5, 5);
+    tft.startTextFillBox(x + (uint16_t)1, y + (uint16_t)39, SLOT_WIDTH - 2, SLOT_HEIGHT - 40, 5, 5);
     tft.print("1 sek aaaa");
     tft.finishTextFillBox();
 
