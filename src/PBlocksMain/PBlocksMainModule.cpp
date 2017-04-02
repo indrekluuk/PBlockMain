@@ -11,7 +11,7 @@ void PBlocksMainModule::init() {
 
   program.functions[0].nodes[0].setModule(0);
   program.functions[0].nodes[1].setModule(0);
-  program.functions[0].nodes[3].setModule(0);
+  program.functions[0].nodes[2].setModule(0);
   program.functions[2].nodes[0].setModule(0);
 
   for (uint8_t i = 0; i<18; i++) {
@@ -30,4 +30,5 @@ void PBlocksMainModule::init() {
 
 void PBlocksMainModule::start() {
   display.touchHandler.check();
+  display.updateCursor(millis() & 0x200 ? true: false);
 }

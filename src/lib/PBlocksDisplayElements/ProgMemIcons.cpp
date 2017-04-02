@@ -9,7 +9,7 @@
 
 
 const PROGMEM IconBufferProgMem::Icon ICON_PERSON = {
-    IconColor(Palette::PLAY_BUTTON, Palette::TEST, Palette::BLACK, false, false),
+    IconColor(Palette::DARK_GREEN, Palette::GRAY50, Palette::BLACK, false, false),
     {
         (uint16_t) 0b0000111110000000,
         (uint16_t) 0b0001100001100000,
@@ -33,7 +33,7 @@ const PROGMEM IconBufferProgMem::Icon ICON_PERSON = {
 
 
 const PROGMEM IconBufferProgMem::Icon ICON_PLAY = {
-    IconColor(Palette::PLAY_BUTTON, Palette::SHEET_BACKGROUND, Palette::BLACK, true, false),
+    IconColor(Palette::DARK_GREEN, Palette::GRAY50, Palette::BLACK, true, false),
     {
         (uint16_t) 0b1100000000000000,
         (uint16_t) 0b1111000000000000,
@@ -58,7 +58,7 @@ const PROGMEM IconBufferProgMem::Icon ICON_PLAY = {
 
 
 const PROGMEM IconBufferProgMem::Icon ICON_MODULES = {
-    IconColor(Palette::WHITE, Palette::SHEET_BACKGROUND, Palette::BLACK, false, false),
+    IconColor(Palette::WHITE, Palette::GRAY50, Palette::BLACK, false, false),
     {
         (uint16_t) 0b0000001111000000,
         (uint16_t) 0b0000001111000000,

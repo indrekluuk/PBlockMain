@@ -41,6 +41,7 @@ public:
     void fillRect(int, int, int, int, int) {};
     void drawRect(int, int, int, int, int) {};
     void drawFastHLine(int, int, int, int) {};
+    void drawFastVLine(int, int, int, int) {};
     void setCursor(int, int) {};
     void setTextColor(int) {};
     void setTextColor(int, int) {};

@@ -20,7 +20,6 @@ class PBlocksDisplay {
     IconBufferProgMem modulesIcon = IconBufferProgMem(&ICON_MODULES);
     Sheet sheets[SHEET_COUNT];
 
-
 public:
     PBlocksDisplay();
 
@@ -29,6 +28,7 @@ public:
 
     void draw(bool redrawAll);
     void updateSheets(bool redrawAll);
+    void updateCursor(bool isActive);
 
     TFT tft;
     TouchHandler touchHandler;

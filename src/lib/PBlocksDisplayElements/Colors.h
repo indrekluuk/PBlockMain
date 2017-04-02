@@ -7,25 +7,20 @@
 
 
 
-#define COLOR_BLACK   0x0000
-#define COLOR_BLUE    0x001F
-#define COLOR_RED     0xF800
-#define COLOR_GREEN   0x0600
-#define COLOR_CYAN    0x07FF
-#define COLOR_MAGENTA 0xF81F
-#define COLOR_YELLOW  0xFFE0
-#define COLOR_WHITE   0xFFFF
+#define COLOR_WHITE       0xFFFF
+#define COLOR_GRAY85      0xDEDB
+#define COLOR_GRAY66      0xAD55
+#define COLOR_GRAY50      0x7BEF
+#define COLOR_GRAY33      0x52AA
+#define COLOR_BLACK       0x0000
 
-#define COLOR_GRAY    0x94B2
-
-
-
-#define COLOR_SHEET_INACTIVE    0x52AA
-#define COLOR_SHEET_BACKGROUND  0x7BEF
-#define COLOR_SHEET_BORDER      WHITE
-
-#define COLOR_PLAY_BUTTON       0X0300
-
+#define COLOR_BLUE        0x001F
+#define COLOR_RED         0xF800
+#define COLOR_GREEN       0x0600
+#define COLOR_DARK_GREEN  0X0300
+#define COLOR_CYAN        0x07FF
+#define COLOR_MAGENTA     0xF81F
+#define COLOR_YELLOW      0xFFE0
 
 
 
@@ -34,14 +29,14 @@
 enum Palette {
     BLACK = 0,
     WHITE = 1,
-    BLUE = 2,
-    GREEN = 3,
-    PLAY_BUTTON = 4,
-    SHEET_BACKGROUND = 5,
-    SHEET_INACTIVE = 6,
-    YELLOW = 7,
-
-    TEST = 10,
+    GRAY85 = 2,
+    GRAY66 = 3,
+    GRAY50 = 4,
+    GRAY33 = 5,
+    BLUE = 6,
+    GREEN = 7,
+    DARK_GREEN = 8,
+    YELLOW = 9,
 };
 
 
@@ -61,26 +56,29 @@ struct RgbColor {
         case Palette::WHITE:
           colorCode = COLOR_WHITE;
           break;
+        case Palette::GRAY85:
+          colorCode = COLOR_GRAY85;
+          break;
+        case Palette::GRAY66:
+          colorCode = COLOR_GRAY66;
+          break;
+        case Palette::GRAY50:
+          colorCode = COLOR_GRAY50;
+          break;
+        case Palette::GRAY33:
+          colorCode = COLOR_GRAY33;
+          break;
         case Palette::BLUE:
           colorCode = COLOR_BLUE;
           break;
         case Palette::GREEN:
           colorCode = COLOR_GREEN;
           break;
+        case Palette::DARK_GREEN:
+          colorCode = COLOR_DARK_GREEN;
+          break;
         case Palette::YELLOW:
           colorCode = COLOR_YELLOW;
-          break;
-        case Palette::PLAY_BUTTON:
-          colorCode = COLOR_PLAY_BUTTON;
-          break;
-        case Palette::SHEET_BACKGROUND:
-          colorCode = COLOR_SHEET_BACKGROUND;
-          break;
-        case Palette::SHEET_INACTIVE:
-          colorCode = COLOR_SHEET_INACTIVE;
-          break;
-        case Palette::TEST:
-          colorCode = COLOR_GRAY;
           break;
       }
     }
