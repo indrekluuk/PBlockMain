@@ -45,6 +45,7 @@ add_executable(runTests
         src/lib/PBlocksDisplay/Font.cpp
         src/lib/PBlocksDisplayElements/ProgMemIcons.cpp
         src/lib/PBlocksProgram/PBlocksProgram.cpp
+        src/lib/PBlocksProgram/ProgramFunction.cpp
         src/lib/PBlocksProgram/ProgramNode.cpp
 
 
