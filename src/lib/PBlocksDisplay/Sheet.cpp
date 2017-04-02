@@ -5,6 +5,7 @@
 #include "Sheet.h"
 #include "PBlocksDisplay.h"
 #include <PBlocksProgram.h>
+#include "Arduino.h"
 
 
 
@@ -98,7 +99,7 @@ void Sheet::draw(bool redrawAll) {
     Display->tft.setTextSize(1);
     Display->tft.setTextColor(COLOR_WHITE, COLOR_BLACK);
     Display->tft.setCursor(10, 310);
-    Display->tft.print((int32_t)(millis() - m));
+    Display->tft.print((uint16_t)(millis() - m));
     Display->tft.print("  ");
   }
 
