@@ -3,14 +3,12 @@
 //
 
 #include "TFT.h"
+#include "Font.h"
 #include "Arduino.h"
 
-#include "glcdfont.c"
 
 
 
-//extern const unsigned char font[];
-//extern const unsigned char font[];
 
 
 void TFT::startTextFillBox(uint16_t x, uint16_t y, uint8_t w, uint8_t h, uint8_t cursorX, uint8_t cursorY) {
@@ -55,7 +53,7 @@ size_t TFT::write(uint8_t c) {
 
     uint8_t glyph[5];
     for(int8_t i=0; i<5; i++ ) {
-      glyph[i] = pgm_read_byte(font+(c*5)+i);
+      glyph[i] = pgm_read_byte(fontBitmap+(c*5)+i);
     }
     RgbColor fgColor(textcolor);
     RgbColor bgColor(textbgcolor);
@@ -69,7 +67,6 @@ size_t TFT::write(uint8_t c) {
     for (uint8_t cRow = 0; cRow < 8; cRow++) {
       for (uint8_t s = 0; s < textsize; s++) {
         for (uint8_t cCol=0; cCol < 5; cCol++) {
-          //writeColorN(fgColor, textsize);
           writeColorN(glyph[cCol] & rowMask ? fgColor : bgColor, textsize);
         }
         writeColorN(bgColor, textsize);

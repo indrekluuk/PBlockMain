@@ -42,6 +42,7 @@ add_executable(runTests
         src/lib/PBlocksDisplay/PBlocksDisplay.cpp
         src/lib/PBlocksDisplay/Sheet.cpp
         src/lib/PBlocksDisplay/TFT.cpp
+        src/lib/PBlocksDisplay/Font.cpp
         src/lib/PBlocksDisplayElements/ProgMemIcons.cpp
         src/lib/PBlocksProgram/PBlocksProgram.cpp
         src/lib/PBlocksProgram/ProgramNode.cpp

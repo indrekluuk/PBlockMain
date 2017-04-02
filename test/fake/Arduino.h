@@ -56,7 +56,7 @@ void digitalWrite(int, int);
 int analogRead(int);
 int map(int, int, int, int, int);
 
-uint32_t millis() {return 0;};
+unsigned long millis();
 
 
 class FakeSerial {

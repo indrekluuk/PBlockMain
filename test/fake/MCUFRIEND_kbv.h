@@ -6,6 +6,9 @@
 #define PBLOCKMAIN_MCUFRIEND_KBV_H
 
 
+#include "stdint.h"
+
+
 #define CS_ACTIVE ;
 #define CD_DATA ;
 #define CS_IDLE ;
@@ -20,7 +23,7 @@ protected:
         textsize;
     int16_t
         cursor_x, cursor_y;
-    boolean
+    bool
         _cp437;
 public:
 
@@ -50,8 +53,6 @@ public:
 
 };
 
-
-extern static const unsigned char font[];
 
 
 #endif //PBLOCKMAIN_MCUFRIEND_KBV_H

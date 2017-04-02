@@ -41,6 +41,8 @@ int map(int, int, int, int, int) {
 }
 
 
-
+unsigned long millis() {
+  return 0;
+};
 
 
