@@ -16,6 +16,9 @@ void PBlocksMainModule::init() {
 
   for (uint8_t i = 0; i<18; i++) {
     program.functions[3].nodes[i].setModule(0);
+  }
+
+  for (uint8_t i = 0; i<14; i++) {
     program.functions[4].nodes[i].setModule(1);
   }
 

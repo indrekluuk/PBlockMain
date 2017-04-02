@@ -3,10 +3,14 @@
 //
 
 #include "TFT.h"
+#include "Arduino.h"
+
+#include "glcdfont.c"
 
 
 
-
+//extern const unsigned char font[];
+//extern const unsigned char font[];
 
 
 void TFT::startTextFillBox(uint16_t x, uint16_t y, uint8_t w, uint8_t h, uint8_t cursorX, uint8_t cursorY) {
@@ -42,6 +46,45 @@ void TFT::finishTextFillBox() {
 
 
 
+size_t TFT::write(uint8_t c) {
+  if(c == '\n') {
+  } else if(c == '\r') {
+  } else {
+
+    if(!_cp437 && (c >= 176)) c++; // Handle 'classic' charset behavior
+
+    uint8_t glyph[5];
+    for(int8_t i=0; i<5; i++ ) {
+      glyph[i] = pgm_read_byte(font+(c*5)+i);
+    }
+    RgbColor fgColor(textcolor);
+    RgbColor bgColor(textbgcolor);
+
+    setAddrWindow(cursor_x, cursor_y, cursor_x + (6 * textsize)-1, cursor_y + (8 * textsize)-1);
+    CS_ACTIVE;
+    WriteCmd(_MW);
+    CD_DATA;
+
+    uint8_t rowMask = 0x1;
+    for (uint8_t cRow = 0; cRow < 8; cRow++) {
+      for (uint8_t s = 0; s < textsize; s++) {
+        for (uint8_t cCol=0; cCol < 5; cCol++) {
+          //writeColorN(fgColor, textsize);
+          writeColorN(glyph[cCol] & rowMask ? fgColor : bgColor, textsize);
+        }
+        writeColorN(bgColor, textsize);
+      }
+      rowMask <<= 1;
+    }
+
+    CS_IDLE;
+
+    cursor_x += textsize * 6;
+  }
+  return 1;
+}
+
+
 
 
 
@@ -50,11 +93,10 @@ void TFT::drawIcon(uint16_t x, uint16_t y, IconBuffer & icon, IconColor iconColo
   setAddrWindow(x, y, x + w - 1, y + h - 1);
   CS_ACTIVE;
   WriteCmd(_MW);
+  CD_DATA;
 
   RgbColor fgColor = iconColor.getForegroundColor();
   RgbColor bgColor = iconColor.getBackgroundColor();
-
-  CD_DATA;
 
   uint8_t bitmapW = icon.BITMAP_WIDTH*scale;
   uint8_t bitmapH = icon.BITMAP_HEIGHT*scale;

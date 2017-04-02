@@ -22,11 +22,11 @@ class Sheet : public Touchable {
     static const uint8_t SLOT_COL_COUNT = 6;
     static const uint8_t SLOT_ROW_COUNT = 3;
 
-    static const uint16_t SLOT_SPACING_V = 6;
-    static const uint16_t SLOT_SPACING_H = 12;
+    static const uint16_t SLOT_SPACING = 6;
     static const uint8_t SLOT_WIDTH = 68;
     static const uint8_t SLOT_HEIGHT = 60;
-    static const uint16_t SHEET_HEIGHT = SLOT_ROW_COUNT * (SLOT_HEIGHT + SLOT_SPACING_V) + SLOT_SPACING_V + 6;
+    static uint16_t slotAreaWidth;
+    static const uint16_t SHEET_HEIGHT = SLOT_ROW_COUNT * (SLOT_HEIGHT + SLOT_SPACING) + SLOT_SPACING * 2;
 
 
     uint8_t tabIndex : 4;
@@ -53,9 +53,12 @@ private:
     void drawTabLabel(uint16_t x, uint8_t w, uint8_t h);
 
     void drawSheet(bool redrawAll);
-    void drawProgramSlot(uint8_t index, uint16_t x, uint16_t y);
+    void drawEmptySlot(uint16_t x, uint16_t y);
+    void drawProgramSlot(uint16_t x, uint16_t y, uint8_t index);
 
     uint16_t getTabX();
+    uint16_t getSlotX(uint8_t col);
+    uint16_t getSlotY(uint8_t row);
 
 };
 

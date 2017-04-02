@@ -35,6 +35,7 @@ include_directories(${gtest_SOURCE_DIR}/include)
 
 add_executable(runTests
         test/fake/Arduino.cpp
+        test/fake/MCUFRIEND_kbv.cpp
         test/fake/avr/pgmspace.cpp
 
         src/lib/PBlocksDisplay/TouchHandler.cpp

@@ -27,6 +27,9 @@ public:
     void startTextFillBox(uint16_t x, uint16_t y, uint8_t w, uint8_t h, uint8_t cursorX, uint8_t cursorY);
     void finishTextFillBox();
 
+    // Adafruit's "write" is terribly slow
+    size_t write(uint8_t c) override;
+
 private:
     void write8bitmap(
         RgbColor color,

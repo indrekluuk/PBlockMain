@@ -20,7 +20,8 @@ protected:
         textsize;
     int16_t
         cursor_x, cursor_y;
-
+    boolean
+        _cp437;
 public:
 
     void begin(int) {}
@@ -45,8 +46,12 @@ public:
     void print(const char *) {};
     void write8(int) {};
 
+    virtual size_t write(uint8_t) {};
 
 };
+
+
+extern static const unsigned char font[];
 
 
 #endif //PBLOCKMAIN_MCUFRIEND_KBV_H
