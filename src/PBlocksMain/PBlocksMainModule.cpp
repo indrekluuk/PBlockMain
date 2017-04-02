@@ -32,5 +32,5 @@ void PBlocksMainModule::init() {
 
 void PBlocksMainModule::start() {
   display.touchHandler.check();
-  display.updateCursor(millis() & 0x200 ? true: false);
+  display.updateCursor();
 }

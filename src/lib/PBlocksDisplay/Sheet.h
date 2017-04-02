@@ -46,7 +46,7 @@ public:
     bool isSelected();
 
     void draw(bool redrawAll);
-    void updateCursor(bool isActive);
+    void updateCursor();
 
 private:
 
@@ -57,12 +57,13 @@ private:
     void drawTabLabel(uint16_t x, uint8_t w, uint8_t h);
 
     void drawSheet(bool redrawAll);
-    void drawCursorSpaces(uint16_t slotX, uint16_t slotY, bool active);
+    void drawCursor(uint16_t slotX, uint16_t slotY, uint8_t index);
     void drawEmptySlot(uint16_t x, uint16_t y);
     void drawProgramSlot(uint16_t x, uint16_t y, uint8_t index);
 
     uint16_t getTabX();
 
+    uint8_t getSlotIndex(uint8_t col, uint8_t row);
     uint16_t getSlotXByIndex(uint8_t index);
     uint16_t getSlotYByIndex(uint8_t index);
     uint16_t getSlotX(uint8_t col);

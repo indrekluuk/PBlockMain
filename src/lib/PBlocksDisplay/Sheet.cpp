@@ -40,7 +40,7 @@ void Sheet::tap(uint16_t x, uint16_t y) {
         for (uint8_t col=0; col<SLOT_COL_COUNT; col++) {
           uint16_t slotX = getSlotX(col);
           if (isTapBetween(x, slotX, slotX + SLOT_WIDTH)) {
-            setActiveNode(slotX, slotY, row * SLOT_COL_COUNT + col);
+            setActiveNode(slotX, slotY, getSlotIndex(row, col));
           }
         }
       }
@@ -54,9 +54,11 @@ void Sheet::setActiveNode(uint16_t x, uint16_t y, uint8_t selectedNodeIndex) {
 
   if (function) {
     uint8_t currentActiveNodeIndex = function->getActiveNodeIndex();
+    function->setActiveNode(selectedNodeIndex);
+    selectedNodeIndex = function->getActiveNodeIndex();
 
     if (currentActiveNodeIndex != selectedNodeIndex) {
-      function->setActiveNode(selectedNodeIndex);
+
 
       if (function->getNode(currentActiveNodeIndex)) {
         uint16_t currentSlotX = getSlotXByIndex(currentActiveNodeIndex);
@@ -65,7 +67,7 @@ void Sheet::setActiveNode(uint16_t x, uint16_t y, uint8_t selectedNodeIndex) {
             currentSlotX,
             currentSlotY,
             currentActiveNodeIndex);
-        drawCursorSpaces(currentSlotX, currentSlotY, false);
+        drawCursor(currentSlotX, currentSlotY, currentSlotX);
       }
 
       function->setActiveNode(selectedNodeIndex);
@@ -106,15 +108,15 @@ void Sheet::draw(bool redrawAll) {
 }
 
 
-void Sheet::updateCursor(bool isActive) {
+void Sheet::updateCursor() {
   ProgramFunction * function = Program->getFunction(tabIndex);
   if (function) {
     ProgramNode * node = function->getActiveNode();
     if (node) {
-      drawCursorSpaces(
+      drawCursor(
           getSlotXByIndex(function->getActiveNodeIndex()),
           getSlotYByIndex(function->getActiveNodeIndex()),
-          isActive);
+          function->getActiveNodeIndex());
     }
   }
 }
@@ -179,7 +181,7 @@ void Sheet::drawSheet(bool redrawAll) {
         for (uint8_t col=0; col<SLOT_COL_COUNT; col++) {
           uint16_t slotX = getSlotX(col);
           uint16_t slotY = getSlotY(row);
-          drawCursorSpaces(slotX, slotY, false);
+          drawCursor(slotX, slotY, getSlotIndex(row, col));
           drawProgramSlot(slotX, slotY, i++);
         }
       }
@@ -188,13 +190,13 @@ void Sheet::drawSheet(bool redrawAll) {
 }
 
 
-void Sheet::drawCursorSpaces(uint16_t slotX, uint16_t slotY, bool active) {
+void Sheet::drawCursor(uint16_t slotX, uint16_t slotY, uint8_t index) {
   TFT & tft = Display->tft;
-  bool isVisible = Program->getFunction(tabIndex) != nullptr;
+  ProgramFunction * function = Program->getFunction(tabIndex);
 
   uint16_t color;
-  if (isVisible) {
-    color = active ? COLOR_WHITE : COLOR_GRAY33;
+  if (function) {
+    color = index == function->getActiveNodeIndex() && (millis() & 0x200 ? true: false) ? COLOR_WHITE : COLOR_GRAY33;
   } else {
     color = COLOR_GRAY50;
   }
@@ -276,6 +278,10 @@ void Sheet::drawProgramSlot(uint16_t x, uint16_t y, uint8_t index) {
 
 uint16_t Sheet::getTabX() {
   return tabIndex*TAB_WIDTH;
+}
+
+uint8_t Sheet::getSlotIndex(uint8_t row, uint8_t col) {
+  return row * SLOT_COL_COUNT + col;
 }
 
 uint16_t Sheet::getSlotXByIndex(uint8_t index) {

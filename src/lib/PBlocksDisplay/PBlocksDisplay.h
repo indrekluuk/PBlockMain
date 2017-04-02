@@ -28,7 +28,7 @@ public:
 
     void draw(bool redrawAll);
     void updateSheets(bool redrawAll);
-    void updateCursor(bool isActive);
+    void updateCursor();
 
     TFT tft;
     TouchHandler touchHandler;

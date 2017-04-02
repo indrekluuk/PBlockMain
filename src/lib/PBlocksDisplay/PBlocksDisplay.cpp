@@ -66,10 +66,10 @@ void PBlocksDisplay::updateSheets(bool redrawAll) {
 }
 
 
-void PBlocksDisplay::updateCursor(bool isActive) {
+void PBlocksDisplay::updateCursor() {
   for (uint8_t i=0; i<SHEET_COUNT; i++) {
     if (sheets[i].isSelected()) {
-      sheets[i].updateCursor(isActive);
+      sheets[i].updateCursor();
     }
   }
 }
