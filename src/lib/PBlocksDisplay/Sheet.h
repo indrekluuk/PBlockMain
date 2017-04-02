@@ -50,6 +50,8 @@ public:
 
 private:
 
+    void setActiveNode(uint16_t x, uint16_t y, uint8_t index);
+
     void drawTab(bool redrawAll);
     void drawTabIcon(uint16_t x, uint8_t w, uint8_t h);
     void drawTabLabel(uint16_t x, uint8_t w, uint8_t h);
@@ -60,6 +62,9 @@ private:
     void drawProgramSlot(uint16_t x, uint16_t y, uint8_t index);
 
     uint16_t getTabX();
+
+    uint16_t getSlotXByIndex(uint8_t index);
+    uint16_t getSlotYByIndex(uint8_t index);
     uint16_t getSlotX(uint8_t col);
     uint16_t getSlotY(uint8_t row);
 

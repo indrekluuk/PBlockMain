@@ -26,9 +26,54 @@ void Sheet::init(uint8_t index) {
 }
 
 void Sheet::tap(uint16_t x, uint16_t y) {
-  uint16_t tabX = getTabX();
-  if (isTapIn(x, tabX, TAB_WIDTH) && isTapIn(y, 0, TAB_HEIGHT)) {
-    Display->setActiveTab(tabIndex);
+
+  if (y < TAB_HEIGHT) {
+    uint16_t tabX = getTabX();
+    if (isTapIn(x, tabX, TAB_WIDTH) && isTapIn(y, 0, TAB_HEIGHT)) {
+      Display->setActiveTab(tabIndex);
+    }
+
+  } else if (selected) {
+    for (uint8_t row=0; row<SLOT_ROW_COUNT; row++) {
+      uint16_t slotY = getSlotY(row);
+      if (isTapBetween(y, slotY, slotY + SLOT_HEIGHT)) {
+        for (uint8_t col=0; col<SLOT_COL_COUNT; col++) {
+          uint16_t slotX = getSlotX(col);
+          if (isTapBetween(x, slotX, slotX + SLOT_WIDTH)) {
+            setActiveNode(slotX, slotY, row * SLOT_COL_COUNT + col);
+          }
+        }
+      }
+    }
+  }
+}
+
+
+void Sheet::setActiveNode(uint16_t x, uint16_t y, uint8_t selectedNodeIndex) {
+  ProgramFunction * function = Program->getFunction(tabIndex);
+
+  if (function) {
+    uint8_t currentActiveNodeIndex = function->getActiveNodeIndex();
+
+    if (currentActiveNodeIndex != selectedNodeIndex) {
+      function->setActiveNode(selectedNodeIndex);
+
+      if (function->getNode(currentActiveNodeIndex)) {
+        uint16_t currentSlotX = getSlotXByIndex(currentActiveNodeIndex);
+        uint16_t currentSlotY = getSlotYByIndex(currentActiveNodeIndex);
+        drawProgramSlot(
+            currentSlotX,
+            currentSlotY,
+            currentActiveNodeIndex);
+        drawCursorSpaces(currentSlotX, currentSlotY, false);
+      }
+
+      function->setActiveNode(selectedNodeIndex);
+      drawProgramSlot(
+          x,
+          y,
+          selectedNodeIndex);
+    }
   }
 }
 
@@ -62,7 +107,16 @@ void Sheet::draw(bool redrawAll) {
 
 
 void Sheet::updateCursor(bool isActive) {
-  drawCursorSpaces(getSlotX(0), getSlotY(0), isActive);
+  ProgramFunction * function = Program->getFunction(tabIndex);
+  if (function) {
+    ProgramNode * node = function->getActiveNode();
+    if (node) {
+      drawCursorSpaces(
+          getSlotXByIndex(function->getActiveNodeIndex()),
+          getSlotYByIndex(function->getActiveNodeIndex()),
+          isActive);
+    }
+  }
 }
 
 
@@ -136,7 +190,7 @@ void Sheet::drawSheet(bool redrawAll) {
 
 void Sheet::drawCursorSpaces(uint16_t slotX, uint16_t slotY, bool active) {
   TFT & tft = Display->tft;
-  bool isVisible = tabIndex < Program->FUNCTION_COUNT;
+  bool isVisible = Program->getFunction(tabIndex) != nullptr;
 
   uint16_t color;
   if (isVisible) {
@@ -147,16 +201,16 @@ void Sheet::drawCursorSpaces(uint16_t slotX, uint16_t slotY, bool active) {
 
   tft.fillRect(
       slotX - 7,
-      slotY,
+      slotY + 1,
       4,
-      SLOT_HEIGHT,
+      SLOT_HEIGHT - 2,
       color);
 }
 
 
 void Sheet::drawEmptySlot(uint16_t x, uint16_t y) {
   TFT & tft = Display->tft;
-  tft.drawRect(x, y, SLOT_WIDTH, SLOT_HEIGHT, COLOR_BLACK);
+  tft.drawRect(x, y, SLOT_WIDTH, SLOT_HEIGHT, COLOR_GRAY33);
   tft.fillRect(x + 1, y + 1, SLOT_WIDTH - 2, SLOT_HEIGHT - 2, COLOR_GRAY50);
 }
 
@@ -164,34 +218,44 @@ void Sheet::drawEmptySlot(uint16_t x, uint16_t y) {
 void Sheet::drawProgramSlot(uint16_t x, uint16_t y, uint8_t index) {
   TFT & tft = Display->tft;
 
+  ProgramFunction * function = Program->getFunction(tabIndex);
   ProgramNode * node = nullptr;
-
-  if (tabIndex < Program->FUNCTION_COUNT) {
-    ProgramFunction & function = Program->functions[tabIndex];
-    if (index < function.NODE_COUNT) {
-      node = &function.nodes[index];
-    }
+  if (function) {
+    node = function->getNode(index);
   }
 
   if (node == nullptr || node->isEmpty()) {
     drawEmptySlot(x, y);
   } else {
-    uint16_t bgColor = index == 0 ? COLOR_GRAY85 : COLOR_GRAY66;
+    uint16_t bgColor;
+    uint16_t bTopColor;
+    uint16_t bBottomColor;
+
+    IconBuffer & icon = node->getModule()->icon;
+    IconColor color = icon.getColor();
+    color.setNoBorder();
+
+    if (function->getActiveNodeIndex() == index) {
+      bgColor = COLOR_GRAY85;
+      bTopColor = COLOR_WHITE;
+      bBottomColor = COLOR_GRAY33;
+      color.setBackgroundColor(Palette::GRAY85);
+    } else {
+      bgColor = COLOR_GRAY66;
+      bTopColor = COLOR_GRAY85;
+      bBottomColor = COLOR_BLACK;
+      color.setBackgroundColor(Palette::GRAY66);
+    }
 
     tft.setTextSize(1);
     tft.setTextColor(COLOR_BLACK, bgColor);
 
     //tft.drawRect(x, y, SLOT_WIDTH, SLOT_HEIGHT, COLOR_WHITE);
-    tft.drawFastHLine(x, y, SLOT_WIDTH, index == 0 ? COLOR_WHITE : COLOR_GRAY85);
-    tft.drawFastHLine(x, y + SLOT_HEIGHT - 1, SLOT_WIDTH, index == 0 ? COLOR_GRAY33 : COLOR_BLACK);
-    tft.drawFastVLine(x, y, SLOT_HEIGHT, index == 0 ? COLOR_WHITE : COLOR_GRAY85);
-    tft.drawFastVLine(x + SLOT_WIDTH - 1, y, SLOT_HEIGHT, index == 0 ? COLOR_GRAY33 : COLOR_BLACK);
+    tft.drawFastHLine(x, y, SLOT_WIDTH, bTopColor);
+    tft.drawFastVLine(x, y, SLOT_HEIGHT, bTopColor);
+    tft.drawFastHLine(x, y + SLOT_HEIGHT - 1, SLOT_WIDTH, bBottomColor);
+    tft.drawFastVLine(x + SLOT_WIDTH - 1, y, SLOT_HEIGHT, bBottomColor);
 
-    IconBuffer & icon = node->getModule()->icon;
-    IconColor color = icon.getColor();
-    color.setBackgroundColor(Palette::GRAY66);
-    if (index == 0) color.setBackgroundColor(Palette::GRAY85);
-    color.setNoBorder();
     tft.drawIcon(x + 1, y + 1, icon, color, 38, 38, 2);
 
     tft.startTextFillBox(x + 39, y + 1, SLOT_WIDTH - 40, 38, 5, 15);
@@ -212,6 +276,14 @@ void Sheet::drawProgramSlot(uint16_t x, uint16_t y, uint8_t index) {
 
 uint16_t Sheet::getTabX() {
   return tabIndex*TAB_WIDTH;
+}
+
+uint16_t Sheet::getSlotXByIndex(uint8_t index) {
+  return getSlotX(index % SLOT_COL_COUNT);
+}
+
+uint16_t Sheet::getSlotYByIndex(uint8_t index) {
+  return getSlotY(index / SLOT_COL_COUNT);
 }
 
 uint16_t Sheet::getSlotX(uint8_t col) {

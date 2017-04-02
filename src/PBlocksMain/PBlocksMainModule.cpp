@@ -9,17 +9,19 @@
 void PBlocksMainModule::init() {
   display.init();
 
-  program.functions[0].nodes[0].setModule(0);
-  program.functions[0].nodes[1].setModule(0);
-  program.functions[0].nodes[2].setModule(0);
-  program.functions[2].nodes[0].setModule(0);
+  program.getFunction(0)->getNode(0)->setModule(0);
+  program.getFunction(0)->getNode(1)->setModule(0);
+  program.getFunction(0)->getNode(2)->setModule(0);
+  program.getFunction(0)->activateLast();
+
+  program.getFunction(2)->getNode(0)->setModule(0);
 
   for (uint8_t i = 0; i<18; i++) {
-    program.functions[3].nodes[i].setModule(0);
+    program.getFunction(3)->getNode(i)->setModule(0);
   }
 
   for (uint8_t i = 0; i<14; i++) {
-    program.functions[4].nodes[i].setModule(1);
+    program.getFunction(4)->getNode(i)->setModule(1);
   }
 
   display.draw(true);

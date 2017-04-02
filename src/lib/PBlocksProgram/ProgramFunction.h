@@ -12,12 +12,22 @@
 
 class ProgramFunction {
 
-
-public:
     static const uint8_t NODE_COUNT = 18;
-
     ProgramNode nodes[NODE_COUNT];
 
+    uint8_t activeNodeIndex;
+
+public:
+
+    ProgramFunction();
+
+    ProgramNode * getNode(uint8_t index);
+
+    void setActiveNode(uint8_t index);
+    void activateLast();
+
+    uint8_t getActiveNodeIndex();
+    ProgramNode * getActiveNode();
 
 };
 

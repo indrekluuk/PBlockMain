@@ -14,7 +14,9 @@ PBlocksProgram::PBlocksProgram() {
   Program = this;
 }
 
-
+ProgramFunction * PBlocksProgram::getFunction(uint8_t index) {
+  return index < FUNCTION_COUNT ? &functions[index] : nullptr;
+}
 
 
 

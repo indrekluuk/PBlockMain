@@ -16,18 +16,16 @@ class PBlocksProgram {
     IconBufferProgMem icon1 = IconBufferProgMem(&ICON_PERSON);
     IconBufferProgMem icon2 = IconBufferProgMem(&ICON_PLAY);
 
+    static const uint8_t FUNCTION_COUNT = 5;
+    ProgramFunction functions[FUNCTION_COUNT];
+
 public:
     static const uint8_t MODULE_NONE = 0xF;
-
-    static const uint8_t FUNCTION_COUNT = 5;
     Module modules[2] = {Module(icon1), Module(icon2)};
-
-    ProgramFunction functions[FUNCTION_COUNT];
 
 
     PBlocksProgram();
-
-
+    ProgramFunction * getFunction(uint8_t index);
 
 };
 
