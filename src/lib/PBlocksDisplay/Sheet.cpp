@@ -59,7 +59,6 @@ void Sheet::setActiveNode(uint16_t x, uint16_t y, uint8_t selectedNodeIndex) {
 
     if (currentActiveNodeIndex != selectedNodeIndex) {
 
-
       if (function->getNode(currentActiveNodeIndex)) {
         uint16_t currentSlotX = getSlotXByIndex(currentActiveNodeIndex);
         uint16_t currentSlotY = getSlotYByIndex(currentActiveNodeIndex);
@@ -67,7 +66,7 @@ void Sheet::setActiveNode(uint16_t x, uint16_t y, uint8_t selectedNodeIndex) {
             currentSlotX,
             currentSlotY,
             currentActiveNodeIndex);
-        drawCursor(currentSlotX, currentSlotY, currentSlotX);
+        drawCursor(currentSlotX, currentSlotY, currentActiveNodeIndex);
       }
 
       function->setActiveNode(selectedNodeIndex);

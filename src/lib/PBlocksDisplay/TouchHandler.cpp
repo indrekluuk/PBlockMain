@@ -63,6 +63,8 @@ uint8_t TouchHandler::getRegionCount() {
 }
 
 
+#define TOUCH_Z_THRESHOLD 200
+
 #define TOUCH_LEFT 950
 #define TOUCH_RIGHT 139
 #define TOUCH_TOP 123
@@ -72,7 +74,7 @@ uint8_t TouchHandler::getRegionCount() {
 
 void TouchHandler::check() {
   readResistiveTouch();
-  if (tp.z > 100) {
+  if (tp.z > TOUCH_Z_THRESHOLD) {
     TFT & tft = Display->tft;
 
     uint16_t x = (uint16_t)map(tp.y, TOUCH_LEFT, TOUCH_RIGHT, 0, tft.width());
@@ -89,7 +91,17 @@ void TouchHandler::check() {
 
 
 void TouchHandler::readResistiveTouch() {
+  uint8_t cnt = 0;
   tp = touchScreen.getPoint();
+  while (tp.z > TOUCH_Z_THRESHOLD) {
+    delay(5);
+    tp = touchScreen.getPoint();
+    cnt++;
+    if (cnt > 3) {
+      break;
+    }
+  }
+
   pinMode(YP, OUTPUT);      //restore shared pins
   pinMode(XM, OUTPUT);
   digitalWrite(YP, HIGH);   //because TFT control pins
