@@ -18,18 +18,19 @@ ProgramNode * ProgramFunction::getNode(uint8_t index) {
   return index < NODE_COUNT ? &nodes[index] : nullptr;
 }
 
-void ProgramFunction::setActiveNode(uint8_t index) {
+uint8_t ProgramFunction::setActiveNode(uint8_t index) {
   if (index >= NODE_COUNT || nodes[index].isEmpty()) {
     for (uint8_t i=0; i<NODE_COUNT; i++) {
       if (nodes[i].isEmpty()) {
         activeNodeIndex = i;
-        return;
+        return i;
       }
     }
     activeNodeIndex = NODE_COUNT;
   } else {
     activeNodeIndex = index;
   }
+  return activeNodeIndex;
 }
 
 void ProgramFunction::activateLast() {

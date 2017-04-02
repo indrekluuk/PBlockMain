@@ -23,7 +23,7 @@ public:
 
     ProgramNode * getNode(uint8_t index);
 
-    void setActiveNode(uint8_t index);
+    uint8_t setActiveNode(uint8_t index);
     void activateLast();
 
     uint8_t getActiveNodeIndex();

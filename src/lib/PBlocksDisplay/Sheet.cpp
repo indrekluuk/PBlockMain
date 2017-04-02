@@ -53,20 +53,19 @@ void Sheet::setActiveNode(uint16_t x, uint16_t y, uint8_t selectedNodeIndex) {
   ProgramFunction * function = Program->getFunction(tabIndex);
 
   if (function) {
-    uint8_t currentActiveNodeIndex = function->getActiveNodeIndex();
-    function->setActiveNode(selectedNodeIndex);
-    selectedNodeIndex = function->getActiveNodeIndex();
+    uint8_t currentNodeIndex = function->getActiveNodeIndex();
+    selectedNodeIndex = function->setActiveNode(selectedNodeIndex);
 
-    if (currentActiveNodeIndex != selectedNodeIndex) {
+    if (currentNodeIndex != selectedNodeIndex) {
 
-      if (function->getNode(currentActiveNodeIndex)) {
-        uint16_t currentSlotX = getSlotXByIndex(currentActiveNodeIndex);
-        uint16_t currentSlotY = getSlotYByIndex(currentActiveNodeIndex);
+      if (function->getNode(currentNodeIndex)) {
+        uint16_t currentSlotX = getSlotXByIndex(currentNodeIndex);
+        uint16_t currentSlotY = getSlotYByIndex(currentNodeIndex);
         drawProgramSlot(
             currentSlotX,
             currentSlotY,
-            currentActiveNodeIndex);
-        drawCursor(currentSlotX, currentSlotY, currentActiveNodeIndex);
+            currentNodeIndex);
+        drawCursor(currentSlotX, currentSlotY, currentNodeIndex);
       }
 
       function->setActiveNode(selectedNodeIndex);
@@ -95,6 +94,7 @@ void Sheet::draw(bool redrawAll) {
   drawTab(redrawAll);
   drawSheet(redrawAll);
 
+  // render time
   if (selected && isDrawnAsSelected != selected) {
     Display->tft.setTextSize(1);
     Display->tft.setTextColor(COLOR_WHITE, COLOR_BLACK);
