@@ -3,7 +3,7 @@
 //
 
 #include "Sheet.h"
-#include "PBlocksDisplay.h"
+#include "PBlocksUserInterface.h"
 #include "../program/PBlocksProgram.h"
 #include "Arduino.h"
 
@@ -233,7 +233,7 @@ void Sheet::drawProgramSlot(uint16_t x, uint16_t y, uint8_t index) {
     uint16_t bTopColor;
     uint16_t bBottomColor;
 
-    IconBuffer & icon = node->getModule()->icon;
+    Icon & icon = node->getModule()->icon;
     IconColor color = icon.getColor();
     color.setNoBorder();
 

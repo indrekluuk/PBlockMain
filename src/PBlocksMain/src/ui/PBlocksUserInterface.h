@@ -2,18 +2,18 @@
 // Created by indrek on 25.03.2017.
 //
 
-#ifndef PBLOCKMAIN_PBLOCKSDISPLAY_H
-#define PBLOCKMAIN_PBLOCKSDISPLAY_H
+#ifndef PBLOCKMAIN_PBLOCKSUSER_INTERFACE_H
+#define PBLOCKMAIN_PBLOCKSUSER_INTERFACE_H
 
 
 #include "Sheet.h"
 #include "src/icons/ProgMemIcons.h"
-#include "src/icons/IconBuffer.h"
+#include "src/icons/Icon.h"
 #include "TouchHandler.h"
-#include "TFT.h"
+#include "src/screen/TFT.h"
 
 
-class PBlocksDisplay {
+class PBlocksUserInterface {
     static const uint16_t SHEET_COUNT = 6;
 
     IconBufferProgMem playIcon = IconBufferProgMem(&ICON_PLAY);
@@ -21,7 +21,7 @@ class PBlocksDisplay {
     Sheet sheets[SHEET_COUNT];
 
 public:
-    PBlocksDisplay();
+    PBlocksUserInterface();
 
     void init();
     void setActiveTab(uint16_t tabIndex);
@@ -35,6 +35,6 @@ public:
 };
 
 
-extern PBlocksDisplay * Display;
+extern PBlocksUserInterface * Display;
 
-#endif //PBLOCKMAIN_PBLOCKSDISPLAY_H
+#endif //PBLOCKMAIN_PBLOCKSUSER_INTERFACE_H

@@ -3,7 +3,7 @@
 //
 
 #include "TouchHandler.h"
-#include "PBlocksDisplay.h"
+#include "PBlocksUserInterface.h"
 
 
 Touchable * firstTouchable = nullptr;

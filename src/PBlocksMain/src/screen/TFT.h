@@ -8,7 +8,7 @@
 
 #include <MCUFRIEND_kbv.h>
 #include <utility/mcufriend_shield.h>
-#include "src/icons/IconBuffer.h"
+#include "src/icons/Icon.h"
 
 
 class TFT : public MCUFRIEND_kbv {
@@ -23,7 +23,7 @@ private:
     uint8_t textFillBoxH = 0;
 
 public:
-    void drawIcon(uint16_t x, uint16_t y, IconBuffer & icon, IconColor iconColor, uint8_t w, uint8_t h, uint8_t scale);
+    void drawIcon(uint16_t x, uint16_t y, Icon & icon, IconColor iconColor, uint8_t w, uint8_t h, uint8_t scale);
     void startTextFillBox(uint16_t x, uint16_t y, uint8_t w, uint8_t h, uint8_t cursorX, uint8_t cursorY);
     void finishTextFillBox();
 

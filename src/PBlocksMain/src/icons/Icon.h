@@ -2,19 +2,19 @@
 // Created by indrek on 26.03.2017.
 //
 
-#ifndef PBLOCKMAIN_ICONBUFFER_H
-#define PBLOCKMAIN_ICONBUFFER_H
+#ifndef PBLOCKMAIN_ICON_H
+#define PBLOCKMAIN_ICON_H
 
 
 #include <avr/pgmspace.h>
 #include <stdint.h>
-#include "src/display/Colors.h"
+#include "IconColor.h"
 
 
 
 
 
-class IconBuffer {
+class Icon {
 public:
     static const uint8_t BITMAP_WIDTH = 16;
     static const uint8_t BITMAP_HEIGHT = 16;
@@ -26,7 +26,7 @@ public:
 
 
 
-class IconBufferMem : public IconBuffer {
+class IconBufferMem : public Icon {
 public:
     IconColor color;
     uint16_t bitmap[BITMAP_HEIGHT];
@@ -37,19 +37,19 @@ public:
 
 
 
-class IconBufferProgMem : public IconBuffer {
+class IconBufferProgMem : public Icon {
 public:
-    struct Icon {
+    struct IconData {
         IconColor color;
         uint16_t bitmap[BITMAP_HEIGHT];
     };
 
 private:
-    const Icon * pData;
+    const IconData * pData;
 
 public:
 
-    IconBufferProgMem(const Icon * pData) : pData(pData) {};
+    IconBufferProgMem(const IconData * pData) : pData(pData) {};
 
     IconColor getColor() override {
         return (IconColor)pgm_read_word_near(&(pData->color));
@@ -62,4 +62,4 @@ public:
 
 
 
-#endif //PBLOCKMAIN_ICONBUFFER_H
+#endif //PBLOCKMAIN_ICON_H

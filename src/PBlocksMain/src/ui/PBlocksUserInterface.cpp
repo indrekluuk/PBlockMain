@@ -3,20 +3,20 @@
 //
 
 
-#include "PBlocksDisplay.h"
+#include "PBlocksUserInterface.h"
 
 
 
-PBlocksDisplay * Display;
+PBlocksUserInterface * Display;
 
 
 
-PBlocksDisplay::PBlocksDisplay() {
+PBlocksUserInterface::PBlocksUserInterface() {
   Display = this;
 }
 
 
-void PBlocksDisplay::init() {
+void PBlocksUserInterface::init() {
   tft.begin(0x9488);
   tft.setRotation(1);
   tft.fillScreen(COLOR_BLACK);
@@ -39,7 +39,7 @@ void PBlocksDisplay::init() {
 }
 
 
-void PBlocksDisplay::setActiveTab(uint16_t tabIndex) {
+void PBlocksUserInterface::setActiveTab(uint16_t tabIndex) {
   for (uint8_t i=0; i<SHEET_COUNT; i++) {
     sheets[i].setSelected(tabIndex == i);
   }
@@ -47,11 +47,11 @@ void PBlocksDisplay::setActiveTab(uint16_t tabIndex) {
 }
 
 
-void PBlocksDisplay::draw(bool redrawAll) {
+void PBlocksUserInterface::draw(bool redrawAll) {
   updateSheets(redrawAll);
 }
 
-void PBlocksDisplay::updateSheets(bool redrawAll) {
+void PBlocksUserInterface::updateSheets(bool redrawAll) {
   Sheet * selectedSheet = nullptr;
   for (uint8_t i=0; i<SHEET_COUNT; i++) {
     if (sheets[i].isSelected()) {
@@ -66,7 +66,7 @@ void PBlocksDisplay::updateSheets(bool redrawAll) {
 }
 
 
-void PBlocksDisplay::updateCursor() {
+void PBlocksUserInterface::updateCursor() {
   for (uint8_t i=0; i<SHEET_COUNT; i++) {
     if (sheets[i].isSelected()) {
       sheets[i].updateCursor();

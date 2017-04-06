@@ -7,11 +7,11 @@
 
 
 #include <stdint.h>
-#include "src/icons/IconBuffer.h"
+#include "src/icons/Icon.h"
 #include "TouchHandler.h"
 
 
-class PBlocksDisplay;
+class PBlocksUserInterface;
 
 
 class Sheet : public Touchable {
@@ -35,7 +35,7 @@ class Sheet : public Touchable {
 
 public:
     const char * tabLabel = nullptr;
-    IconBuffer * tabIcon = nullptr;
+    Icon * tabIcon = nullptr;
 
     Sheet();
 

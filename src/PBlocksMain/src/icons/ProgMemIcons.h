@@ -6,13 +6,13 @@
 #define PBLOCKMAIN_PROGMEMICONS_H
 
 
-#include "src/icons/IconBuffer.h"
+#include "src/icons/Icon.h"
 
 
 
-extern const IconBufferProgMem::Icon ICON_PERSON;
-extern const IconBufferProgMem::Icon ICON_PLAY;
-extern const IconBufferProgMem::Icon ICON_MODULES;
+extern const IconBufferProgMem::IconData ICON_PERSON;
+extern const IconBufferProgMem::IconData ICON_PLAY;
+extern const IconBufferProgMem::IconData ICON_MODULES;
 
 
 

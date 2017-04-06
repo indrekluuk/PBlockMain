@@ -28,11 +28,11 @@ add_executable(runTests
         test/fake/MCUFRIEND_kbv.cpp
         test/fake/avr/pgmspace.cpp
 
-        src/PBlocksMain/src/display/TouchHandler.cpp
-        src/PBlocksMain/src/display/PBlocksDisplay.cpp
-        src/PBlocksMain/src/display/Sheet.cpp
-        src/PBlocksMain/src/display/TFT.cpp
-        src/PBlocksMain/src/display/Font.cpp
+        src/PBlocksMain/src/ui/TouchHandler.cpp
+        src/PBlocksMain/src/ui/PBlocksUserInterface.cpp
+        src/PBlocksMain/src/ui/Sheet.cpp
+        src/PBlocksMain/src/screen/TFT.cpp
+        src/PBlocksMain/src/screen/Font.cpp
         src/PBlocksMain/src/icons/ProgMemIcons.cpp
         src/PBlocksMain/src/program/PBlocksProgram.cpp
         src/PBlocksMain/src/program/ProgramFunction.cpp

@@ -8,7 +8,7 @@
 
 
 
-const PROGMEM IconBufferProgMem::Icon ICON_PERSON = {
+const PROGMEM IconBufferProgMem::IconData ICON_PERSON = {
     IconColor(Palette::DARK_GREEN, Palette::GRAY50, Palette::BLACK, false, false),
     {
         (uint16_t) 0b0000111110000000,
@@ -32,7 +32,7 @@ const PROGMEM IconBufferProgMem::Icon ICON_PERSON = {
 
 
 
-const PROGMEM IconBufferProgMem::Icon ICON_PLAY = {
+const PROGMEM IconBufferProgMem::IconData ICON_PLAY = {
     IconColor(Palette::DARK_GREEN, Palette::GRAY50, Palette::BLACK, true, false),
     {
         (uint16_t) 0b1100000000000000,
@@ -57,7 +57,7 @@ const PROGMEM IconBufferProgMem::Icon ICON_PLAY = {
 
 
 
-const PROGMEM IconBufferProgMem::Icon ICON_MODULES = {
+const PROGMEM IconBufferProgMem::IconData ICON_MODULES = {
     IconColor(Palette::WHITE, Palette::GRAY50, Palette::BLACK, false, false),
     {
         (uint16_t) 0b0000001111000000,

@@ -7,7 +7,7 @@
 
 
 #include "src/program/PBlocksProgram.h"
-#include "src/display/PBlocksDisplay.h"
+#include "src/ui/PBlocksUserInterface.h"
 
 
 
@@ -15,7 +15,7 @@ class PBlocksMainModule {
 
 
     PBlocksProgram program;
-    PBlocksDisplay display;
+    PBlocksUserInterface display;
 
 public:
     void init();

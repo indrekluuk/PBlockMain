@@ -6,15 +6,15 @@
 #define PBLOCKMAIN_MODULE_H
 
 
-#include "src/icons/IconBuffer.h"
+#include "src/icons/Icon.h"
 
 
 class Module {
 
 public:
-    IconBuffer & icon;
+    Icon & icon;
 
-    Module(IconBuffer & icon) : icon(icon) {};
+    Module(Icon & icon) : icon(icon) {};
 
 };
 
