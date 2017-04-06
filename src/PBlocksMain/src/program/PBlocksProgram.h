@@ -8,7 +8,7 @@
 
 #include "ProgramFunction.h"
 #include "Module.h"
-#include <ProgMemIcons.h>
+#include "../display/ProgMemIcons.h"
 
 
 class PBlocksProgram {

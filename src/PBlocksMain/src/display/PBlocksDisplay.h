@@ -7,10 +7,10 @@
 
 
 #include "Sheet.h"
-#include <ProgMemIcons.h>
-#include <IconBuffer.h>
-#include <TouchHandler.h>
-#include <TFT.h>
+#include "ProgMemIcons.h"
+#include "IconBuffer.h"
+#include "TouchHandler.h"
+#include "TFT.h"
 
 
 class PBlocksDisplay {

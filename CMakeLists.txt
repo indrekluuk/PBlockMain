@@ -3,13 +3,13 @@ project(PBlockMain)
 
 
 # For CLion to properly recognize library headers
-include_directories(src/lib/PBlocksDisplay)
+#include_directories(src/PBlocksMain/src/PBlocksDisplay)
 
 # For CLion to properly recognize library source files
-aux_source_directory(src/lib/PBlocksDisplay SRC_LIST)
-list(APPEND SRC_LIST src/PBlocksMain/PBlocksMain.ino)
+#aux_source_directory(src/PBlocksMain/src/PBlocksDisplay SRC_LIST)
+#list(APPEND SRC_LIST src/PBlocksMain/PBlocksMain.ino)
 # remove "src/" prefix from file names
-string(REGEX REPLACE "src[\\/\\\\]" "" SRC_LIST "${SRC_LIST}")
+#string(REGEX REPLACE "src[\\/\\\\]" "" SRC_LIST "${SRC_LIST}")
 
 # PlatformIO build targets
 # Must init platformio. See: PlatformIO_CLion_init.txt
@@ -26,8 +26,6 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 # fake arduino headers
 include_directories(test/fake)
 # project headers
-include_directories(src/lib/PBlocksDisplayElements)
-include_directories(src/lib/PBlocksProgram)
 include_directories(src/PBlocksMain)
 # gtest headers
 include_directories(${gtest_SOURCE_DIR}/include)
@@ -38,15 +36,15 @@ add_executable(runTests
         test/fake/MCUFRIEND_kbv.cpp
         test/fake/avr/pgmspace.cpp
 
-        src/lib/PBlocksDisplay/TouchHandler.cpp
-        src/lib/PBlocksDisplay/PBlocksDisplay.cpp
-        src/lib/PBlocksDisplay/Sheet.cpp
-        src/lib/PBlocksDisplay/TFT.cpp
-        src/lib/PBlocksDisplay/Font.cpp
-        src/lib/PBlocksDisplayElements/ProgMemIcons.cpp
-        src/lib/PBlocksProgram/PBlocksProgram.cpp
-        src/lib/PBlocksProgram/ProgramFunction.cpp
-        src/lib/PBlocksProgram/ProgramNode.cpp
+        src/PBlocksMain/src/display/TouchHandler.cpp
+        src/PBlocksMain/src/display/PBlocksDisplay.cpp
+        src/PBlocksMain/src/display/Sheet.cpp
+        src/PBlocksMain/src/display/TFT.cpp
+        src/PBlocksMain/src/display/Font.cpp
+        src/PBlocksMain/src/display/ProgMemIcons.cpp
+        src/PBlocksMain/src/program/PBlocksProgram.cpp
+        src/PBlocksMain/src/program/ProgramFunction.cpp
+        src/PBlocksMain/src/program/ProgramNode.cpp
 
 
         test/src/PBlocksDisplay/TestTouchRegion.cpp

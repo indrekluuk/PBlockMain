@@ -3,8 +3,6 @@
 
 #include <MCUFRIEND_kbv.h>
 #include <TouchScreen.h>
-#include <PBlocksDisplay.h>
-#include <Colors.h>
 #include "PBlocksMainModule.h"
 
 
@@ -23,7 +21,7 @@ void setup(void) {
 
 
 void loop(void) {
-  module.start();
+  module.run();
 }
 
 

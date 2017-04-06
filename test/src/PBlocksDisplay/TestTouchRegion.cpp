@@ -2,7 +2,7 @@
 
 
 #include "gtest/gtest.h"
-#include "PBlocksDisplay.h"
+#include "src/display/PBlocksDisplay.h"
 
 
 class TouchableItem : public Touchable {

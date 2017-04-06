@@ -6,8 +6,8 @@
 #define PBLOCKMAIN_PBLOCKSMAINMODULE_H
 
 
-#include <PBlocksProgram.h>
-#include <PBlocksDisplay.h>
+#include "src/program/PBlocksProgram.h"
+#include "src/display/PBlocksDisplay.h"
 
 
 
@@ -20,7 +20,7 @@ class PBlocksMainModule {
 public:
     void init();
 
-    void start();
+    void run();
 
 };
 

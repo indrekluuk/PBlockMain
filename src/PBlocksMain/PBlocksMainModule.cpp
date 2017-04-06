@@ -30,7 +30,7 @@ void PBlocksMainModule::init() {
 
 
 
-void PBlocksMainModule::start() {
+void PBlocksMainModule::run() {
   display.touchHandler.check();
   display.updateCursor();
 }

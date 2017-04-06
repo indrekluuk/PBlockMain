@@ -6,7 +6,7 @@
 #define PBLOCKMAIN_MODULE_H
 
 
-#include <IconBuffer.h>
+#include "../display/IconBuffer.h"
 
 
 class Module {
