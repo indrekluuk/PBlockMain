@@ -2,14 +2,6 @@ cmake_minimum_required(VERSION 3.2)
 project(PBlockMain)
 
 
-# For CLion to properly recognize library headers
-#include_directories(src/PBlocksMain/src/PBlocksDisplay)
-
-# For CLion to properly recognize library source files
-#aux_source_directory(src/PBlocksMain/src/PBlocksDisplay SRC_LIST)
-#list(APPEND SRC_LIST src/PBlocksMain/PBlocksMain.ino)
-# remove "src/" prefix from file names
-#string(REGEX REPLACE "src[\\/\\\\]" "" SRC_LIST "${SRC_LIST}")
 
 # PlatformIO build targets
 # Must init platformio. See: PlatformIO_CLion_init.txt
