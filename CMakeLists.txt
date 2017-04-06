@@ -33,7 +33,7 @@ add_executable(runTests
         src/PBlocksMain/src/display/Sheet.cpp
         src/PBlocksMain/src/display/TFT.cpp
         src/PBlocksMain/src/display/Font.cpp
-        src/PBlocksMain/src/display/ProgMemIcons.cpp
+        src/PBlocksMain/src/icons/ProgMemIcons.cpp
         src/PBlocksMain/src/program/PBlocksProgram.cpp
         src/PBlocksMain/src/program/ProgramFunction.cpp
         src/PBlocksMain/src/program/ProgramNode.cpp

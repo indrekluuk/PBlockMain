@@ -8,7 +8,7 @@
 
 #include <MCUFRIEND_kbv.h>
 #include <utility/mcufriend_shield.h>
-#include "IconBuffer.h"
+#include "src/icons/IconBuffer.h"
 
 
 class TFT : public MCUFRIEND_kbv {

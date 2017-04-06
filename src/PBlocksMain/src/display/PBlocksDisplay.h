@@ -7,8 +7,8 @@
 
 
 #include "Sheet.h"
-#include "ProgMemIcons.h"
-#include "IconBuffer.h"
+#include "src/icons/ProgMemIcons.h"
+#include "src/icons/IconBuffer.h"
 #include "TouchHandler.h"
 #include "TFT.h"
 

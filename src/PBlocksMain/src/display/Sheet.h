@@ -7,7 +7,7 @@
 
 
 #include <stdint.h>
-#include "IconBuffer.h"
+#include "src/icons/IconBuffer.h"
 #include "TouchHandler.h"
 
 
