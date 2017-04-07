@@ -23,21 +23,21 @@ void PBlocksUserInterface::init() {
 
 
   sheets[0].init(0);
-  sheets[0].tabIcon = &playIcon;
+  sheets[0].tab.icon = &playIcon;
   sheets[1].init(1);
-  sheets[1].tabLabel = "f1";
+  sheets[1].tab.label = "f1";
   sheets[2].init(2);
-  sheets[2].tabLabel = "f2";
+  sheets[2].tab.label = "f2";
   sheets[3].init(3);
-  sheets[3].tabLabel = "f3";
+  sheets[3].tab.label = "f3";
   sheets[4].init(4);
-  sheets[4].tabLabel = "f4";
+  sheets[4].tab.label = "f4";
   sheets[5].init(5);
-  sheets[5].tabIcon = &modulesIcon;
+  sheets[5].tab.icon = &modulesIcon;
 
   sheets[0].setSelected(true);
 
-  touchHandler.init(tft.width(), tft.height());
+  touchHandler.init((uint16_t)tft.width(), (uint16_t)tft.height());
 }
 
 
