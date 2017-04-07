@@ -35,12 +35,13 @@ protected:
 
 class TouchHandler {
 
+    uint16_t screenW;
+    uint16_t screenH;
     TouchScreen touchScreen = TouchScreen(XP, YP, XM, YM, 300);
     TSPoint tp;
 
-
-
 public:
+    void init(uint16_t screenW, uint16_t screenH);
 
     void check();
     uint8_t getRegionCount();

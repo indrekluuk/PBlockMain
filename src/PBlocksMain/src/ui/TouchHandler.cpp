@@ -3,7 +3,6 @@
 //
 
 #include "TouchHandler.h"
-#include "PBlocksUserInterface.h"
 
 
 Touchable * firstTouchable = nullptr;
@@ -52,6 +51,12 @@ bool Touchable::isTapBetween(int16_t v, int16_t begin, int16_t end) {
 
 
 
+void TouchHandler::init(uint16_t screenW, uint16_t screenH) {
+  this->screenW = screenW;
+  this->screenH = screenH;
+}
+
+
 uint8_t TouchHandler::getRegionCount() {
   uint8_t count = 0;
   Touchable * touchable = firstTouchable;
@@ -61,6 +66,7 @@ uint8_t TouchHandler::getRegionCount() {
   }
   return count;
 }
+
 
 
 #define TOUCH_Z_THRESHOLD 200
@@ -75,10 +81,9 @@ uint8_t TouchHandler::getRegionCount() {
 void TouchHandler::check() {
   readResistiveTouch();
   if (tp.z > TOUCH_Z_THRESHOLD) {
-    TFT & tft = Display->tft;
 
-    uint16_t x = (uint16_t)map(tp.y, TOUCH_LEFT, TOUCH_RIGHT, 0, tft.width());
-    uint16_t y = (uint16_t)map(tp.x, TOUCH_TOP, TOUCH_BOTTOM, 0, tft.height());
+    uint16_t x = (uint16_t)map(tp.y, TOUCH_LEFT, TOUCH_RIGHT, 0, screenW);
+    uint16_t y = (uint16_t)map(tp.x, TOUCH_TOP, TOUCH_BOTTOM, 0, screenH);
 
     Touchable * touchable = firstTouchable;
     while(touchable != nullptr) {

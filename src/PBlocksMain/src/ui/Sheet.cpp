@@ -22,7 +22,7 @@ Sheet::Sheet() :
 
 void Sheet::init(uint8_t index) {
   tabIndex = index;
-  slotAreaWidth = (uint16_t)(Display->tft.width()-SLOT_SPACING*(uint16_t)2) / SLOT_COL_COUNT;
+  slotAreaWidth = (uint16_t)(UI->tft.width()-SLOT_SPACING*(uint16_t)2) / SLOT_COL_COUNT;
 }
 
 void Sheet::tap(uint16_t x, uint16_t y) {
@@ -30,7 +30,7 @@ void Sheet::tap(uint16_t x, uint16_t y) {
   if (y < TAB_HEIGHT) {
     uint16_t tabX = getTabX();
     if (isTapIn(x, tabX, TAB_WIDTH) && isTapIn(y, 0, TAB_HEIGHT)) {
-      Display->setActiveTab(tabIndex);
+      UI->setActiveTab(tabIndex);
     }
 
   } else if (selected) {
@@ -96,11 +96,11 @@ void Sheet::draw(bool redrawAll) {
 
   // render time
   if (selected && isDrawnAsSelected != selected) {
-    Display->tft.setTextSize(1);
-    Display->tft.setTextColor(COLOR_WHITE, COLOR_BLACK);
-    Display->tft.setCursor(10, 310);
-    Display->tft.print((uint16_t)(millis() - m));
-    Display->tft.print("  ");
+    UI->tft.setTextSize(1);
+    UI->tft.setTextColor(COLOR_WHITE, COLOR_BLACK);
+    UI->tft.setCursor(10, 310);
+    UI->tft.print((uint16_t)(millis() - m));
+    UI->tft.print("  ");
   }
 
   isDrawnAsSelected = selected;
@@ -126,31 +126,31 @@ void Sheet::drawTab(bool redrawAll) {
     uint16_t x = getTabX() + (uint16_t)1;
     uint8_t w = TAB_WIDTH - 2;
 
-    Display->tft.drawFastHLine(x , TAB_HEIGHT , w, selected ? COLOR_GRAY50 : COLOR_BLACK);
+    UI->tft.drawFastHLine(x , TAB_HEIGHT , w, selected ? COLOR_GRAY50 : COLOR_BLACK);
     if (tabIcon) {
       drawTabIcon(x, w, TAB_HEIGHT);
     } else if (tabLabel) {
       drawTabLabel(x, w, TAB_HEIGHT);
     } else {
-      Display->tft.fillRect(x, 0, w, TAB_HEIGHT, selected ? COLOR_GRAY50 : COLOR_GRAY33);
+      UI->tft.fillRect(x, 0, w, TAB_HEIGHT, selected ? COLOR_GRAY50 : COLOR_GRAY33);
     }
   }
 }
 
 void Sheet::drawTabIcon(uint16_t x, uint8_t w, uint8_t h) {
   if (selected) {
-    Display->tft.drawIcon(x, 0, *tabIcon, tabIcon->getColor(), w, h, 2);
+    UI->tft.drawIcon(x, 0, *tabIcon, tabIcon->getColor(), w, h, 2);
   } else {
     IconColor color = tabIcon->getColor();
     color.setForegroundColor(Palette::BLACK);
     color.setBackgroundColor(Palette::GRAY33);
     color.setNoBorder();
-    Display->tft.drawIcon(x, 0, *tabIcon, color, w, h, 2);
+    UI->tft.drawIcon(x, 0, *tabIcon, color, w, h, 2);
   }
 }
 
 void Sheet::drawTabLabel(uint16_t x, uint8_t w, uint8_t h) {
-  TFT & tft = Display->tft;
+  TFT & tft = UI->tft;
   if (selected) {
     tft.setTextColor(COLOR_WHITE, COLOR_GRAY50);
   } else {
@@ -168,7 +168,7 @@ void Sheet::drawTabLabel(uint16_t x, uint8_t w, uint8_t h) {
 
 void Sheet::drawSheet(bool redrawAll) {
   if (selected) {
-    TFT & tft = Display->tft;
+    TFT & tft = UI->tft;
 
     if (redrawAll) {
       tft.fillRect(0, TAB_HEIGHT + 1, tft.width(), SHEET_HEIGHT, COLOR_GRAY50);
@@ -191,7 +191,7 @@ void Sheet::drawSheet(bool redrawAll) {
 
 
 void Sheet::drawCursor(uint16_t slotX, uint16_t slotY, uint8_t index) {
-  TFT & tft = Display->tft;
+  TFT & tft = UI->tft;
   ProgramFunction * function = Program->getFunction(tabIndex);
 
   uint16_t color;
@@ -211,14 +211,14 @@ void Sheet::drawCursor(uint16_t slotX, uint16_t slotY, uint8_t index) {
 
 
 void Sheet::drawEmptySlot(uint16_t x, uint16_t y) {
-  TFT & tft = Display->tft;
+  TFT & tft = UI->tft;
   tft.drawRect(x, y, SLOT_WIDTH, SLOT_HEIGHT, COLOR_GRAY33);
   tft.fillRect(x + 1, y + 1, SLOT_WIDTH - 2, SLOT_HEIGHT - 2, COLOR_GRAY50);
 }
 
 
 void Sheet::drawProgramSlot(uint16_t x, uint16_t y, uint8_t index) {
-  TFT & tft = Display->tft;
+  TFT & tft = UI->tft;
 
   ProgramFunction * function = Program->getFunction(tabIndex);
   ProgramNode * node = nullptr;

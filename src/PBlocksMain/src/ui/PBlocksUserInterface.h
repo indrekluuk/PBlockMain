@@ -35,6 +35,6 @@ public:
 };
 
 
-extern PBlocksUserInterface * Display;
+extern PBlocksUserInterface * UI;
 
 #endif //PBLOCKMAIN_PBLOCKSUSER_INTERFACE_H

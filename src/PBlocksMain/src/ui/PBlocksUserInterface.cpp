@@ -7,12 +7,12 @@
 
 
 
-PBlocksUserInterface * Display;
+PBlocksUserInterface * UI;
 
 
 
 PBlocksUserInterface::PBlocksUserInterface() {
-  Display = this;
+  UI = this;
 }
 
 
@@ -36,6 +36,8 @@ void PBlocksUserInterface::init() {
   sheets[5].tabIcon = &modulesIcon;
 
   sheets[0].setSelected(true);
+
+  touchHandler.init(tft.width(), tft.height());
 }
 
 
