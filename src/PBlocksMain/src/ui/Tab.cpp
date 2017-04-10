@@ -43,12 +43,35 @@ void Tab::draw(bool redrawAll) {
 
 void Tab::drawIcon(uint16_t x, uint8_t w, uint8_t h) {
   if (isSelected) {
-    UI->tft.drawIcon(x, 0, *icon, icon->getColor(), w, h, 2);
+    IconColor color = icon->getColor();
+
+    color.setForegroundColor(Palette::WHITE);
+    color.setBackgroundColor(Palette::GRAY50);
+    color.setNoBorder();
+
+
+    /*
+    color.setForegroundColor(Palette::GRAY50);
+    color.setBackgroundColor(Palette::GRAY50);
+    color.setBorderColor(Palette::WHITE);
+     */
+
+    UI->tft.drawIcon(x, 0, *icon, color, w, h, 2);
   } else {
     IconColor color = icon->getColor();
+
+
     color.setForegroundColor(Palette::BLACK);
     color.setBackgroundColor(Palette::GRAY33);
     color.setNoBorder();
+
+
+/*
+    color.setForegroundColor(Palette::GRAY33);
+    color.setBackgroundColor(Palette::GRAY33);
+    color.setBorderColor(Palette::BLACK);
+    */
+
     UI->tft.drawIcon(x, 0, *icon, color, w, h, 2);
   }
 }
