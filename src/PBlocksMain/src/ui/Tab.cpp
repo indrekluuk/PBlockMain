@@ -7,41 +7,48 @@
 
 
 
-Tab::Tab() :
-    index(0xF),
-    isSelected(false),
-    isDrawnAsSelected(false)
-{
+void Tab::init(uint8_t tabIndex, Icon *icon) {
+  index = tabIndex;
+  decorationType = DECORATION_TYPE_ICON;
+  decoration = icon;
 }
 
 
-
-uint16_t Tab::getTabX() {
-  return index*WIDTH;
+void Tab::init(uint8_t tabIndex, const char *label) {
+  index = tabIndex;
+  decorationType = DECORATION_TYPE_LABEL;
+  decoration = label;
 }
 
 
+uint16_t Tab::getTabX1() {
+  return index * WIDTH;
+}
+
+uint16_t Tab::getTabX2() {
+  return getTabX1() + WIDTH;
+}
 
 
-void Tab::draw(bool redrawAll) {
-  if (redrawAll || needsRedraw()) {
-    uint16_t x = getTabX() + (uint16_t)1;
-    uint8_t w = WIDTH - 2;
+void Tab::draw(bool isSelected) {
+  uint16_t x = getTabX1() + (uint16_t)1;
+  uint8_t w = WIDTH - 2;
 
-    UI->tft.drawFastHLine(x , HEIGHT , w, isSelected ? COLOR_GRAY50 : COLOR_BLACK);
-    if (icon) {
-      drawIcon(x, w, HEIGHT);
-    } else if (label) {
-      drawLabel(x, w, HEIGHT);
-    } else {
-      UI->tft.fillRect(x, 0, w, HEIGHT, isSelected ? COLOR_GRAY50 : COLOR_GRAY33);
-    }
+  UI->tft.drawFastHLine(x , HEIGHT , w, isSelected ? COLOR_GRAY50 : COLOR_BLACK);
+  if (decorationType == DECORATION_TYPE_ICON) {
+    drawIcon(x, w, HEIGHT, isSelected);
+  } else if (decorationType == DECORATION_TYPE_LABEL) {
+    drawLabel(x, w, HEIGHT, isSelected);
+  } else {
+    UI->tft.fillRect(x, 0, w, HEIGHT, isSelected ? COLOR_GRAY50 : COLOR_GRAY33);
   }
 }
 
 
 
-void Tab::drawIcon(uint16_t x, uint8_t w, uint8_t h) {
+void Tab::drawIcon(uint16_t x, uint8_t w, uint8_t h, bool isSelected) {
+  Icon *icon = (Icon*) decoration;
+
   if (isSelected) {
     IconColor color = icon->getColor();
 
@@ -78,7 +85,9 @@ void Tab::drawIcon(uint16_t x, uint8_t w, uint8_t h) {
 
 
 
-void Tab::drawLabel(uint16_t x, uint8_t w, uint8_t h) {
+void Tab::drawLabel(uint16_t x, uint8_t w, uint8_t h, bool isSelected) {
+  const char *label = (const char *)decoration;
+
   TFT & tft = UI->tft;
   if (isSelected) {
     tft.setTextColor(COLOR_WHITE, COLOR_GRAY50);

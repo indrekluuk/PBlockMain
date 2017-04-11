@@ -21,59 +21,20 @@ void PBlocksUserInterface::init() {
   tft.setRotation(1);
   tft.fillScreen(COLOR_BLACK);
 
-
-  sheets[0].init(0);
-  sheets[0].tab.icon = &playIcon;
-  sheets[1].init(1);
-  sheets[1].tab.label = "f1";
-  sheets[2].init(2);
-  sheets[2].tab.label = "f2";
-  sheets[3].init(3);
-  sheets[3].tab.label = "f3";
-  sheets[4].init(4);
-  sheets[4].tab.label = "f4";
-  sheets[5].init(5);
-  sheets[5].tab.icon = &modulesIcon;
-
-  sheets[0].setSelected(true);
-
+  sheets.init((uint16_t)tft.width(), (uint16_t)tft.height());
   touchHandler.init((uint16_t)tft.width(), (uint16_t)tft.height());
 }
 
 
-void PBlocksUserInterface::setActiveTab(uint16_t tabIndex) {
-  for (uint8_t i=0; i<SHEET_COUNT; i++) {
-    sheets[i].setSelected(tabIndex == i);
-  }
-  draw(false);
-}
-
 
 void PBlocksUserInterface::draw(bool redrawAll) {
-  updateSheets(redrawAll);
-}
-
-void PBlocksUserInterface::updateSheets(bool redrawAll) {
-  Sheet * selectedSheet = nullptr;
-  for (uint8_t i=0; i<SHEET_COUNT; i++) {
-    if (sheets[i].isSelected()) {
-      selectedSheet = &sheets[i];
-    } else {
-      sheets[i].draw(redrawAll);
-    }
-  }
-  if (selectedSheet) {
-    selectedSheet->draw(redrawAll);
-  }
+  sheets.draw(redrawAll);
 }
 
 
-void PBlocksUserInterface::updateCursor() {
-  for (uint8_t i=0; i<SHEET_COUNT; i++) {
-    if (sheets[i].isSelected()) {
-      sheets[i].updateCursor();
-    }
-  }
+void PBlocksUserInterface::run() {
+  touchHandler.check();
+  sheets.updateCursor();
 }
 
 
