@@ -46,22 +46,10 @@ void Sheets::tap(uint16_t x, uint16_t y) {
     }
 
   } else if (y < Tab::HEIGHT + PageGrid::SHEET_HEIGHT) {
-
     ProgramFunction * function = Program->getFunction(index);
     if (function != nullptr) {
       PageGridFunction page(*function);
-
-      for (uint8_t row=0; row < PageGrid::SLOT_ROW_COUNT; row++) {
-        uint16_t slotY = PageGrid::getSlotY(row);
-        if (isTapBetween(y, slotY, slotY + PageGrid::SLOT_HEIGHT)) {
-          for (uint8_t col=0; col<PageGrid::SLOT_COL_COUNT; col++) {
-            uint16_t slotX = PageGrid::getSlotX(col);
-            if (isTapBetween(x, slotX, slotX + PageGrid::SLOT_WIDTH)) {
-              page.setActiveNode(col, row);
-            }
-          }
-        }
-      }
+      page.tap(x, y);
     }
   }
 

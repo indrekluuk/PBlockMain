@@ -35,6 +35,8 @@ public:
     static uint8_t getSlotIndex(uint8_t col, uint8_t row);
     static uint8_t getSlotCol(uint8_t index);
     static uint8_t getSlotRow(uint8_t index);
+    static uint8_t getTapCol(uint16_t x);
+    static uint8_t getTapRow(uint16_t y);
 
 protected:
     void clearPage();

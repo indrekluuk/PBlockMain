@@ -79,3 +79,23 @@ uint8_t PageGrid::getSlotRow(uint8_t index) {
   return index / SLOT_COL_COUNT;
 }
 
+uint8_t PageGrid::getTapCol(uint16_t x) {
+  for (uint8_t col=0; col<PageGrid::SLOT_COL_COUNT - 1; col++) {
+    uint16_t slotX = PageGrid::getSlotX(col);
+    if (x < slotX + PageGrid::SLOT_WIDTH) {
+      return col;
+    }
+  }
+  return PageGrid::SLOT_COL_COUNT - 1;
+}
+
+uint8_t PageGrid::getTapRow(uint16_t y) {
+  for (uint8_t row=0; row < PageGrid::SLOT_ROW_COUNT - 1; row++) {
+    uint16_t slotY = PageGrid::getSlotY(row);
+    if (y < slotY + PageGrid::SLOT_HEIGHT) {
+      return row;
+    }
+  }
+  return PageGrid::SLOT_ROW_COUNT - 1;
+}
+

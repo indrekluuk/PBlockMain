@@ -8,7 +8,11 @@
 
 
 
-
+void PageGridFunction::tap(uint16_t x, uint16_t y) {
+  setActiveNode(
+      getTapCol(x),
+      getTapRow(y));
+}
 
 
 void PageGridFunction::setActiveNode(uint8_t col, uint8_t row) {
@@ -25,21 +29,6 @@ void PageGridFunction::setActiveNode(uint8_t col, uint8_t row) {
         row);
   }
 }
-
-
-/*
-void PageGridFunction::setSelected(bool isSelected) {
-  tab.isSelected = isSelected;
-}
-
-bool PageGridFunction::isSelected() {
-  return tab.isSelected;
-}
-
-
-
-
-*/
 
 
 

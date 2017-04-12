@@ -30,8 +30,11 @@ add_executable(runTests
 
         src/PBlocksMain/src/ui/TouchHandler.cpp
         src/PBlocksMain/src/ui/PBlocksUserInterface.cpp
-        src/PBlocksMain/src/ui/PageGridFunction.cpp
+        src/PBlocksMain/src/ui/Sheets.cpp
         src/PBlocksMain/src/ui/Tab.cpp
+        src/PBlocksMain/src/ui/PageGrid.cpp
+        src/PBlocksMain/src/ui/PageGridFunction.cpp
+        src/PBlocksMain/src/ui/PageGridModules.cpp
         src/PBlocksMain/src/screen/TFT.cpp
         src/PBlocksMain/src/screen/Font.cpp
         src/PBlocksMain/src/icons/ProgMemIcons.cpp

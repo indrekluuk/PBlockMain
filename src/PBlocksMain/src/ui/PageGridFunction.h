@@ -21,37 +21,17 @@ public:
 
     PageGridFunction(ProgramFunction & f) : function(f) {};
     void draw(bool redrawAll);
-    void setActiveNode(uint8_t col, uint8_t row);
     void updateCursor();
+    void tap(uint16_t x, uint16_t y);
+
 
 private:
-
+    void setActiveNode(uint8_t col, uint8_t row);
     void drawSlot(uint8_t col, uint8_t row);
     void drawProgramSlot(uint8_t col, uint8_t row, ProgramNode * node, bool isActive);
 
-
-
-
-
     ProgramFunction & function;
 
-/*
-
-
-    void setSelected(bool isSelected);
-    bool isSelected();
-
-
-private:
-
-
-    void drawSheet(bool redrawAll);
-    void drawCursor(uint16_t slotX, uint16_t slotY, uint8_t index);
-
-
-    uint16_t getSlotXByIndex(uint8_t index);
-    uint16_t getSlotYByIndex(uint8_t index);
-*/
 };
 
 
