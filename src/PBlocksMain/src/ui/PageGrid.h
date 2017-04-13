@@ -6,7 +6,9 @@
 #define PBLOCKMAIN_PAGEGRID_H
 
 #include <stdint.h>
+#include "Tab.h"
 
+#include "UiConstants.h"
 
 
 class PBlocksUserInterface;
@@ -17,18 +19,16 @@ class PageGrid {
 
 protected:
 
-    static const uint16_t SLOT_SPACING = 6;
-    static uint16_t slotAreaWidth;
-
-public:
     static const uint8_t SLOT_COL_COUNT = 6;
     static const uint8_t SLOT_ROW_COUNT = 3;
     static const uint8_t SLOT_WIDTH = 68;
     static const uint8_t SLOT_HEIGHT = 60;
-    static const uint16_t SHEET_HEIGHT = SLOT_ROW_COUNT * (SLOT_HEIGHT + SLOT_SPACING) + SLOT_SPACING * 2;
+    static const uint16_t SLOT_SPACING = 6;
+    static const uint16_t SLOT_AREA_WIDTH = (SCREEN_WIDTH-SLOT_SPACING*2) / SLOT_COL_COUNT;
 
-    static void staticInit(uint16_t sheetW);
-
+public:
+    static const uint16_t TOP = Tab::HEIGHT;
+    static const uint16_t HEIGHT = SLOT_ROW_COUNT * (SLOT_HEIGHT + SLOT_SPACING) + SLOT_SPACING * 2;
 
     static uint16_t getSlotX(uint8_t col);
     static uint16_t getSlotY(uint8_t row);

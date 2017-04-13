@@ -7,6 +7,7 @@
 
 
 #include "Sheets.h"
+#include "ToolBar.h"
 #include "TouchHandler.h"
 #include "src/screen/TFT.h"
 
@@ -15,6 +16,7 @@ class PBlocksUserInterface {
 public:
     TFT tft;
     Sheets sheets;
+    ToolBar toolBar;
     TouchHandler touchHandler;
 
     PBlocksUserInterface();

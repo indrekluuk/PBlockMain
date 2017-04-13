@@ -5,7 +5,6 @@
 #include "Sheets.h"
 #include "PageGridFunction.h"
 #include "PageGridModules.h"
-#include "PBlocksUserInterface.h"
 
 
 
@@ -15,7 +14,7 @@ Sheets::Sheets() {
 }
 
 
-void Sheets::init(uint16_t screenW, uint16_t screenH) {
+void Sheets::init() {
   index = 0;
   drawnIndex = SHEET_COUNT;
 
@@ -25,8 +24,6 @@ void Sheets::init(uint16_t screenW, uint16_t screenH) {
   tab[3].init(3, "f3");
   tab[4].init(4, "f4");
   tab[5].init(5, &modulesIcon);
-
-  PageGrid::staticInit(screenW);
 }
 
 
@@ -45,7 +42,7 @@ void Sheets::tap(uint16_t x, uint16_t y) {
       draw(false);
     }
 
-  } else if (y < Tab::HEIGHT + PageGrid::SHEET_HEIGHT) {
+  } else if (y < PageGrid::TOP + PageGrid::HEIGHT) {
     ProgramFunction * function = Program->getFunction(index);
     if (function != nullptr) {
       PageGridFunction page(*function);
@@ -62,20 +59,8 @@ void Sheets::tap(uint16_t x, uint16_t y) {
 
 
 void Sheets::draw(bool redrawAll) {
-  uint32_t m = millis();
-
   drawTabs(redrawAll);
   drawSheet(redrawAll);
-
-  // render time
-  if (index != drawnIndex) {
-    UI->tft.setTextSize(1);
-    UI->tft.setTextColor(COLOR_WHITE, COLOR_BLACK);
-    UI->tft.setCursor(10, 310);
-    UI->tft.print((uint16_t)(millis() - m));
-    UI->tft.print("  ");
-  }
-
   drawnIndex = index;
 }
 

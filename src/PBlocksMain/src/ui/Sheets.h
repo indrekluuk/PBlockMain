@@ -23,7 +23,7 @@ class Sheets : public Touchable {
 
 public:
     Sheets();
-    void init(uint16_t screenW, uint16_t screenH);
+    void init();
     void tap(uint16_t x, uint16_t y) override;
 
     void draw(bool redrawAll);

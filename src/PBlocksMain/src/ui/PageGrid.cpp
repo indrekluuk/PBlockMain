@@ -7,20 +7,9 @@
 
 
 
-
-uint16_t PageGrid::slotAreaWidth = 0;
-
-
-void PageGrid::staticInit(uint16_t sheetW) {
-  slotAreaWidth = (uint16_t)(sheetW-SLOT_SPACING*(uint16_t)2) / SLOT_COL_COUNT;
-}
-
-
-
-
 void PageGrid::clearPage() {
   TFT & tft = UI->tft;
-  tft.fillRect(0, Tab::HEIGHT + 1, tft.width(), SHEET_HEIGHT, COLOR_GRAY50);
+  tft.fillRect(0, TOP, SCREEN_WIDTH, HEIGHT, COLOR_GRAY50);
 }
 
 
@@ -60,11 +49,11 @@ uint16_t PageGrid::getCursorColor(bool isActive) {
 
 
 uint16_t PageGrid::getSlotX(uint8_t col) {
-  return slotAreaWidth * col + SLOT_SPACING*(uint16_t)2;
+  return SLOT_AREA_WIDTH * col + SLOT_SPACING*(uint16_t)2;
 }
 
 uint16_t PageGrid::getSlotY(uint8_t row) {
-  return Tab::HEIGHT + SLOT_SPACING*(uint16_t)2 + row * (SLOT_HEIGHT + SLOT_SPACING);
+  return TOP + SLOT_SPACING*(uint16_t)2 + row * (SLOT_HEIGHT + SLOT_SPACING);
 }
 
 uint8_t PageGrid::getSlotIndex(uint8_t col, uint8_t row) {

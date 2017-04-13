@@ -34,13 +34,13 @@ void Tab::draw(bool isSelected) {
   uint16_t x = getTabX1() + (uint16_t)1;
   uint8_t w = WIDTH - 2;
 
-  UI->tft.drawFastHLine(x , HEIGHT , w, isSelected ? COLOR_GRAY50 : COLOR_BLACK);
+  UI->tft.drawFastHLine(x , HEIGHT - 1 , w, isSelected ? COLOR_GRAY50 : COLOR_BLACK);
   if (decorationType == DECORATION_TYPE_ICON) {
-    drawIcon(x, w, HEIGHT, isSelected);
+    drawIcon(x, w, HEIGHT - 1, isSelected);
   } else if (decorationType == DECORATION_TYPE_LABEL) {
-    drawLabel(x, w, HEIGHT, isSelected);
+    drawLabel(x, w, HEIGHT - 1, isSelected);
   } else {
-    UI->tft.fillRect(x, 0, w, HEIGHT, isSelected ? COLOR_GRAY50 : COLOR_GRAY33);
+    UI->tft.fillRect(x, 0, w, HEIGHT - 1, isSelected ? COLOR_GRAY50 : COLOR_GRAY33);
   }
 }
 
