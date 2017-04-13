@@ -23,13 +23,13 @@ void ToolBar::tap(uint16_t x, uint16_t y) {
 
 void ToolBar::draw(bool redrawAll) {
   if (redrawAll) {
-    //UI->tft.fillRect(0, TOP, SCREEN_WIDTH, HEIGHT, COLOR_GRAY33);
+    UI->tft.fillRect(0, TOP+1, SCREEN_WIDTH, HEIGHT, COLOR_GRAY33);
   }
-
+/*
   for (uint8_t i=0; i<BUTTON_COUNT; i++) {
     button[i].draw();
   }
-
+*/
 }
 
 

@@ -38,9 +38,9 @@ void PageGrid::drawCursor(uint16_t slotX, uint16_t slotY, uint16_t color) {
 
 uint16_t PageGrid::getCursorColor(bool isActive) {
   if (isActive) {
-    return (uint16_t)(((millis() & 0x200) != 0) ? COLOR_WHITE : COLOR_GRAY33);
+    return (uint16_t)(((millis() & 0x200) != 0) ? COLOR_WHITE : COLOR_GRAY50);
   } else {
-    return COLOR_GRAY33;
+    return COLOR_GRAY50;
   }
 }
 

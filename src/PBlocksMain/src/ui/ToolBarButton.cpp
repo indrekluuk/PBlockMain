@@ -16,8 +16,8 @@ void ToolBarButton::init(uint8_t buttonIndex) {
 void ToolBarButton::draw() {
   TFT &tft = UI->tft;
 
-  tft.drawFastHLine(index*WIDTH, TOP, WIDTH, COLOR_GRAY85);
-  tft.drawFastVLine(index*WIDTH, TOP, HEIGHT, COLOR_GRAY85);
+  tft.drawFastHLine(index*WIDTH, TOP, WIDTH, COLOR_WHITE);
+  tft.drawFastVLine(index*WIDTH, TOP, HEIGHT, COLOR_WHITE);
   tft.drawFastHLine(index*WIDTH, TOP + WIDTH - 1, WIDTH, COLOR_GRAY33);
   tft.drawFastVLine(index*WIDTH + WIDTH - 1, TOP, HEIGHT, COLOR_GRAY33);
 
@@ -26,7 +26,7 @@ void ToolBarButton::draw() {
       TOP+1,
       WIDTH-2,
       HEIGHT-2,
-      COLOR_GRAY50);
+      COLOR_GRAY85);
 }
 
 

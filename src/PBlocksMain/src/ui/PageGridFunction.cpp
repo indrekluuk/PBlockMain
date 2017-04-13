@@ -80,12 +80,12 @@ void PageGridFunction::drawProgramSlot(uint8_t col, uint8_t row, ProgramNode * n
   if (isActive) {
     bgColor = COLOR_GRAY85;
     bTopColor = COLOR_WHITE;
-    bBottomColor = COLOR_GRAY33;
+    bBottomColor = COLOR_WHITE;
     color.setBackgroundColor(Palette::GRAY85);
   } else {
     bgColor = COLOR_GRAY66;
-    bTopColor = COLOR_GRAY85;
-    bBottomColor = COLOR_BLACK;
+    bTopColor = COLOR_GRAY33;
+    bBottomColor = COLOR_GRAY33;
     color.setBackgroundColor(Palette::GRAY66);
   }
 
