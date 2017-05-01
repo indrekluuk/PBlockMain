@@ -6,6 +6,15 @@
 #include "PBlocksUserInterface.h"
 
 
+
+ToolBar::ToolBar() {
+  activeButtonIndex = NONE;
+  pressedButtonIndex = NONE;
+  drawnAsPressedIndex = NONE;
+  resrv = 0;
+}
+
+
 void ToolBar::init() {
   button[0].init(0);
   button[1].init(1);
@@ -17,14 +26,28 @@ void ToolBar::init() {
 
 
 void ToolBar::tap(uint16_t x, uint16_t y, bool hold) {
-  if (TOP > y) {
+  uint8_t buttonIndex = getTappedButtonIndex(x, y);
+  if (hold) {
+    if (activeButtonIndex == NONE) {
+      activeButtonIndex = buttonIndex;
+    }
+    pressedButtonIndex = activeButtonIndex == buttonIndex ? buttonIndex : NONE;
+  } else {
+    activeButtonIndex = NONE;
+    pressedButtonIndex = NONE;
+  }
+  draw(false);
+}
+
+uint8_t ToolBar::getTappedButtonIndex(uint16_t x, uint16_t y) {
+  if (y > TOP) {
     for (uint8_t i = 0; i<BUTTON_COUNT; i++) {
       if (x < (i+1)*ToolBarButton::WIDTH) {
-
-        return;
+        return i;
       }
     }
   }
+  return NONE;
 }
 
 
@@ -32,12 +55,20 @@ void ToolBar::tap(uint16_t x, uint16_t y, bool hold) {
 void ToolBar::draw(bool redrawAll) {
   if (redrawAll) {
     UI->tft.fillRect(0, TOP+1, SCREEN_WIDTH, HEIGHT, COLOR_GRAY33);
+    for (int8_t i=0; i<BUTTON_COUNT; i++) {
+      button[i].draw(pressedButtonIndex == i);
+    }
+  } else {
+    if (pressedButtonIndex != drawnAsPressedIndex) {
+      if (drawnAsPressedIndex != NONE) {
+        button[drawnAsPressedIndex].draw(false);
+      }
+      if (pressedButtonIndex != NONE) {
+        button[pressedButtonIndex].draw(true);
+      }
+      drawnAsPressedIndex = pressedButtonIndex;
+    }
   }
-/*
-  for (uint8_t i=0; i<BUTTON_COUNT; i++) {
-    button[i].draw();
-  }
-*/
 }
 
 

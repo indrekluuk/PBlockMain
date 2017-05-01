@@ -25,7 +25,7 @@ public:
 
 
     void init(uint8_t buttonIndex);
-    void draw();
+    void draw(bool isPressed);
 
 };
 
