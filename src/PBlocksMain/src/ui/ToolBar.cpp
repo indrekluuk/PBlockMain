@@ -29,7 +29,7 @@ void ToolBar::tap(uint16_t x, uint16_t y, bool hold) {
   uint8_t buttonIndex = getTappedButtonIndex(x, y);
   if (hold) {
     if (activeButtonIndex == NONE) {
-      activeButtonIndex = buttonIndex;
+      activeButtonIndex = buttonIndex != NONE ? buttonIndex : (uint8_t)(NONE + 1);
     }
     pressedButtonIndex = activeButtonIndex == buttonIndex ? buttonIndex : NONE;
   } else {

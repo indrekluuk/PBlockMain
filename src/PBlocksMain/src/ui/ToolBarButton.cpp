@@ -18,7 +18,7 @@ void ToolBarButton::draw(bool isPressed) {
 
   tft.drawFastHLine(index*WIDTH, TOP, WIDTH, isPressed ? COLOR_GRAY33 : COLOR_WHITE);
   tft.drawFastVLine(index*WIDTH, TOP, HEIGHT, isPressed ? COLOR_GRAY33 : COLOR_WHITE);
-  tft.drawFastHLine(index*WIDTH, TOP + WIDTH - 1, WIDTH, isPressed ? COLOR_WHITE : COLOR_GRAY33);
+  tft.drawFastHLine(index*WIDTH, TOP + HEIGHT - 1, WIDTH, isPressed ? COLOR_WHITE : COLOR_GRAY33);
   tft.drawFastVLine(index*WIDTH + WIDTH - 1, TOP, HEIGHT, isPressed ? COLOR_WHITE : COLOR_GRAY33);
 
   tft.fillRect(
