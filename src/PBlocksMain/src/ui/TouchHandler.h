@@ -37,12 +37,12 @@ class TouchHandler {
 
     uint16_t screenW;
     uint16_t screenH;
+    Touchable * exclusiveTouchable = nullptr;
     TouchScreen touchScreen = TouchScreen(XP, YP, XM, YM, 300);
     int16_t x;
     int16_t y;
     uint8_t holdCounter : 7;
     uint8_t isHold : 1;
-
 
 public:
     TouchHandler() {
@@ -54,6 +54,8 @@ public:
 
     void check();
     uint8_t getRegionCount();
+    void setExclusive(Touchable * touchable);
+    void releaseExclusive(Touchable * touchable);
 
 private:
     void readResistiveTouch();

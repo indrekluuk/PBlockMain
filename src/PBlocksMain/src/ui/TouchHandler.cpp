@@ -68,6 +68,15 @@ uint8_t TouchHandler::getRegionCount() {
 }
 
 
+void TouchHandler::setExclusive(Touchable * touchable) {
+  exclusiveTouchable = touchable;
+}
+
+void TouchHandler::releaseExclusive(Touchable * touchable) {
+  if (exclusiveTouchable == touchable) {
+    exclusiveTouchable = nullptr;
+  }
+}
 
 #define TOUCH_Z_THRESHOLD 200
 #define TOUCH_SAMPLE_COUNT 3
@@ -90,10 +99,14 @@ void TouchHandler::check() {
       isHold = false;
     }
 
-    Touchable * touchable = firstTouchable;
-    while(touchable != nullptr) {
-      touchable->tap(x, y, isHold);
-      touchable = touchable->nextRegion;
+    if (exclusiveTouchable) {
+      exclusiveTouchable->tap(x, y, isHold);
+    } else {
+      Touchable * touchable = firstTouchable;
+      while(touchable != nullptr) {
+        touchable->tap(x, y, isHold);
+        touchable = touchable->nextRegion;
+      }
     }
   }
 }
