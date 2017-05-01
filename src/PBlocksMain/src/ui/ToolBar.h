@@ -9,9 +9,12 @@
 #include "PageGrid.h"
 #include "UiConstants.h"
 #include "ToolBarButton.h"
+#include "src/icons/ProgMemIcons.h"
+#include "src/icons/Icon.h"
 
 
 class ToolBar : public Touchable {
+    IconBufferProgMem playIcon = IconBufferProgMem(&ICON_PLAY);
 
     static const uint8_t BUTTON_COUNT = 6;
     static const uint8_t NONE = BUTTON_COUNT;

@@ -86,7 +86,7 @@ size_t TFT::write(uint8_t c) {
 
 
 
-void TFT::drawIcon(uint16_t x, uint16_t y, Icon & icon, IconColor iconColor, uint8_t w, uint8_t h, uint8_t scale) {
+void TFT::drawIcon(uint16_t x, uint16_t y, Icon & icon, IconColor iconColor, uint8_t w, uint8_t h, uint8_t dx, uint8_t dy, uint8_t scale) {
   setAddrWindow(x, y, x + w - 1, y + h - 1);
   CS_ACTIVE;
   WriteCmd(_MW);
@@ -97,9 +97,9 @@ void TFT::drawIcon(uint16_t x, uint16_t y, Icon & icon, IconColor iconColor, uin
 
   uint8_t bitmapW = icon.BITMAP_WIDTH*scale;
   uint8_t bitmapH = icon.BITMAP_HEIGHT*scale;
-  uint8_t bitmapX = (w - bitmapW) >> 1;
+  uint8_t bitmapX = ((w - bitmapW) >> 1) + dx;
   uint8_t bitmapX2 = bitmapX + bitmapW;
-  uint8_t bitmapY = (h - bitmapH) >> 1;
+  uint8_t bitmapY = ((h - bitmapH) >> 1) + dy;
   uint8_t bitmapY2 = bitmapY + bitmapH;
 
 

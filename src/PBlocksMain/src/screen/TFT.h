@@ -23,7 +23,7 @@ private:
     uint8_t textFillBoxH = 0;
 
 public:
-    void drawIcon(uint16_t x, uint16_t y, Icon & icon, IconColor iconColor, uint8_t w, uint8_t h, uint8_t scale);
+    void drawIcon(uint16_t x, uint16_t y, Icon & icon, IconColor iconColor, uint8_t w, uint8_t h, uint8_t dx, uint8_t dy, uint8_t scale);
     void startTextFillBox(uint16_t x, uint16_t y, uint8_t w, uint8_t h, uint8_t cursorX, uint8_t cursorY);
     void finishTextFillBox();
 

@@ -98,7 +98,7 @@ void PageGridFunction::drawProgramSlot(uint8_t col, uint8_t row, ProgramNode * n
   tft.drawFastHLine(x, y + SLOT_HEIGHT - 1, SLOT_WIDTH, bBottomColor);
   tft.drawFastVLine(x + SLOT_WIDTH - 1, y, SLOT_HEIGHT, bBottomColor);
 
-  tft.drawIcon(x + (uint16_t)1, y + (uint16_t)1, icon, color, 38, 38, 2);
+  tft.drawIcon(x + (uint16_t)1, y + (uint16_t)1, icon, color, 38, 38, 0, 0, 2);
 
   tft.startTextFillBox(x + (uint16_t)39, y + (uint16_t)1, SLOT_WIDTH - 40, 38, 5, 15);
   tft.print("M01");
