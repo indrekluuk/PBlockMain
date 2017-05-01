@@ -70,6 +70,7 @@ uint8_t TouchHandler::getRegionCount() {
 
 
 #define TOUCH_Z_THRESHOLD 200
+#define TOUCH_SAMPLE_COUNT 3
 
 #define TOUCH_LEFT 950
 #define TOUCH_RIGHT 139
@@ -80,14 +81,18 @@ uint8_t TouchHandler::getRegionCount() {
 
 void TouchHandler::check() {
   readResistiveTouch();
-  if (tp.z > TOUCH_Z_THRESHOLD) {
+  if (holdCounter == TOUCH_SAMPLE_COUNT) {
+    isHold = true;
+  }
 
-    uint16_t x = (uint16_t)map(tp.y, TOUCH_LEFT, TOUCH_RIGHT, 0, screenW);
-    uint16_t y = (uint16_t)map(tp.x, TOUCH_TOP, TOUCH_BOTTOM, 0, screenH);
+  if (isHold) {
+    if (holdCounter == 0) {
+      isHold = false;
+    }
 
     Touchable * touchable = firstTouchable;
     while(touchable != nullptr) {
-      touchable->tap(x, y);
+      touchable->tap(x, y, isHold);
       touchable = touchable->nextRegion;
     }
   }
@@ -96,15 +101,16 @@ void TouchHandler::check() {
 
 
 void TouchHandler::readResistiveTouch() {
-  uint8_t cnt = 0;
-  tp = touchScreen.getPoint();
-  while (tp.z > TOUCH_Z_THRESHOLD) {
-    delay(5);
-    tp = touchScreen.getPoint();
-    cnt++;
-    if (cnt > 3) {
-      break;
+  TSPoint tp = touchScreen.getPoint();
+
+  if (tp.z > TOUCH_Z_THRESHOLD) {
+    if (holdCounter < TOUCH_SAMPLE_COUNT) holdCounter++;
+    if (holdCounter == TOUCH_SAMPLE_COUNT) {
+      x = (uint16_t)map(tp.y, TOUCH_LEFT, TOUCH_RIGHT, 0, screenW);
+      y = (uint16_t)map(tp.x, TOUCH_TOP, TOUCH_BOTTOM, 0, screenH);
     }
+  } else {
+    if (holdCounter > 0) holdCounter--;
   }
 
   pinMode(YP, OUTPUT);      //restore shared pins

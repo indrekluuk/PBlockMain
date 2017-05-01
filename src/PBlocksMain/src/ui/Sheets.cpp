@@ -29,7 +29,7 @@ void Sheets::init() {
 
 
 
-void Sheets::tap(uint16_t x, uint16_t y) {
+void Sheets::tap(uint16_t x, uint16_t y, bool hold) {
 
   if (y < Tab::HEIGHT) {
     for (uint8_t i=0; i<SHEET_COUNT; i++) {

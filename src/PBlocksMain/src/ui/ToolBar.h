@@ -18,11 +18,11 @@ class ToolBar : public Touchable {
     ToolBarButton button[BUTTON_COUNT];
 
 public:
-    static const uint16_t TOP = PageGrid::TOP + PageGrid::HEIGHT;
-    static const uint16_t HEIGHT = SCREEN_HEIGHT - TOP;
+    static const uint16_t TOP = ToolBarButton::TOP;
+    static const uint16_t HEIGHT = ToolBarButton::HEIGHT;
 
     void init();
-    void tap(uint16_t x, uint16_t y) override;
+    void tap(uint16_t x, uint16_t y, bool hold) override;
     void draw(bool redrawAll);
 
 

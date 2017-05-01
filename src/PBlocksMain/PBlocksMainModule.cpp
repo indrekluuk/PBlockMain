@@ -32,4 +32,5 @@ void PBlocksMainModule::init() {
 
 void PBlocksMainModule::run() {
   display.run();
+  delay(5);
 }

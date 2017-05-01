@@ -16,7 +16,15 @@ void ToolBar::init() {
 }
 
 
-void ToolBar::tap(uint16_t x, uint16_t y) {
+void ToolBar::tap(uint16_t x, uint16_t y, bool hold) {
+  if (TOP > y) {
+    for (uint8_t i = 0; i<BUTTON_COUNT; i++) {
+      if (x < (i+1)*ToolBarButton::WIDTH) {
+
+        return;
+      }
+    }
+  }
 }
 
 

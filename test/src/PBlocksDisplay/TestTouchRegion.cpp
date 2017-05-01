@@ -6,7 +6,7 @@
 
 
 class TouchableItem : public Touchable {
-  void tap(uint16_t x, uint16_t y) {};
+  void tap(uint16_t x, uint16_t y, bool hold) {};
 };
 
 

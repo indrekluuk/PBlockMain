@@ -24,7 +24,7 @@ class Touchable {
 public:
     Touchable();
     ~Touchable();
-    virtual void tap(uint16_t x, uint16_t y) = 0;
+    virtual void tap(uint16_t x, uint16_t y, bool hold) = 0;
     Touchable * nextRegion = nullptr;
 protected:
     bool isTapIn(int16_t v, int16_t start, int16_t length);
@@ -38,9 +38,18 @@ class TouchHandler {
     uint16_t screenW;
     uint16_t screenH;
     TouchScreen touchScreen = TouchScreen(XP, YP, XM, YM, 300);
-    TSPoint tp;
+    int16_t x;
+    int16_t y;
+    uint8_t holdCounter : 7;
+    uint8_t isHold : 1;
+
 
 public:
+    TouchHandler() {
+      holdCounter = 0;
+      isHold = false;
+    }
+
     void init(uint16_t screenW, uint16_t screenH);
 
     void check();
