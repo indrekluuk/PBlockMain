@@ -24,7 +24,8 @@ class Sheets : public Touchable {
 public:
     Sheets();
     void init();
-    void tap(uint16_t x, uint16_t y, bool hold) override;
+
+    bool tap(uint16_t x, uint16_t y, bool hold) override;
 
     void draw(bool redrawAll);
     void updateCursor();

@@ -3,6 +3,7 @@
 //
 
 #include "TouchHandler.h"
+#include "PBlocksUserInterface.h"
 
 
 Touchable * firstTouchable = nullptr;
@@ -68,24 +69,14 @@ uint8_t TouchHandler::getRegionCount() {
 }
 
 
-void TouchHandler::setExclusive(Touchable * touchable) {
-  exclusiveTouchable = touchable;
-}
-
-void TouchHandler::releaseExclusive(Touchable * touchable) {
-  if (exclusiveTouchable == touchable) {
-    exclusiveTouchable = nullptr;
-  }
-}
 
 #define TOUCH_Z_THRESHOLD 200
 #define TOUCH_SAMPLE_COUNT 3
 
-#define TOUCH_LEFT 950
-#define TOUCH_RIGHT 139
+#define TOUCH_LEFT 960
+#define TOUCH_RIGHT 125
 #define TOUCH_TOP 123
 #define TOUCH_BOTTOM 915
-
 
 
 void TouchHandler::check() {
@@ -99,15 +90,25 @@ void TouchHandler::check() {
       isHold = false;
     }
 
-    if (exclusiveTouchable) {
-      exclusiveTouchable->tap(x, y, isHold);
+    if (tapOnTouchable) {
+      tapOnTouchable->tap(x, y, isHold);
     } else {
       Touchable * touchable = firstTouchable;
       while(touchable != nullptr) {
-        touchable->tap(x, y, isHold);
-        touchable = touchable->nextRegion;
+        if (touchable->tap(x, y, isHold)) {
+          tapOnTouchable = touchable;
+          break;
+        } else {
+          touchable = touchable->nextRegion;
+        }
       }
     }
+
+    if (!isHold) {
+      tapOnTouchable = nullptr;
+    }
+
+    //UI->tft.drawRect(x, y, 1, 1, COLOR_YELLOW);
   }
 }
 

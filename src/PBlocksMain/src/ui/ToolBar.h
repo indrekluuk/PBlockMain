@@ -31,7 +31,7 @@ public:
 
     ToolBar();
     void init();
-    void tap(uint16_t x, uint16_t y, bool hold) override;
+    bool tap(uint16_t x, uint16_t y, bool hold) override;
     uint8_t getTappedButtonIndex(uint16_t x, uint16_t y);
     void draw(bool redrawAll);
 
