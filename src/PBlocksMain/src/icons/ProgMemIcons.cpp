@@ -33,7 +33,7 @@ const PROGMEM IconBufferProgMem::IconData ICON_PERSON = {
 
 
 const PROGMEM IconBufferProgMem::IconData ICON_PLAY = {
-    IconColor(Palette::DARK_GREEN, Palette::GRAY50, Palette::BLACK, true, false),
+    IconColor(Palette::DARK_GREEN, Palette::GRAY50, Palette::BLACK, false, false),
     {
         (uint16_t) 0b1100000000000000,
         (uint16_t) 0b1111000000000000,
@@ -54,6 +54,30 @@ const PROGMEM IconBufferProgMem::IconData ICON_PLAY = {
     }
 };
 
+
+
+
+const PROGMEM IconBufferProgMem::IconData ICON_PLAY_NEXT = {
+    IconColor(Palette::DARK_GREEN, Palette::GRAY50, Palette::BLACK, false, false),
+    {
+        (uint16_t) 0b1000000000110011,
+        (uint16_t) 0b1100000000110011,
+        (uint16_t) 0b1110000000110011,
+        (uint16_t) 0b1111000000110011,
+        (uint16_t) 0b1111100000110011,
+        (uint16_t) 0b1111110000110011,
+        (uint16_t) 0b1111111000110011,
+        (uint16_t) 0b1111111100110011,
+        (uint16_t) 0b1111111100110011,
+        (uint16_t) 0b1111111000110011,
+        (uint16_t) 0b1111110000110011,
+        (uint16_t) 0b1111100000110011,
+        (uint16_t) 0b1111000000110011,
+        (uint16_t) 0b1110000000110011,
+        (uint16_t) 0b1100000000110011,
+        (uint16_t) 0b1000000000110011,
+    }
+};
 
 
 

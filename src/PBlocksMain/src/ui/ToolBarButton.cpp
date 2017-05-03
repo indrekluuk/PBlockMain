@@ -66,21 +66,17 @@ void ToolBarButton::drawIcon(uint16_t x, uint16_t y, uint8_t w, uint8_t h, bool 
   if (isPressed) {
     IconColor color = icon->getColor();
 
-    color.setForegroundColor(Palette::DARK_GREEN);
     color.setBackgroundColor(Palette::GRAY85);
-    //color.setBorderColor(Palette::BLACK);
     color.setNoBorder();
 
-    UI->tft.drawIcon(x, y, *icon, color, w, h, 2, 2, 2);
+    UI->tft.drawIcon(x, y, *icon, color, w, h, 2, 2, 2, 2);
   } else {
     IconColor color = icon->getColor();
 
-    color.setForegroundColor(Palette::DARK_GREEN);
     color.setBackgroundColor(Palette::GRAY66);
-    //color.setBorderColor(Palette::BLACK);
     color.setNoBorder();
 
-    UI->tft.drawIcon(x, y, *icon, color, w, h, 0, 0, 2);
+    UI->tft.drawIcon(x, y, *icon, color, w, h, 0, 0, 2, 2);
   }
 }
 

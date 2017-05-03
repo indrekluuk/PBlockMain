@@ -86,7 +86,7 @@ size_t TFT::write(uint8_t c) {
 
 
 
-void TFT::drawIcon(uint16_t x, uint16_t y, Icon & icon, IconColor iconColor, uint8_t w, uint8_t h, uint8_t dx, uint8_t dy, uint8_t scale) {
+void TFT::drawIcon(uint16_t x, uint16_t y, Icon & icon, IconColor iconColor, uint8_t w, uint8_t h, uint8_t dx, uint8_t dy, uint8_t scaleW, uint8_t scaleH) {
   setAddrWindow(x, y, x + w - 1, y + h - 1);
   CS_ACTIVE;
   WriteCmd(_MW);
@@ -95,8 +95,8 @@ void TFT::drawIcon(uint16_t x, uint16_t y, Icon & icon, IconColor iconColor, uin
   RgbColor fgColor = iconColor.getForegroundColor();
   RgbColor bgColor = iconColor.getBackgroundColor();
 
-  uint8_t bitmapW = icon.BITMAP_WIDTH*scale;
-  uint8_t bitmapH = icon.BITMAP_HEIGHT*scale;
+  uint8_t bitmapW = icon.BITMAP_WIDTH * scaleW;
+  uint8_t bitmapH = icon.BITMAP_HEIGHT * scaleH;
   uint8_t bitmapX = ((w - bitmapW) >> 1) + dx;
   uint8_t bitmapX2 = bitmapX + bitmapW;
   uint8_t bitmapY = ((h - bitmapH) >> 1) + dy;
@@ -117,8 +117,8 @@ void TFT::drawIcon(uint16_t x, uint16_t y, Icon & icon, IconColor iconColor, uin
     uint16_t nxtRow = icon.getRow(0);
     for (uint8_t bRow = 0; bRow < icon.BITMAP_HEIGHT; bRow++) {
       curRow = nxtRow;
-      for (uint8_t s = 0; s<scale; s++) {
-        if (s == scale-1) {
+      for (uint8_t s = 0; s<scaleH; s++) {
+        if (s == scaleH-1) {
           nxtRow = (bRow == icon.BITMAP_HEIGHT - 1) ? (uint16_t)0 : icon.getRow(bRow + (uint8_t)1);
         }
         if (bitmapX > 0) {
@@ -133,7 +133,7 @@ void TFT::drawIcon(uint16_t x, uint16_t y, Icon & icon, IconColor iconColor, uin
             prvRow,
             curRow,
             nxtRow,
-            scale);
+            scaleW);
 
         if (bitmapX2 < w) {
           writeColorN(bgColor, w - bitmapX2);
@@ -147,7 +147,7 @@ void TFT::drawIcon(uint16_t x, uint16_t y, Icon & icon, IconColor iconColor, uin
     // draw icon without border
     for (uint8_t bRow = 0; bRow < icon.BITMAP_HEIGHT; bRow++) {
       uint16_t row = icon.getRow(bRow);
-      for (uint8_t s = 0; s < scale; s++) {
+      for (uint8_t s = 0; s < scaleH; s++) {
         if (bitmapX > 0) {
           writeColorN(bgColor, bitmapX);
         }
@@ -155,7 +155,7 @@ void TFT::drawIcon(uint16_t x, uint16_t y, Icon & icon, IconColor iconColor, uin
             fgColor,
             bgColor,
             row,
-            scale);
+            scaleW);
         if (bitmapX2 < w) {
           writeColorN(bgColor, w - bitmapX2);
         }

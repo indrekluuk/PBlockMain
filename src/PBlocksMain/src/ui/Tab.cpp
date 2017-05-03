@@ -63,7 +63,7 @@ void Tab::drawIcon(uint16_t x, uint8_t w, uint8_t h, bool isSelected) {
     color.setBorderColor(Palette::WHITE);
      */
 
-    UI->tft.drawIcon(x, 0, *icon, color, w, h, 0, 0, 2);
+    UI->tft.drawIcon(x, 0, *icon, color, w, h, 0, 0, 2, 2);
   } else {
     IconColor color = icon->getColor();
 
@@ -79,7 +79,7 @@ void Tab::drawIcon(uint16_t x, uint8_t w, uint8_t h, bool isSelected) {
     color.setBorderColor(Palette::BLACK);
     */
 
-    UI->tft.drawIcon(x, 0, *icon, color, w, h, 0, 0, 2);
+    UI->tft.drawIcon(x, 0, *icon, color, w, h, 0, 0, 2, 2);
   }
 }
 
