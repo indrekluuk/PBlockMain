@@ -81,7 +81,18 @@ uint8_t TouchHandler::getRegionCount() {
 
 void TouchHandler::check() {
   readResistiveTouch();
-  if (holdCounter == TOUCH_SAMPLE_COUNT) {
+
+  if (holdCounter == TOUCH_SAMPLE_COUNT && !isHold) {
+    tapOnTouchable = nullptr;
+    Touchable * touchable = firstTouchable;
+    while(touchable != nullptr) {
+      if (touchable->tap(x, y, isHold)) {
+        tapOnTouchable = touchable;
+        break;
+      } else {
+        touchable = touchable->nextRegion;
+      }
+    }
     isHold = true;
   }
 
@@ -89,25 +100,12 @@ void TouchHandler::check() {
     if (holdCounter == 0) {
       isHold = false;
     }
-
     if (tapOnTouchable) {
       tapOnTouchable->tap(x, y, isHold);
-    } else {
-      Touchable * touchable = firstTouchable;
-      while(touchable != nullptr) {
-        if (touchable->tap(x, y, isHold)) {
-          tapOnTouchable = touchable;
-          break;
-        } else {
-          touchable = touchable->nextRegion;
-        }
-      }
     }
-
     if (!isHold) {
       tapOnTouchable = nullptr;
     }
-
     //UI->tft.drawRect(x, y, 1, 1, COLOR_YELLOW);
   }
 }

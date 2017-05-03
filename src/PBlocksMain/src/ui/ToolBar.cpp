@@ -31,10 +31,7 @@ bool ToolBar::tap(uint16_t x, uint16_t y, bool hold) {
     if (activeButtonIndex == NONE) {
       if (buttonIndex != NONE) {
         activeButtonIndex = buttonIndex;
-      } else {
-        activeButtonIndex = (uint8_t)(NONE + 1);
       }
-
     }
     pressedButtonIndex = activeButtonIndex == buttonIndex ? buttonIndex : NONE;
   } else {
@@ -61,7 +58,6 @@ uint8_t ToolBar::getTappedButtonIndex(uint16_t x, uint16_t y) {
 
 void ToolBar::draw(bool redrawAll) {
   if (redrawAll) {
-    UI->tft.fillRect(0, TOP+1, SCREEN_WIDTH, HEIGHT, COLOR_GRAY33);
     for (int8_t i=0; i<BUTTON_COUNT; i++) {
       button[i].draw(pressedButtonIndex == i);
     }
