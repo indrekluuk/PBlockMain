@@ -16,6 +16,9 @@
 class ToolBar : public Touchable {
     IconBufferProgMem playIcon = IconBufferProgMem(&ICON_PLAY);
     IconBufferProgMem playNextIcon = IconBufferProgMem(&ICON_PLAY_NEXT);
+    IconBufferProgMem stopIcon = IconBufferProgMem(&ICON_STOP);
+    IconBufferProgMem timerIcon = IconBufferProgMem(&ICON_TIMER);
+
 
     static const uint8_t BUTTON_COUNT = 6;
     static const uint8_t NONE = BUTTON_COUNT;

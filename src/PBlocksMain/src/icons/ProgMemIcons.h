@@ -13,6 +13,8 @@
 extern const IconBufferProgMem::IconData ICON_PERSON;
 extern const IconBufferProgMem::IconData ICON_PLAY;
 extern const IconBufferProgMem::IconData ICON_PLAY_NEXT;
+extern const IconBufferProgMem::IconData ICON_STOP;
+extern const IconBufferProgMem::IconData ICON_TIMER;
 extern const IconBufferProgMem::IconData ICON_MODULES;
 
 

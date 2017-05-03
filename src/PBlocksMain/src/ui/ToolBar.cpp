@@ -18,8 +18,8 @@ ToolBar::ToolBar() {
 void ToolBar::init() {
   button[0].init(0, &playIcon);
   button[1].init(1, &playNextIcon);
-  button[2].init(2, "C");
-  button[3].init(3, "D");
+  button[2].init(2, &stopIcon);
+  button[3].init(3, &timerIcon);
   button[4].init(4, "E");
   button[5].init(5, "F");
 }

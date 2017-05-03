@@ -81,6 +81,56 @@ const PROGMEM IconBufferProgMem::IconData ICON_PLAY_NEXT = {
 
 
 
+
+const PROGMEM IconBufferProgMem::IconData ICON_STOP = {
+    IconColor(Palette::DARK_RED, Palette::GRAY50, Palette::BLACK, false, false),
+    {
+        (uint16_t) 0b1111111111111111,
+        (uint16_t) 0b1111111111111111,
+        (uint16_t) 0b1111111111111111,
+        (uint16_t) 0b1111111111111111,
+        (uint16_t) 0b1111111111111111,
+        (uint16_t) 0b1111111111111111,
+        (uint16_t) 0b1111111111111111,
+        (uint16_t) 0b1111111111111111,
+        (uint16_t) 0b1111111111111111,
+        (uint16_t) 0b1111111111111111,
+        (uint16_t) 0b1111111111111111,
+        (uint16_t) 0b1111111111111111,
+        (uint16_t) 0b1111111111111111,
+        (uint16_t) 0b1111111111111111,
+        (uint16_t) 0b1111111111111111,
+        (uint16_t) 0b1111111111111111,
+    }
+};
+
+
+
+
+const PROGMEM IconBufferProgMem::IconData ICON_TIMER = {
+    IconColor(Palette::BLACK, Palette::GRAY50, Palette::BLACK, false, false),
+    {
+        (uint16_t) 0b0000001111000000,
+        (uint16_t) 0b0000001111000000,
+        (uint16_t) 0b0000000110000000,
+        (uint16_t) 0b0000111111110110,
+        (uint16_t) 0b0001110000111110,
+        (uint16_t) 0b0011100000011100,
+        (uint16_t) 0b0111011000001110,
+        (uint16_t) 0b0110011100000110,
+        (uint16_t) 0b0110001110000110,
+        (uint16_t) 0b0110000110000110,
+        (uint16_t) 0b0110000000000110,
+        (uint16_t) 0b0111000000001110,
+        (uint16_t) 0b0011100000011100,
+        (uint16_t) 0b0001110000111000,
+        (uint16_t) 0b0000111111110000,
+        (uint16_t) 0b0000011111100000,
+    }
+};
+
+
+
 const PROGMEM IconBufferProgMem::IconData ICON_MODULES = {
     IconColor(Palette::WHITE, Palette::GRAY50, Palette::BLACK, false, false),
     {

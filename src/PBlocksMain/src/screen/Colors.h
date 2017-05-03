@@ -17,6 +17,7 @@
 
 #define COLOR_BLUE        0x001F
 #define COLOR_RED         0xF800
+#define COLOR_DARK_RED    0xC800
 #define COLOR_GREEN       0x0600
 #define COLOR_DARK_GREEN  0X0300
 #define COLOR_CYAN        0x07FF
@@ -36,7 +37,8 @@ enum Palette {
     BLUE = 6,
     GREEN = 7,
     DARK_GREEN = 8,
-    YELLOW = 9,
+    DARK_RED = 9,
+    YELLOW = 10,
 };
 
 
@@ -76,6 +78,9 @@ struct RgbColor {
           break;
         case Palette::DARK_GREEN:
           colorCode = COLOR_DARK_GREEN;
+          break;
+        case Palette::DARK_RED:
+          colorCode = COLOR_DARK_RED;
           break;
         case Palette::YELLOW:
           colorCode = COLOR_YELLOW;
