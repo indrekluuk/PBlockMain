@@ -21,7 +21,7 @@ class ToolBarButton {
 public:
     static const uint16_t TOP = PageGrid::TOP + PageGrid::HEIGHT;
     static const uint16_t HEIGHT = SCREEN_HEIGHT - TOP;
-    static const uint16_t WIDTH = 80;
+    static const uint16_t WIDTH = 60;
 
 
     void init(uint8_t index);
