@@ -86,7 +86,7 @@ void TouchHandler::check() {
     tapOnTouchable = nullptr;
     Touchable * touchable = firstTouchable;
     while(touchable != nullptr) {
-      if (touchable->tap(x, y, isHold)) {
+      if (touchable->tap(x, y, true)) {
         tapOnTouchable = touchable;
         break;
       } else {
